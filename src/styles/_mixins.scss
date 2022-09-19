@@ -1,0 +1,18 @@
+@use "sass:map";
+
+/* to edit breakpoints remember to change them
+ in src/components/Picture.tsx accordingly */
+
+$media-queries: (
+  "tablet": "min-width: 32.5em",
+  "desktop": "min-width: 50em",
+  "mobile-only": "max-width: 32.5em",
+  "tablet-only": "max-width: 50em",
+);
+
+@mixin mq($type) {
+  $query: map.get($media-queries, $type);
+  @media only screen and ($query) {
+    @content;
+  }
+}

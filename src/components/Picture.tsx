@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./Picture.module.scss";
 
 interface PictureProps {
   mobileUrl?: string;
@@ -15,7 +16,7 @@ const breakpoints = {
 
 const Picture: React.FC<PictureProps> = (props) => {
   return (
-    <picture>
+    <picture className={props.className ?? undefined}>
       {props.mobileUrl && (
         <source srcSet={props.mobileUrl} media={breakpoints.mobile} />
       )}
@@ -25,7 +26,7 @@ const Picture: React.FC<PictureProps> = (props) => {
       <img
         alt={props.alt ?? ""}
         src={props.desktopUrl}
-        className={props.className ?? undefined}
+        className={styles.image}
       />
     </picture>
   );
