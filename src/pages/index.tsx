@@ -2,8 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/future/image";
 import styles from "../styles/pages/Home.module.scss";
-import Picture from "../components/Picture";
+import Picture from "../components/Shared/Picture";
 import Hero from "../components/Home/Hero";
+import ProductCategories from "../components/Shared/ProductCategories";
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
       </Head>
       <Hero />
       <div className="container">
-        <div className={styles["hero-header-line"]}></div>
+        <ProductCategories />
       </div>
     </main>
   );
