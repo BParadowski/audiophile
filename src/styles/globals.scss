@@ -80,6 +80,25 @@
   margin-inline: auto;
 }
 
+.button {
+  padding-inline: 1.875rem;
+  padding-block: 0.9325rem;
+
+  text-transform: uppercase;
+  font-size: var(--fs-100);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-100);
+}
+
+.button-accent {
+  @extend .button;
+  background-color: var(--clr-accent-primary);
+
+  &:hover {
+    background-color: var(--clr-accent-secondary);
+  }
+}
+
 body {
   font-family: var(--ff-main);
 }
