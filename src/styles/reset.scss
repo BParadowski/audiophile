@@ -18,6 +18,12 @@ ol[role="list"] {
   list-style: none;
 }
 
+/* Remove default button and anchor tag styling*/
+
+button {
+  border: none;
+}
+
 a {
   text-decoration: none;
   all: inherit;

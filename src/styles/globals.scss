@@ -9,7 +9,9 @@
 
   /* Color change of social-media icons on hover
   is achieved through applying filter property
-  - it has to be changed manually*/
+  - it has to be changed manually. Use
+   https://angel-rs.github.io/css-color-filter-generator/
+   */
 
   --clr-accent-primary: #d87d4a;
   --clr-accent-secondary: #fbaf85;
@@ -53,23 +55,29 @@
   --lh-700: 2.75rem;
   --lh-800: 3.625rem;
 
-  // spacing
+  // spacing and sizing of components used globally
 
-  --header-min-height: 6rem;
+  --header-height: 5.625rem;
+  --container-max-width: 1100px;
+  --container-margin-inline-min: 1.5rem;
+
+  @include mq(tablet) {
+    --container-margin-inline-min: 2.5rem;
+  }
+
+  @include mq(desktop) {
+    --header-height: 6rem;
+  }
 }
 
 // global styles and classes
 
 .container {
-  --container-max-width: 1100px;
-  --margin-inline-min: 1.5rem;
-
-  width: min(var(--container-max-width), 100% - var(--margin-inline-min) * 2);
+  width: min(
+    var(--container-max-width),
+    100% - var(--container-margin-inline-min) * 2
+  );
   margin-inline: auto;
-
-  @include mq(tablet) {
-    --margin-inline-min: 2.5rem;
-  }
 }
 
 body {

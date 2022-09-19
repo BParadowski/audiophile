@@ -46,7 +46,7 @@
     line-height: var(--lh-300);
     font-weight: var(--fw-bold);
     font-size: var(--fs-100);
-    letter-spacing: var(--ls-400);
+    letter-spacing: var(--ls-500);
 
     ul {
       display: flex;
@@ -143,7 +143,7 @@
       margin-top: 5.5rem;
 
       ul {
-        gap: clamp(1rem, 2vw + 0.7rem, 2.125rem);
+        gap: clamp(1rem, 1.4vw + 1rem, 2.125rem);
       }
     }
 

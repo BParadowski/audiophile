@@ -45,17 +45,17 @@ const Footer = () => {
             aria-label="Social media links"
           >
             <li>
-              <a href="#" aria-label="Facebook">
+              <a href="" aria-label="Facebook">
                 <Image src={iconFacebook} className={styles.icon} alt="" />
               </a>
             </li>
             <li>
-              <a href="#" aria-label="Twitter">
+              <a href="" aria-label="Twitter">
                 <Image src={iconTwitter} className={styles.icon} alt="" />
               </a>
             </li>
             <li>
-              <a href="#" aria-label="Instagram">
+              <a href="" aria-label="Instagram">
                 <Image src={iconInstagram} className={styles.icon} alt="" />
               </a>
             </li>

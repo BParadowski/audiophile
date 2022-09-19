@@ -5,9 +5,9 @@
 
 $media-queries: (
   "tablet": "min-width: 32.5em",
-  "desktop": "min-width: 50em",
+  "desktop": "min-width: 55em",
   "mobile-only": "max-width: 32.5em",
-  "tablet-only": "max-width: 50em",
+  "tablet-only": "max-width: 55em",
 );
 
 @mixin mq($type) {

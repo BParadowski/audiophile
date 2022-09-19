@@ -1,0 +1,33 @@
+@use "../../styles/mixins" as *;
+
+.wrapper {
+  background-color: #191919;
+
+  @include mq(tablet) {
+    padding-top: 1rem;
+  }
+  @include mq(desktop) {
+    padding-top: 2rem;
+  }
+}
+
+.hero-container {
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+
+  .text {
+  }
+
+  @include mq(desktop) {
+    grid-template-columns: 6fr 7fr;
+    .picture {
+      grid-column: 2/3;
+    }
+  }
+}

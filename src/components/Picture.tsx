@@ -11,7 +11,7 @@ interface PictureProps {
 
 const breakpoints = {
   mobile: "(max-width: 32.5em)",
-  tablet: "(max-width: 50em)",
+  tablet: "(max-width: 55em)",
 };
 
 const Picture: React.FC<PictureProps> = (props) => {
