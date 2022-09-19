@@ -18,6 +18,12 @@ ol[role="list"] {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+  all: inherit;
+  cursor: pointer;
+}
+
 /* Set core root defaults */
 html:focus-within {
   scroll-behavior: smooth;

@@ -1,0 +1,161 @@
+@use "../styles/mixins" as *;
+
+.footer {
+  background-color: var(--clr-neutral-v-dark);
+  text-align: center;
+
+  @include mq(tablet) {
+    text-align: start;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "decoration"
+    "logo"
+    "nav"
+    "description"
+    "copyright"
+    "socials";
+  place-items: center;
+
+  margin-bottom: 2.5rem;
+
+  .decorating-line {
+    grid-area: decoration;
+
+    width: 6.5rem;
+    height: 0.25rem;
+    background-color: var(--clr-accent-primary);
+  }
+
+  .logo {
+    grid-area: logo;
+
+    margin-top: 3rem;
+  }
+
+  .nav {
+    grid-area: nav;
+
+    margin-top: 3rem;
+    text-transform: uppercase;
+    color: var(--clr-white);
+    line-height: var(--lh-300);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-100);
+    letter-spacing: var(--ls-400);
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    a:hover {
+      color: var(--clr-accent-primary);
+    }
+  }
+
+  .description {
+    grid-area: description;
+
+    margin-top: 3rem;
+    color: var(--clr-white);
+  }
+
+  .copyright {
+    grid-area: copyright;
+
+    margin-top: 3rem;
+    color: var(--clr-white);
+    font-weight: var(--fw-bold);
+  }
+
+  .socials {
+    grid-area: socials;
+
+    display: flex;
+    gap: 1rem;
+
+    margin-top: 3rem;
+
+    .icon:hover {
+      filter: brightness(0) saturate(100%) invert(71%) sepia(55%)
+        saturate(2873%) hue-rotate(328deg) brightness(91%) contrast(85%);
+    }
+  }
+}
+
+@include mq(tablet) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "decoration decoration"
+      "logo logo"
+      "nav nav"
+      "description description"
+      "copyright socials";
+    place-items: start;
+
+    margin-bottom: 3rem;
+
+    .logo {
+      margin-top: 3.5rem;
+    }
+
+    .nav {
+      margin-top: 2rem;
+
+      ul {
+        flex-direction: row;
+        gap: 2.125rem;
+      }
+    }
+
+    .description {
+      margin-top: 2rem;
+    }
+
+    .copyright,
+    .socials {
+      margin-top: 5rem;
+    }
+
+    .socials {
+      place-self: end;
+    }
+  }
+}
+
+@include mq(desktop) {
+  .grid {
+    grid-template-areas:
+      "decoration decoration"
+      "logo nav"
+      "description socials"
+      "copyright copyright";
+
+    .logo,
+    .nav {
+      margin-top: 5.5rem;
+
+      ul {
+        gap: clamp(1rem, 2vw + 0.7rem, 2.125rem);
+      }
+    }
+
+    .copyright {
+      margin-top: 3.5rem;
+    }
+
+    .socials {
+      margin-top: 0;
+    }
+    .nav {
+      place-self: end;
+    }
+  }
+}

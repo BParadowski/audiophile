@@ -2,8 +2,14 @@
 @import "./reset.scss";
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap");
 
+// all styling MOBILE FIRST unless specified
+
 :root {
   // colors
+
+  /* Color change of social-media icons on hover
+  is achieved through applying filter property
+  - it has to be changed manually*/
 
   --clr-accent-primary: #d87d4a;
   --clr-accent-secondary: #fbaf85;
@@ -49,13 +55,37 @@
 
   // spacing
 
-  --heading-height: 6rem;
-  --container-max-width: 1100px;
+  --header-min-height: 6rem;
 }
 
-// global classes - mobile first
+// global styles and classes
 
 .container {
-  max-width: var(--container-max-width);
-  margin-inline: 1.5rem;
+  --container-max-width: 1100px;
+  --margin-inline-min: 1.5rem;
+
+  width: min(var(--container-max-width), 100% - var(--margin-inline-min) * 2);
+  margin-inline: auto;
+
+  @include mq(tablet) {
+    --margin-inline-min: 2.5rem;
+  }
+}
+
+body {
+  font-family: var(--ff-main);
+}
+
+p {
+  color: var(--clr-black);
+  opacity: 0.5;
+  line-height: var(--lh-300);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-300);
+}
+
+h1,
+h2,
+h3 {
+  text-transform: uppercase;
 }
