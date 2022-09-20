@@ -21,7 +21,13 @@ const Home: NextPage = () => {
         <div className={styles["categories-wrapper"]}>
           <ProductCategories />
         </div>
-        <section className={styles["products-wrapper"]}>
+        <section
+          aria-labelledby="home-section"
+          className={styles["products-wrapper"]}
+        >
+          <h1 id="home-section" className="sr-only">
+            Most popular
+          </h1>
           <div className={styles.grid}>
             <div className={styles.big}>
               <Picture

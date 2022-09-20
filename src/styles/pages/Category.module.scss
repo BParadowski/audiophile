@@ -1,0 +1,27 @@
+@use "../mixins" as *;
+
+.title-wrapper {
+  background-color: var(--clr-black);
+}
+.container {
+  display: grid;
+
+  place-items: center;
+  min-height: 6.5rem;
+
+  .title {
+    color: var(--clr-white);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-600);
+    letter-spacing: var(--l-500);
+  }
+  @include mq(tablet) {
+    min-height: 15rem;
+
+    .title {
+      font-size: var(--fs-800);
+      line-height: var(--lh-700);
+      letter-spacing: var(--ls-300);
+    }
+  }
+}

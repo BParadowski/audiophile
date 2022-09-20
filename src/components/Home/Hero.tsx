@@ -8,7 +8,7 @@ const Hero = () => {
       <div className={styles["hero-container"]}>
         <div className={styles.grid}>
           <div className={styles.text}>
-            <p className={styles["new-product"]}>new product</p>
+            <h1 className={styles["new-product"]}>new product</h1>
             <h2>XX99 Mark II HeadphoneS</h2>
             <p className={styles["hero-text"]}>
               Experience natural, lifelike audio and exceptional build quality
