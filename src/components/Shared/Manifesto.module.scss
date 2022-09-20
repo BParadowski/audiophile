@@ -30,6 +30,7 @@
     grid-area: heading;
 
     margin-top: 2.5rem;
+    max-width: 20ch;
 
     font-size: var(--fs-600);
     font-weight: var(--fw-bold);
@@ -53,7 +54,6 @@
       font-size: var(--fs-800);
       line-height: var(--lh-700);
       letter-spacing: var(--ls-400);
-      max-width: 20ch;
     }
 
     .text {

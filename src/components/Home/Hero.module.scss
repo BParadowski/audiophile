@@ -99,6 +99,10 @@
       place-items: start;
 
       max-width: 38ch;
+
+      h2 {
+        font-size: min(var(--fs-900), 5.5vw);
+      }
     }
     .picture {
       grid-column: 2/3;
