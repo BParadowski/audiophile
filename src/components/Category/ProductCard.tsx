@@ -15,12 +15,14 @@ const ProductCard = ({ product }: { product: ProductCardData }) => {
           alt="Picutre of the accessory"
           className={styles.image}
         />
-        {isNew && <p className={styles.new}>new product</p>}
-        <h2 className={styles.heading}>{name}</h2>
-        <p className={styles.description}>{description}</p>
-        <Link href={`/${category}/${slug}`} className="button-accent">
-          <a>see product</a>
-        </Link>
+        <div className={styles["text-wrapper"]}>
+          {isNew && <p className={styles.new}>new product</p>}
+          <h2 className={styles.heading}>{name}</h2>
+          <p className={styles.description}>{description}</p>
+          <Link href={`/${category}/${slug}`}>
+            <a className="button-accent">see product</a>
+          </Link>
+        </div>
       </div>
     </section>
   );

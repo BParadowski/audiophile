@@ -18,6 +18,17 @@ const getProducts = (category: string) => {
     }
   });
 
+  /* sort new products first*/
+
+  products.sort((a, b) => {
+    if (a.isNew && b.isNew === false) {
+      return -1;
+    }
+    if (b.isNew && a.isNew === false) {
+      return 1;
+    } else return 0;
+  });
+
   return products;
 };
 

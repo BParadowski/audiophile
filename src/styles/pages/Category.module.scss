@@ -25,3 +25,19 @@
     }
   }
 }
+
+.layout {
+  display: grid;
+  margin-top: 4rem;
+  margin-bottom: 7.5rem;
+  row-gap: 7.5rem;
+
+  @include mq(tablet) {
+    margin-top: 7.5rem;
+  }
+
+  @include mq(desktop) {
+    margin-block: 10rem;
+    row-gap: 10rem;
+  }
+}

@@ -94,6 +94,7 @@
 
 .button-accent {
   @extend .button;
+  color: var(--clr-white);
   background-color: var(--clr-accent-primary);
 
   &:hover {
