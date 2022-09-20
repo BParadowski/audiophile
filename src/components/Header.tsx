@@ -37,13 +37,13 @@ const Header = () => {
                   <Link href="/">home</Link>
                 </li>
                 <li>
-                  <Link href="/">headphones</Link>
+                  <Link href="/headphones">headphones</Link>
                 </li>
                 <li>
-                  <Link href="/">speakers</Link>
+                  <Link href="/speakers">speakers</Link>
                 </li>
                 <li>
-                  <Link href="/">earphones</Link>
+                  <Link href="/earphones">earphones</Link>
                 </li>
               </ul>
             </nav>

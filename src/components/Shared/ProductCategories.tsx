@@ -11,21 +11,21 @@ const ProductCategories = () => {
       <div className={styles.card}>
         <Image src={headphonesImg} alt="" className={styles["product-image"]} />
         <p className={styles.category}>headphones</p>
-        <Link href="/">
+        <Link href="/headphones">
           <a className={styles.link}>Shop</a>
         </Link>
       </div>
       <div className={styles.card}>
         <Image src={speakersImg} alt="" className={styles["product-image"]} />
         <p className={styles.category}>speakers</p>
-        <Link href="/">
+        <Link href="/speakers">
           <a className={styles.link}>Shop</a>
         </Link>
       </div>
       <div className={styles.card}>
         <Image src={earphonesImg} alt="" className={styles["product-image"]} />
         <p className={styles.category}>earphones</p>
-        <Link href="/">
+        <Link href="/earphones">
           <a className={styles.link}>Shop</a>
         </Link>
       </div>
