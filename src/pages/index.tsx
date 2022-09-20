@@ -5,6 +5,7 @@ import styles from "../styles/pages/Home.module.scss";
 import Picture from "../components/Shared/Picture";
 import Hero from "../components/Home/Hero";
 import ProductCategories from "../components/Shared/ProductCategories";
+import Manifesto from "../components/Shared/Manifesto";
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +17,11 @@ const Home: NextPage = () => {
       </Head>
       <Hero />
       <div className="container">
-        <ProductCategories />
+        <div className={styles["categories-wrapper"]}>
+          <ProductCategories />
+        </div>
+
+        <Manifesto />
       </div>
     </main>
   );

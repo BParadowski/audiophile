@@ -16,6 +16,7 @@
   --clr-accent-primary: #d87d4a;
   --clr-accent-secondary: #fbaf85;
   --clr-neutral-v-dark: #101010;
+  --clr-neutral-dark: #4c4c4c;
   --clr-neutral-light: #f1f1f1;
   --clr-neutral-v-light: #fafafa;
   --clr-black: #000000;
@@ -97,6 +98,28 @@
 
   &:hover {
     background-color: var(--clr-accent-secondary);
+  }
+}
+
+.button-neutral-light {
+  @extend .button;
+  background-color: transparent;
+  border: 0.09375rem solid var(--clr-black);
+  color: var(--clr-black);
+
+  &:hover {
+    background-color: var(--clr-black);
+    color: var(--clr-white);
+  }
+}
+
+.button-neutral-dark {
+  @extend .button;
+  background-color: var(--clr-black);
+  color: var(--clr-white);
+
+  &:hover {
+    background-color: var(--clr-neutral-dark);
   }
 }
 

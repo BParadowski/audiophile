@@ -1,0 +1,86 @@
+@use "../../styles/mixins" as *;
+
+.manifesto {
+  text-align: center;
+
+  @include mq(desktop) {
+    text-align: start;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "image"
+    "heading"
+    "text";
+  place-items: center;
+
+  .image {
+    grid-area: image;
+
+    border-radius: var(--border-radius-small);
+    /* hide overflow because setting border radius on
+    picture alone doesn't round off the image inside it*/
+    overflow: hidden;
+  }
+
+  .heading {
+    grid-area: heading;
+
+    margin-top: 2.5rem;
+
+    font-size: var(--fs-600);
+    font-weight: var(--fw-bold);
+
+    .colored {
+      color: var(--clr-accent-primary);
+    }
+  }
+
+  .text {
+    grid-area: text;
+
+    margin-top: 2rem;
+  }
+}
+
+@include mq(tablet) {
+  .grid {
+    .heading {
+      margin-top: 4rem;
+      font-size: var(--fs-800);
+      line-height: var(--lh-700);
+      letter-spacing: var(--ls-400);
+      max-width: 20ch;
+    }
+
+    .text {
+      max-width: 70ch;
+    }
+  }
+}
+
+@include mq(desktop) {
+  .grid {
+    grid-template-areas:
+      "heading image"
+      "text image";
+    column-gap: clamp(1.5rem, 4vw + 1.2rem, 8rem);
+
+    .heading {
+      align-self: end;
+      justify-self: start;
+
+      margin-top: 0;
+
+      font-size: clamp((var(--fs-800) / 2), 3.3vw, var(--fs-800));
+    }
+
+    .text {
+      margin-top: min(2.7vw, 2rem);
+      place-self: start;
+    }
+  }
+}

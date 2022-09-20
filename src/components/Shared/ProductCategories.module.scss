@@ -4,8 +4,6 @@
   display: grid;
   gap: 1rem;
 
-  margin-top: 2.5rem;
-
   .card {
     display: grid;
     grid-template-rows: 3fr 5fr auto auto;
@@ -74,7 +72,6 @@
 @include mq(tablet) {
   .grid {
     grid-template-columns: 1fr 1fr 1fr;
-    margin-top: 6rem;
 
     .card {
       .product-image {
@@ -86,7 +83,6 @@
 
 @include mq(desktop) {
   .grid {
-    margin-top: 7.5rem;
     .card {
       .product-image {
         width: 58%;
