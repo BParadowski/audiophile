@@ -122,20 +122,22 @@ const Category = ({ product }: { product: ProductData }) => {
           <h1 id="also-like" className={styles["also-like-heading"]}>
             you may also like
           </h1>
-          {product.others.map((item) => (
-            <div key={item.slug} className={styles["item-card"]}>
-              <Picture
-                desktopUrl={item.image.desktop}
-                tabletUrl={item.image.tablet}
-                mobileUrl={item.image.mobile}
-                alt="Picture of the product"
-              />
-              <h2>{item.name}</h2>
-              <Link href={`/${item.category}/${item.slug}`}>
-                <a className="button-accent">see product</a>
-              </Link>
-            </div>
-          ))}
+          <div className={styles["grid-also-like"]}>
+            {product.others.map((item) => (
+              <div key={item.slug} className={styles["item-card"]}>
+                <Picture
+                  desktopUrl={item.image.desktop}
+                  tabletUrl={item.image.tablet}
+                  mobileUrl={item.image.mobile}
+                  alt="Picture of the product"
+                />
+                <h2>{item.name}</h2>
+                <Link href={`/${item.category}/${item.slug}`}>
+                  <a className="button-accent">see product</a>
+                </Link>
+              </div>
+            ))}
+          </div>
         </section>
         <div className={styles["categories-wrapper"]}>
           <ProductCategories />
