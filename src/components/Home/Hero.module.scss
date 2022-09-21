@@ -37,7 +37,6 @@
 
   .text {
     grid-area: 1 / 1 / -1 / -1;
-    isolation: isolate;
 
     display: flex;
     flex-direction: column;
@@ -58,6 +57,7 @@
     }
 
     h2 {
+      z-index: 1;
       margin-top: 1rem;
       font-size: calc(var(--fs-700) + 0.375rem);
       font-weight: var(--fw-bold);
@@ -70,6 +70,7 @@
     }
 
     a {
+      z-index: 1;
       margin-top: 1.75rem;
     }
   }
