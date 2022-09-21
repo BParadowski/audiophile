@@ -21,6 +21,7 @@
 }
 
 .wrapper {
+  z-index: 2;
   position: relative;
   &::after {
     content: "";
@@ -150,7 +151,7 @@
       position: fixed;
       opacity: 0.5;
       background-color: var(--clr-neutral-v-dark);
-      inset: var(--header-height) 0 0 0;
+      inset: 0 0 0 0;
       pointer-events: none;
     }
   }
