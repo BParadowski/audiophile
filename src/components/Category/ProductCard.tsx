@@ -6,7 +6,7 @@ import Link from "next/link";
 const ProductCard = ({ product }: { product: ProductCardData }) => {
   const { name, slug, description, isNew, category, preview } = product;
   return (
-    <section className={styles["product-card"]}>
+    <section aria-labelledby={`${name}id`} className={styles["product-card"]}>
       <div className={styles.grid}>
         <Picture
           desktopUrl={preview.desktop}
@@ -17,7 +17,9 @@ const ProductCard = ({ product }: { product: ProductCardData }) => {
         />
         <div className={styles["text-wrapper"]}>
           {isNew && <p className={styles.new}>new product</p>}
-          <h2 className={styles.heading}>{name}</h2>
+          <h2 id={`${name}id`} className={styles.heading}>
+            {name}
+          </h2>
           <p className={styles.description}>{description}</p>
           <Link href={`/${category}/${slug}`}>
             <a className="button-accent">see product</a>

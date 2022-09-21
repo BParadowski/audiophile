@@ -1,0 +1,12 @@
+@use "../mixins" as *;
+
+.grid-main {
+  display: grid;
+
+  @include mq(tablet) {
+  }
+}
+
+.features_decription {
+  white-space: pre-line;
+}

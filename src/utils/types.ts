@@ -16,6 +16,7 @@ export interface Urls {
 export interface ProductDataMinimal {
   slug: string;
   name: string;
+  category: string;
   image: Urls;
 }
 
