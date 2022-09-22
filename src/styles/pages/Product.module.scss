@@ -1,27 +1,5 @@
 @use "../mixins" as *;
 
-.back {
-  margin-top: 1rem;
-  color: var(--clr-black);
-  font-size: var(--fs-300);
-  opacity: 0.5;
-  background-color: transparent;
-  cursor: pointer;
-
-  &:hover {
-    color: var(--clr-accent-primary);
-    opacity: 0.7;
-  }
-
-  @include mq(tablet) {
-    margin-top: 2rem;
-  }
-
-  @include mq(desktop) {
-    margin-top: 5rem;
-  }
-}
-
 .grid-main {
   display: grid;
 
@@ -30,10 +8,6 @@
     grid-template-columns: 6fr 10fr;
     grid-template-rows: auto;
     align-items: center;
-
-    .main_description-wrapper {
-      margin-left: clamp(1rem, 3vw + 1rem, 4rem);
-    }
   }
 
   @include mq(desktop) {
@@ -137,6 +111,8 @@
 
 @include mq(tablet) {
   .main_description-wrapper {
+    margin-left: clamp(1rem, 3vw + 1rem, 4rem);
+
     .new {
       margin-top: 0;
     }
@@ -181,6 +157,8 @@
   }
 
   .main_description-wrapper {
+    margin-left: clamp(5rem, 6.5vw + 1rem, 7rem);
+
     .new {
       margin-top: 2rem;
     }

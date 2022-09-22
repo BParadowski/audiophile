@@ -9,32 +9,20 @@ import { useRouter } from "next/router";
 import Picture from "../../../components/Shared/Picture";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import GoBackButton from "../../../components/Shared/GoBackButton";
 
 const Category = ({ product }: { product: ProductData }) => {
-  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
-
-  useEffect(() => {
-    router.beforePopState((state) => {
-      state.options.scroll = false;
-      return true;
-    });
-  }, []);
 
   return (
     <main>
       <Head>
         <title>{`audiophile: ${product.name}`}</title>
-        <meta
-          name="description"
-          content={`${router.query.name} product page`}
-        />
+        <meta name="description" content={`${product.name} product page`} />
         <link rel="icon" href="/assets/favicon-32x32.png" />
       </Head>
       <div className="container">
-        <button onClick={() => router.back()} className={styles.back}>
-          Go Back
-        </button>
+        <GoBackButton />
         <div className={styles["grid-main"]}>
           <Picture
             desktopUrl={product.image.desktop}
