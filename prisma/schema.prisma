@@ -1,0 +1,31 @@
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+model Product {
+  id           Int       @id @default(autoincrement())
+  slug         String    @unique
+  name         String    @unique
+  category     Category? @relation(fields: [categoryName], references: [name])
+  categoryName String?
+  new          Boolean
+  price        Float
+  description  String    @db.Text
+  features     String    @db.Text
+  accessories  Json
+
+  relatedProducts Product[] @relation("productRelations")
+  relatedTo       Product[] @relation("productRelations")
+}
+
+model Category {
+  name     String    @unique
+  products Product[]
+}
