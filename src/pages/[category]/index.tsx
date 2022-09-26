@@ -1,14 +1,22 @@
 import { useRouter } from "next/router";
-import getCategories from "../../utils/getCategories";
-import getProducts from "../../utils/getProducts";
+import { getCategories, getProductsByCategory } from "../../utils/dbQueries";
 import Head from "next/head";
 import styles from "../../styles/pages/Category.module.scss";
 import ProductCategories from "../../components/Shared/ProductCategories";
 import Manifesto from "../../components/Shared/Manifesto";
-import { ProductCardData } from "../../utils/types";
 import ProductCard from "../../components/Category/ProductCard";
 
-const Category = ({ products }: { products: ProductCardData[] }) => {
+const Category = ({
+  products,
+}: {
+  products: {
+    categoryName: string | null;
+    name: string;
+    slug: string;
+    isNew: boolean;
+    description: string;
+  }[];
+}) => {
   const router = useRouter();
 
   return (
@@ -38,19 +46,24 @@ const Category = ({ products }: { products: ProductCardData[] }) => {
 
 export default Category;
 
-export function getStaticProps({ params }: { params: { category: string } }) {
-  const products = getProducts(params.category);
+export async function getStaticProps({
+  params,
+}: {
+  params: { category: string };
+}) {
+  const products = await getProductsByCategory(params.category);
 
   return {
     props: { products },
   };
 }
 
-export function getStaticPaths() {
-  const paths = getCategories()?.map((category) => {
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  const paths = categories.map((category) => {
     return {
       params: {
-        category: category,
+        category: category.name,
       },
     };
   });

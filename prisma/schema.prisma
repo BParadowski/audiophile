@@ -15,7 +15,7 @@ model Product {
   name         String    @unique
   category     Category? @relation(fields: [categoryName], references: [name])
   categoryName String?
-  new          Boolean
+  isNew        Boolean
   price        Float
   description  String    @db.Text
   features     String    @db.Text

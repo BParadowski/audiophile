@@ -11,7 +11,7 @@ export default async function main() {
         id: product.id,
         slug: product.slug,
         name: product.name,
-        new: product.new,
+        isNew: product.new,
         price: product.price,
         description: product.description,
         features: product.features,
