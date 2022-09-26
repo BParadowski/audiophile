@@ -32,3 +32,31 @@ export const getProductsByCategory = async (categoryName: string) => {
 
   return products;
 };
+
+export const getProductPaths = async () => {
+  const paths = await prisma.product.findMany({
+    where: {},
+    select: {
+      slug: true,
+      categoryName: true,
+    },
+  });
+
+  return paths;
+};
+
+export const getProductData = async (productSlug: string) => {
+  const product = await prisma.product.findUnique({
+    where: {
+      slug: productSlug,
+    },
+    include: {
+      relatedProducts: {
+        select: { name: true, slug: true, categoryName: true },
+      },
+    },
+  });
+  console.log(product);
+
+  return product;
+};

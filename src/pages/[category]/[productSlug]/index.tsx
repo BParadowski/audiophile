@@ -1,43 +1,54 @@
-import getProductPaths from "../../../utils/getProductPaths";
-import getFullProductData from "../../../utils/getFullProductData";
 import Head from "next/head";
 import styles from "../../../styles/pages/Product.module.scss";
 import ProductCategories from "../../../components/Shared/ProductCategories";
 import Manifesto from "../../../components/Shared/Manifesto";
-import { ProductData } from "../../../utils/types";
 import { useRouter } from "next/router";
 import Picture from "../../../components/Shared/Picture";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import GoBackButton from "../../../components/Shared/GoBackButton";
+import { getProductPaths, getProductData } from "../../../utils/dbQueries";
+import { Product, Prisma } from "@prisma/client";
 
-const Category = ({ product }: { product: ProductData }) => {
+const ProductPage = ({
+  productData,
+}: {
+  productData: Product & {
+    relatedProducts: {
+      name: string;
+      slug: string;
+      categoryName: string | null;
+    }[];
+  };
+}) => {
+  const { name, slug, isNew, price, description, features, relatedProducts } =
+    productData;
+
+  let accessories = productData.accessories as Prisma.JsonArray;
+
   const [quantity, setQuantity] = useState(1);
 
   return (
     <main>
       <Head>
-        <title>{`audiophile: ${product.name}`}</title>
-        <meta name="description" content={`${product.name} product page`} />
+        <title>{`audiophile: ${name}`}</title>
+        <meta name="description" content={`${name} product page`} />
         <link rel="icon" href="/assets/favicon-32x32.png" />
       </Head>
       <div className="container">
         <GoBackButton />
         <div className={styles["grid-main"]}>
           <Picture
-            desktopUrl={product.image.desktop}
-            tabletUrl={product.image.tablet}
-            mobileUrl={product.image.mobile}
+            desktopUrl={`/assets/product-${slug}/desktop/image-product.jpg`}
+            tabletUrl={`/assets/product-${slug}/tablet/image-product.jpg`}
+            mobileUrl={`/assets/product-${slug}/mobile/image-product.jpg`}
             className={styles["main_image"]}
           />
           <div className={styles["main_description-wrapper"]}>
-            {product.new && <p className={styles.new}>new product</p>}
-            <h1 className={styles.heading}>{product.name}</h1>
-            <p className={styles.description}>{product.description}</p>
-            <p
-              aria-label="Price"
-              className={styles.price}
-            >{`$ ${product.price}`}</p>
+            {isNew && <p className={styles.new}>new product</p>}
+            <h1 className={styles.heading}>{name}</h1>
+            <p className={styles.description}>{description}</p>
+            <p aria-label="Price" className={styles.price}>{`$ ${price}`}</p>
             <div className={styles["buttons-wrapper"]}>
               <div className={styles.counter}>
                 <button
@@ -70,10 +81,10 @@ const Category = ({ product }: { product: ProductData }) => {
         </div>
         <div className={styles["grid-features"]}>
           <h2 className={styles["features_heading"]}>features</h2>
-          <p className={styles["features_description"]}>{product.features}</p>
+          <p className={styles["features_description"]}>{features}</p>
           <h2 className={styles["features_heading-box"]}>in the box</h2>
           <ul role="list" className={styles["features_item-list"]}>
-            {product.includes.map((item) => (
+            {accessories.map((item) => (
               <li key={item.item}>
                 <span>{`${item.quantity}x`}</span>
                 <p>{item.item}</p>
@@ -85,23 +96,23 @@ const Category = ({ product }: { product: ProductData }) => {
           <div className={styles["grid-gallery"]}>
             <Picture
               className={styles.first}
-              desktopUrl={product.gallery.first.desktop}
-              tabletUrl={product.gallery.first.tablet}
-              mobileUrl={product.gallery.first.mobile}
+              desktopUrl={`/assets/product-${slug}/desktop/image-gallery-1.jpg`}
+              tabletUrl={`/assets/product-${slug}/tablet/image-gallery-1.jpg`}
+              mobileUrl={`/assets/product-${slug}/mobile/image-gallery-1.jpg`}
               alt=""
             />
             <Picture
               className={styles.second}
-              desktopUrl={product.gallery.second.desktop}
-              tabletUrl={product.gallery.second.tablet}
-              mobileUrl={product.gallery.second.mobile}
+              desktopUrl={`/assets/product-${slug}/desktop/image-gallery-2.jpg`}
+              tabletUrl={`/assets/product-${slug}/tablet/image-gallery-2.jpg`}
+              mobileUrl={`/assets/product-${slug}/mobile/image-gallery-2.jpg`}
               alt=""
             />
             <Picture
               className={styles.third}
-              desktopUrl={product.gallery.third.desktop}
-              tabletUrl={product.gallery.third.tablet}
-              mobileUrl={product.gallery.third.mobile}
+              desktopUrl={`/assets/product-${slug}/desktop/image-gallery-3.jpg`}
+              tabletUrl={`/assets/product-${slug}/tablet/image-gallery-3.jpg`}
+              mobileUrl={`/assets/product-${slug}/mobile/image-gallery-3.jpg`}
               alt=""
             />
           </div>
@@ -111,16 +122,16 @@ const Category = ({ product }: { product: ProductData }) => {
             you may also like
           </h1>
           <div className={styles["grid-also-like"]}>
-            {product.others.map((item) => (
+            {relatedProducts.map((item) => (
               <div key={item.slug} className={styles["item-card"]}>
                 <Picture
-                  desktopUrl={item.image.desktop}
-                  tabletUrl={item.image.tablet}
-                  mobileUrl={item.image.mobile}
+                  desktopUrl={`/assets/shared/desktop/image-${item.slug}.jpg`}
+                  tabletUrl={`/assets/shared/tablet/image-${item.slug}.jpg`}
+                  mobileUrl={`/assets/shared/mobile/image-${item.slug}.jpg`}
                   alt="Picture of the product"
                 />
                 <h2>{item.name}</h2>
-                <Link href={`/${item.category}/${item.slug}`}>
+                <Link href={`/${item.categoryName}/${item.slug}`}>
                   <a className="button-accent">see product</a>
                 </Link>
               </div>
@@ -138,23 +149,35 @@ const Category = ({ product }: { product: ProductData }) => {
   );
 };
 
-export default Category;
+export default ProductPage;
 
-export function getStaticProps({
+export async function getStaticProps({
   params,
 }: {
-  params: { category: string; product: string };
+  params: { category: string; productSlug: string };
 }) {
-  const product = getFullProductData(params.product);
+  const productData = await getProductData(params.productSlug);
 
+  if (!productData) {
+    throw new Error(
+      `Product with slug: [ ${params.productSlug} ] does not exist in the database.`
+    );
+  }
   return {
-    props: { product },
+    props: { productData },
   };
 }
 
-export function getStaticPaths() {
-  const paths = getProductPaths();
-
+export async function getStaticPaths() {
+  const slugsAndCategories = await getProductPaths();
+  const paths = slugsAndCategories.map((data) => {
+    return {
+      params: {
+        productSlug: data.slug,
+        category: data.categoryName,
+      },
+    };
+  });
   return {
     paths: paths,
     fallback: false,
