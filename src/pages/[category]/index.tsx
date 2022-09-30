@@ -5,17 +5,15 @@ import styles from "../../styles/pages/Category.module.scss";
 import ProductCategories from "../../components/Shared/ProductCategories";
 import Manifesto from "../../components/Shared/Manifesto";
 import ProductCard from "../../components/Category/ProductCard";
+import { Product } from "@prisma/client";
 
 const Category = ({
   products,
 }: {
-  products: {
-    categoryName: string | null;
-    name: string;
-    slug: string;
-    isNew: boolean;
-    description: string;
-  }[];
+  products: Pick<
+    Product,
+    "name" | "slug" | "categoryName" | "description" | "isNew"
+  >[];
 }) => {
   const router = useRouter();
 

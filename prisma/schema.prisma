@@ -9,6 +9,22 @@ generator client {
   previewFeatures = ["referentialIntegrity"]
 }
 
+model Cart {
+  id         String     @id @default(cuid())
+  contents   CartItem[]
+  createdAt  DateTime   @default(now())
+  modifiedAt DateTime   @default(now())
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  Cart      Cart    @relation(fields: [cartId], references: [id])
+  cartId    String
+  quantiy   Int
+}
+
 model Product {
   id           Int       @id @default(autoincrement())
   slug         String    @unique
@@ -21,8 +37,9 @@ model Product {
   features     String    @db.Text
   accessories  Json
 
-  relatedProducts Product[] @relation("productRelations")
-  relatedTo       Product[] @relation("productRelations")
+  relatedProducts Product[]  @relation("productRelations")
+  relatedTo       Product[]  @relation("productRelations")
+  CartItem        CartItem[]
 }
 
 model Category {

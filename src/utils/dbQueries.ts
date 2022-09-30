@@ -56,7 +56,6 @@ export const getProductData = async (productSlug: string) => {
       },
     },
   });
-  console.log(product);
 
   return product;
 };

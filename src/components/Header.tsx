@@ -17,9 +17,9 @@ const Header = () => {
     const closeNav = (e: MouseEvent) => {
       if (
         mobileNav.current &&
-        !mobileNav.current.contains(e.target) &&
+        !mobileNav.current.contains(e.target as Node) &&
         hamburgerRef.current &&
-        !hamburgerRef.current.contains(e.target)
+        !hamburgerRef.current.contains(e.target as Node)
       ) {
         setNavExpanded(false);
       }

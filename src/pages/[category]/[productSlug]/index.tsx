@@ -2,29 +2,26 @@ import Head from "next/head";
 import styles from "../../../styles/pages/Product.module.scss";
 import ProductCategories from "../../../components/Shared/ProductCategories";
 import Manifesto from "../../../components/Shared/Manifesto";
-import { useRouter } from "next/router";
 import Picture from "../../../components/Shared/Picture";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import GoBackButton from "../../../components/Shared/GoBackButton";
 import { getProductPaths, getProductData } from "../../../utils/dbQueries";
-import { Product, Prisma } from "@prisma/client";
+import { Product } from "@prisma/client";
 
 const ProductPage = ({
   productData,
 }: {
   productData: Product & {
-    relatedProducts: {
-      name: string;
-      slug: string;
-      categoryName: string | null;
-    }[];
+    relatedProducts: Pick<Product, "name" | "slug" | "categoryName">[];
   };
 }) => {
   const { name, slug, isNew, price, description, features, relatedProducts } =
     productData;
-
-  let accessories = productData.accessories as Prisma.JsonArray;
+  const accessories = productData.accessories as Array<{
+    item: string;
+    quantity: number;
+  }>;
 
   const [quantity, setQuantity] = useState(1);
 
@@ -130,7 +127,8 @@ const ProductPage = ({
                   mobileUrl={`/assets/shared/mobile/image-${item.slug}.jpg`}
                   alt="Picture of the product"
                 />
-                <h2>{item.name}</h2>
+                {/* Replace shortens the name of some items for design purposes */}
+                <h2>{item.name.replace(/headphones/i, "")}</h2>
                 <Link href={`/${item.categoryName}/${item.slug}`}>
                   <a className="button-accent">see product</a>
                 </Link>
