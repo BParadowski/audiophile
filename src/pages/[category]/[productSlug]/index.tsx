@@ -3,11 +3,13 @@ import styles from "../../../styles/pages/Product.module.scss";
 import ProductCategories from "../../../components/Shared/ProductCategories";
 import Manifesto from "../../../components/Shared/Manifesto";
 import Picture from "../../../components/Shared/Picture";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import GoBackButton from "../../../components/Shared/GoBackButton";
 import { getProductPaths, getProductData } from "../../../utils/dbQueries";
 import { Product } from "@prisma/client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { cartContext } from "../../../components/CartContextProvider";
 
 const ProductPage = ({
   productData,
@@ -16,14 +18,39 @@ const ProductPage = ({
     relatedProducts: Pick<Product, "name" | "slug" | "categoryName">[];
   };
 }) => {
-  const { name, slug, isNew, price, description, features, relatedProducts } =
-    productData;
+  const {
+    id,
+    name,
+    slug,
+    isNew,
+    price,
+    description,
+    features,
+    relatedProducts,
+  } = productData;
   const accessories = productData.accessories as Array<{
     item: string;
     quantity: number;
   }>;
 
+  const cartId = useContext(cartContext);
+  const queryClient = useQueryClient();
   const [quantity, setQuantity] = useState(1);
+
+  const addToCart = (newItem: { productId: Number; quantity: Number }) => {
+    return fetch("/api/add-to-cart", {
+      method: "POST",
+      headers: { "Content-Type": "apllication/json" },
+      body: JSON.stringify({ ...newItem, cartId }),
+    });
+  };
+
+  const mutation = useMutation(addToCart, {
+    onSuccess: async () => {
+      setQuantity(1);
+      await queryClient.refetchQueries(["cart-query"], { type: "active" });
+    },
+  });
 
   return (
     <main>
@@ -72,7 +99,21 @@ const ProductPage = ({
                   +
                 </button>
               </div>
-              <button className="button-accent">add to cart</button>
+              {mutation.isLoading ? (
+                <button className="button-accent">Adding to cart...</button>
+              ) : (
+                <button
+                  className="button-accent"
+                  onClick={() =>
+                    mutation.mutate({
+                      quantity: quantity,
+                      productId: id,
+                    })
+                  }
+                >
+                  add to cart
+                </button>
+              )}
             </div>
           </div>
         </div>

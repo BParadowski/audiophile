@@ -4,16 +4,21 @@ import Layout from "../components/Layout";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CartContextProvider from "../components/CartContextProvider";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <CartContextProvider>
-      <Layout>
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
-      </Layout>
-    </CartContextProvider>
+    <QueryClientProvider client={client}>
+      <CartContextProvider>
+        <Layout>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </Layout>
+      </CartContextProvider>
+    </QueryClientProvider>
   );
 }
 

@@ -14,7 +14,7 @@ const CartContextProvider = ({ children }: Props) => {
   useEffect(() => {
     const localCartId = localStorage.getItem("cartId");
     const getNewCartId = async () => {
-      const response = await fetch("/api/newCart");
+      const response = await fetch("/api/new-cart");
       const id: string = await response.json();
       localStorage.setItem("cartId", id);
       setCartId(id);
