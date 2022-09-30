@@ -72,6 +72,7 @@
 @include mq(tablet) {
   .grid {
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.625rem;
 
     .card {
       .product-image {
@@ -83,6 +84,7 @@
 
 @include mq(desktop) {
   .grid {
+    gap: 1.875rem;
     .card {
       .product-image {
         width: 58%;
