@@ -10,6 +10,7 @@ import { getProductPaths, getProductData } from "../../../utils/dbQueries";
 import { Product } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartContext } from "../../../components/CartContextProvider";
+import Counter from "../../../components/Shared/Counter";
 
 const ProductPage = ({
   productData,
@@ -47,8 +48,8 @@ const ProductPage = ({
 
   const mutation = useMutation(addToCart, {
     onSuccess: async () => {
-      setQuantity(1);
       await queryClient.refetchQueries(["cart-query"], { type: "active" });
+      setQuantity(1);
     },
   });
 
@@ -74,31 +75,7 @@ const ProductPage = ({
             <p className={styles.description}>{description}</p>
             <p aria-label="Price" className={styles.price}>{`$ ${price}`}</p>
             <div className={styles["buttons-wrapper"]}>
-              <div className={styles.counter}>
-                <button
-                  aria-label="minus"
-                  className={styles.minus}
-                  onClick={() => {
-                    if (quantity > 1) {
-                      setQuantity(quantity - 1);
-                    }
-                  }}
-                >
-                  -
-                </button>
-                <output className={styles.quantity}>{quantity}</output>
-                <button
-                  aria-label="plus"
-                  onClick={() => {
-                    if (quantity < 10) {
-                      setQuantity(quantity + 1);
-                    }
-                  }}
-                  className={styles.plus}
-                >
-                  +
-                </button>
-              </div>
+              <Counter number={quantity} setNumber={setQuantity} />
               {mutation.isLoading ? (
                 <button className="button-accent">Adding to cart...</button>
               ) : (

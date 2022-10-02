@@ -1,6 +1,5 @@
 import prisma from "../../utils/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { networkInterfaces } from "os";
 
 export default async function handler(
   req: NextApiRequest,

@@ -80,16 +80,6 @@
   }
 }
 
-.cart {
-  background-image: url("../../public/assets/shared/desktop/icon-cart.svg");
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 1.5rem;
-  height: 1.25rem;
-  background-color: inherit;
-}
-
 @include mq(tablet-only) {
   .nav {
     display: none;
@@ -119,6 +109,19 @@
   }
 }
 
+/* shoppig cart */
+
+.cart-button {
+  background-image: url("../../public/assets/shared/desktop/icon-cart.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 1.5rem;
+  height: 1.25rem;
+  background-color: inherit;
+  cursor: pointer;
+}
+
 /* mobile dropdown menu */
 
 .mobile-nav {
@@ -126,7 +129,7 @@
   display: none;
 
   @include mq(tablet-only) {
-    &[data-open="true"] {
+    &[data-nav-open="true"] {
       display: block;
       .dropdown {
         z-index: 3;
@@ -146,13 +149,27 @@
         }
       }
     }
-    .backdrop {
-      z-index: 2;
-      position: fixed;
-      opacity: 0.5;
-      background-color: var(--clr-neutral-v-dark);
-      inset: 0 0 0 0;
-      pointer-events: none;
+  }
+}
+
+/* backdrop for both cart and mobile menu */
+
+.backdrop {
+  z-index: 2;
+  position: fixed;
+  opacity: 0.5;
+  background-color: var(--clr-neutral-v-dark);
+  inset: 0 0 0 0;
+  pointer-events: none;
+  visibility: hidden;
+
+  &[data-cart-open="true"] {
+    visibility: visible;
+  }
+
+  @include mq(tablet-only) {
+    &[data-nav-open="true"] {
+      visibility: visible;
     }
   }
 }

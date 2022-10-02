@@ -1,50 +1,97 @@
 import Image from "next/future/image";
-import { ReactElement, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Header.module.scss";
 import audiophileLogo from "../../public/assets/shared/desktop/logo.svg";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import ProductCategories from "./Shared/ProductCategories";
+import { useQuery } from "@tanstack/react-query";
+import { cartContext } from "./CartContextProvider";
+
+interface CartItem {
+  quantity: number;
+  product: {
+    name: string;
+    id: number;
+    slug: string;
+    price: number;
+  };
+}
 
 const Header = () => {
   const [navExpanded, setNavExpanded] = useState(false);
   const [cartExpaned, setCartExpanded] = useState(false);
   const router = useRouter();
-  const mobileNav = useRef<HTMLElement>(null);
+
+  /* the router is used to make header background transparent 
+    and position it "absolute" on home page. It allows a part of the 
+    hero image to become the background. */
+
+  const mobileNavRef = useRef<HTMLElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const cartButtonRef = useRef<HTMLButtonElement>(null);
+  const cartId = useContext(cartContext);
+
+  const fetchCart = () => {
+    return fetch("/api/get-cart", {
+      method: "POST",
+      headers: { "Content-Type": "apllication/json" },
+      body: JSON.stringify({ cartId }),
+    });
+  };
+  const cartContentsQuery = useQuery(["cart-query"], fetchCart, {
+    enabled: Boolean(cartId),
+  });
 
   useEffect(() => {
     const closeNav = (e: MouseEvent) => {
       if (
-        mobileNav.current &&
-        !mobileNav.current.contains(e.target as Node) &&
+        mobileNavRef.current &&
+        !mobileNavRef.current.contains(e.target as Node) &&
         hamburgerRef.current &&
         !hamburgerRef.current.contains(e.target as Node)
       ) {
         setNavExpanded(false);
       }
     };
+    const closeCart = (e: MouseEvent) => {
+      if (
+        cartButtonRef.current &&
+        !cartButtonRef.current.contains(e.target as Node)
+      ) {
+        setCartExpanded(false);
+      }
+    };
+
     if (navExpanded) {
       window.addEventListener("mousedown", closeNav, true);
       return () => window.removeEventListener("mousedown", closeNav, true);
+    } else if (cartExpaned) {
+      window.addEventListener("mousedown", closeCart, true);
+      return () => window.removeEventListener("mousedown", closeCart, true);
     }
-  }, [mobileNav, navExpanded]);
-  /* the router is used to make header background transparent 
-    and position it "absolute" so that part of the hero image
-    at home page is the background.*/
+  }, [navExpanded, cartExpaned]);
 
   return (
     <header className={styles.header} data-absolute={router.pathname === "/"}>
+      {/* Mobile navigation menu */}
       <nav
         className={styles["mobile-nav"]}
-        data-open={navExpanded}
-        ref={mobileNav}
+        data-nav-open={navExpanded}
+        ref={mobileNavRef}
       >
         <div className={styles.dropdown}>
           <ProductCategories onLinkClick={() => setNavExpanded(false)} />
         </div>
-        <div className={styles.backdrop}></div>
       </nav>
+      {/* Cart */}
+      <div></div>
+      {/* Backdrop for both cart and mobile nav */}
+      <div
+        className={styles.backdrop}
+        data-cart-open={cartExpaned}
+        data-nav-open={navExpanded}
+      ></div>
       <div className="container">
         <div className={styles.wrapper}>
           <div
@@ -81,9 +128,10 @@ const Header = () => {
             </nav>
             <button
               aria-label="Shopping cart"
-              className={styles.cart}
+              className={styles["cart-button"]}
               aria-expanded={cartExpaned}
               onClick={() => setCartExpanded(!cartExpaned)}
+              ref={cartButtonRef}
             ></button>
           </div>
         </div>

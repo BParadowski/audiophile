@@ -16,41 +16,6 @@
   }
 }
 
-.counter {
-  display: flex;
-
-  height: 3rem;
-  width: 7.5rem;
-  background-color: var(--clr-neutral-light);
-  text-align: center;
-
-  .minus {
-    flex: 1;
-    opacity: 0.3;
-    cursor: pointer;
-    &:hover {
-      color: var(--clr-accent-primary);
-      opacity: 1;
-    }
-  }
-  .quantity {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-  }
-  .plus {
-    opacity: 0.3;
-    flex: 1;
-    cursor: pointer;
-
-    &:hover {
-      color: var(--clr-accent-primary);
-      opacity: 1;
-    }
-  }
-}
-
 .buttons-wrapper {
   display: flex;
   align-items: center;
