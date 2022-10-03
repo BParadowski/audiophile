@@ -3,7 +3,7 @@ import styles from "../../../styles/pages/Product.module.scss";
 import ProductCategories from "../../../components/Shared/ProductCategories";
 import Manifesto from "../../../components/Shared/Manifesto";
 import Picture from "../../../components/Shared/Picture";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import GoBackButton from "../../../components/Shared/GoBackButton";
 import { getProductPaths, getProductData } from "../../../utils/dbQueries";
@@ -11,6 +11,7 @@ import { Product } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartContext } from "../../../components/CartContextProvider";
 import Counter from "../../../components/Shared/Counter";
+import { useRouter } from "next/router";
 
 const ProductPage = ({
   productData,
@@ -36,7 +37,12 @@ const ProductPage = ({
 
   const cartId = useContext(cartContext);
   const queryClient = useQueryClient();
+  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
+  /* Brings product count back to one every time a user switches product pages */
+  useEffect(() => {
+    setQuantity(1);
+  }, [router.query]);
 
   const addToCart = (newItem: { productId: Number; quantity: Number }) => {
     return fetch("/api/add-to-cart", {
@@ -75,12 +81,22 @@ const ProductPage = ({
             <p className={styles.description}>{description}</p>
             <p aria-label="Price" className={styles.price}>{`$ ${price}`}</p>
             <div className={styles["buttons-wrapper"]}>
-              <Counter number={quantity} setNumber={setQuantity} />
+              <Counter
+                number={quantity}
+                onMinusClick={() => {
+                  if (quantity > 1) {
+                    setQuantity(quantity - 1);
+                  }
+                }}
+                onPlusClick={() => setQuantity(quantity + 1)}
+              />
               {mutation.isLoading ? (
-                <button className="button-accent">Adding to cart...</button>
+                <button className={`button-accent ${styles.add}`}>
+                  Adding...
+                </button>
               ) : (
                 <button
-                  className="button-accent"
+                  className={`button-accent ${styles.add}`}
                   onClick={() =>
                     mutation.mutate({
                       quantity: quantity,

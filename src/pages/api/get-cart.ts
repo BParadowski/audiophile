@@ -16,10 +16,10 @@ export default async function handler(
           quantity: true,
           product: {
             select: {
+              id: true,
+              slug: true,
               name: true,
               price: true,
-              slug: true,
-              id: true,
             },
           },
         },

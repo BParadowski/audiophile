@@ -72,6 +72,10 @@
   .buttons-wrapper {
     margin-top: 1.5rem;
   }
+
+  .add {
+    min-width: calc(11ch + 4rem);
+  }
 }
 
 @include mq(tablet) {
@@ -112,6 +116,10 @@
       .buttons-wrapper {
         margin-top: 0.75rem;
       }
+
+      .add {
+        min-width: none;
+      }
     }
   }
 }
@@ -144,6 +152,10 @@
 
     .buttons-wrapper {
       margin-top: 2rem;
+    }
+
+    .add {
+      min-width: calc(11ch + 4rem);
     }
   }
 }
