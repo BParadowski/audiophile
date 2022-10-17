@@ -126,7 +126,7 @@ const Header = () => {
               <div className={styles["cart-item-list"]}>
                 {cartContentsQuery.data.map(
                   (cartItem: CartItem, index: number) => {
-                    if (index < 3) {
+                    if (index < 8) {
                       return (
                         <ProductSnippet
                           key={cartItem.product.id}
