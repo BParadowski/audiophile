@@ -1,4 +1,4 @@
-import { ForwardRefExoticComponent, ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef } from "react";
 import styles from "./MobileNav.module.scss";
 import ProductCategories from "../Shared/ProductCategories";
 

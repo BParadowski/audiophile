@@ -4,21 +4,10 @@ import styles from "./Header.module.scss";
 import audiophileLogo from "../../public/assets/shared/desktop/logo.svg";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import ProductCategories from "./Shared/ProductCategories";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { cartContext } from "./CartContextProvider";
-import ProductSnippet from "../components/Shared/ProductSnippet";
 import MobileNav from "./Header/MobileNav";
-
-interface CartItem {
-  quantity: number;
-  product: {
-    name: string;
-    id: number;
-    slug: string;
-    price: number;
-  };
-}
+import Cart from "./Header/Cart";
 
 const Header = () => {
   const [navExpanded, setNavExpanded] = useState(false);
@@ -34,7 +23,6 @@ const Header = () => {
   const cartRef = useRef<HTMLDivElement>(null);
   const cartButtonRef = useRef<HTMLButtonElement>(null);
   const cartId = useContext(cartContext);
-  const queryClient = useQueryClient();
 
   const fetchCart = () => {
     return fetch("/api/get-cart", {
@@ -44,22 +32,9 @@ const Header = () => {
     }).then((res) => res.json());
   };
 
-  const clearCart = () => {
-    return fetch("/api/clear-cart", {
-      method: "POST",
-      headers: { "Content-Type": "apllication/json" },
-      body: JSON.stringify({ cartId }),
-    });
-  };
-
+  // this function needs to stay to display number of item in the cart
   const cartContentsQuery = useQuery(["cart-query"], fetchCart, {
     enabled: Boolean(cartId),
-  });
-
-  const clearingMutation = useMutation(["cart-query"], clearCart, {
-    onSuccess: async () => {
-      await queryClient.setQueryData(["cart-query"], []);
-    },
   });
 
   useEffect(() => {
@@ -95,74 +70,13 @@ const Header = () => {
 
   return (
     <header className={styles.header} data-absolute={router.pathname === "/"}>
+      {/* Mobile nav and cart dropdowns */}
       {navExpanded && (
         <MobileNav close={() => setNavExpanded(false)} ref={mobileNavRef} />
       )}
-      {/* Cart */}
-      <div className={styles["cart-container"]}>
-        <div
-          ref={cartRef}
-          className={styles["cart-dropdown"]}
-          data-cart-open={cartExpanded}
-        >
-          {cartContentsQuery.data?.length > 0 ? (
-            <div className={styles["cart-grid"]}>
-              <p className={styles["cart-title"]}>
-                Cart ({cartContentsQuery.data?.length})
-              </p>
-              <button
-                className={styles["cart-remove"]}
-                onClick={() => clearingMutation.mutate()}
-              >
-                Remove all
-              </button>
-              <div className={styles["cart-item-list"]}>
-                {cartContentsQuery.data.map(
-                  (cartItem: CartItem, index: number) => {
-                    if (index < 8) {
-                      return (
-                        <ProductSnippet
-                          key={cartItem.product.id}
-                          id={cartItem.product.id}
-                          name={cartItem.product.name}
-                          price={cartItem.product.price}
-                          quantity={cartItem.quantity}
-                          slug={cartItem.product.slug}
-                        />
-                      );
-                    } else return null;
-                  }
-                )}
-              </div>
-              <p className={styles["cart-total"]}>total</p>
-              <p className={styles["cart-price"]}>
-                ${" "}
-                {cartContentsQuery.data.reduce(
-                  (total: number, current: CartItem) => {
-                    return total + current.product.price * current.quantity;
-                  },
-                  0
-                )}
-              </p>
-              <Link href="/">
-                <a className={`${styles["cart-checkout"]} button-accent`}>
-                  checkout
-                </a>
-              </Link>
-            </div>
-          ) : (
-            <div className={styles["cart-empty-layout"]}>
-              <p>Your cart is empty.</p>
-              <button
-                onClick={() => setCartExpanded(false)}
-                className="button-accent"
-              >
-                Continue shopping
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+      {cartExpanded && (
+        <Cart close={() => setCartExpanded(false)} ref={cartRef} />
+      )}
 
       {/* Backdrop for both cart and mobile nav */}
       <div

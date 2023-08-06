@@ -243,36 +243,6 @@
   text-align: center;
 }
 
-/* mobile dropdown menu */
-
-.mobile-nav {
-  z-index: 1;
-  display: none;
-
-  @include mq(tablet-only) {
-    &[data-nav-open="true"] {
-      display: block;
-      .dropdown {
-        z-index: 3;
-        position: absolute;
-        background-color: var(--clr-white);
-        top: var(--header-height);
-        left: 0;
-        right: 0;
-        padding-inline: 2.5rem;
-        padding-block: 3.75rem;
-        border-bottom-left-radius: var(--border-radius-small);
-        border-bottom-right-radius: var(--border-radius-small);
-
-        @include mq(mobile-only) {
-          padding-inline: 1.5rem;
-          padding-block: 2rem;
-        }
-      }
-    }
-  }
-}
-
 /* backdrop for both cart and mobile menu */
 
 .backdrop {
