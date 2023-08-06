@@ -6,6 +6,7 @@ interface CounterProps {
   onPlusClick: Function;
   className?: string;
 }
+
 const Counter = ({
   number,
   onMinusClick,

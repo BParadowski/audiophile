@@ -8,6 +8,7 @@ import ProductCategories from "./Shared/ProductCategories";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartContext } from "./CartContextProvider";
 import ProductSnippet from "../components/Shared/ProductSnippet";
+import MobileNav from "./Header/MobileNav";
 
 interface CartItem {
   quantity: number;
@@ -94,17 +95,9 @@ const Header = () => {
 
   return (
     <header className={styles.header} data-absolute={router.pathname === "/"}>
-      {/* Mobile navigation menu */}
-      <nav
-        className={styles["mobile-nav"]}
-        data-nav-open={navExpanded}
-        ref={mobileNavRef}
-      >
-        <div className={styles.dropdown}>
-          <ProductCategories onLinkClick={() => setNavExpanded(false)} />
-        </div>
-      </nav>
-
+      {navExpanded && (
+        <MobileNav close={() => setNavExpanded(false)} ref={mobileNavRef} />
+      )}
       {/* Cart */}
       <div className={styles["cart-container"]}>
         <div
