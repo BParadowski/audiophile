@@ -39,6 +39,7 @@ const ProductSnippet = ({ id, name, price, quantity, slug }: SnippetProps) => {
     onMutate: async (mutationObject) => {
       await queryClient.cancelQueries(["cart-query"]);
 
+      // optimistic update
       if (mutationObject.newQuantity > 0) {
         queryClient.setQueryData<CartItem[]>(["cart-query"], (oldCart) =>
           oldCart?.map((item) => {

@@ -78,7 +78,7 @@ const Header = () => {
         <Cart close={() => setCartExpanded(false)} ref={cartRef} />
       )}
 
-      {/* Backdrop for both cart and mobile nav */}
+      {/* Backdrop for both */}
       <div
         className={styles.backdrop}
         data-cart-open={cartExpanded}
