@@ -11,6 +11,7 @@ interface SnippetProps {
   price: number;
   quantity: number;
   slug: string;
+  displayOnly?: boolean;
 }
 
 interface CartItem {
@@ -23,7 +24,14 @@ interface CartItem {
   };
 }
 
-const ProductSnippet = ({ id, name, price, quantity, slug }: SnippetProps) => {
+const ProductSnippet = ({
+  id,
+  name,
+  price,
+  quantity,
+  slug,
+  displayOnly,
+}: SnippetProps) => {
   const cartId = useContext(cartContext);
   const queryClient = useQueryClient();
 
@@ -81,14 +89,20 @@ const ProductSnippet = ({ id, name, price, quantity, slug }: SnippetProps) => {
         {name.replaceAll(/headphones|earphones|speaker|wireless/gi, "")}
       </p>
       <p className={styles.price}>{`$ ${price}`}</p>
-      <Counter
-        number={quantity}
-        className={styles.counter}
-        onMinusClick={() =>
-          updateMutation.mutate({ newQuantity: quantity - 1 })
-        }
-        onPlusClick={() => updateMutation.mutate({ newQuantity: quantity + 1 })}
-      />
+      {displayOnly ? (
+        <p className={styles.amount}>{quantity}x</p>
+      ) : (
+        <Counter
+          number={quantity}
+          className={styles.counter}
+          onMinusClick={() =>
+            updateMutation.mutate({ newQuantity: quantity - 1 })
+          }
+          onPlusClick={() =>
+            updateMutation.mutate({ newQuantity: quantity + 1 })
+          }
+        />
+      )}
     </div>
   );
 };

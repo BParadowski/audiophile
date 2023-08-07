@@ -5,7 +5,7 @@ import { cartContext } from "../CartContextProvider";
 import ProductSnippet from "../Shared/ProductSnippet";
 import Link from "next/link";
 
-interface navProps {
+interface cartProps {
   close: () => void;
 }
 
@@ -20,7 +20,7 @@ interface CartItem {
 }
 
 const Cart = forwardRef(function MobileNav(
-  { close }: navProps,
+  { close }: cartProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
   const cartId = useContext(cartContext);
@@ -53,20 +53,20 @@ const Cart = forwardRef(function MobileNav(
   });
 
   return (
-    <div className={styles["cart-container"]}>
-      <div ref={ref} className={styles["cart-dropdown"]}>
+    <div className={styles.container}>
+      <div ref={ref} className={styles.dropdown}>
         {cartContentsQuery.data?.length > 0 ? (
-          <div className={styles["cart-grid"]}>
-            <p className={styles["cart-title"]}>
+          <div className={styles.grid}>
+            <p className={styles.title}>
               Cart ({cartContentsQuery.data?.length})
             </p>
             <button
-              className={styles["cart-remove"]}
+              className={styles.removeAll}
               onClick={() => clearingMutation.mutate()}
             >
               Remove all
             </button>
-            <div className={styles["cart-item-list"]}>
+            <div className={styles.itemList}>
               {cartContentsQuery.data.map(
                 (cartItem: CartItem, index: number) => {
                   if (index < 8) {
@@ -84,8 +84,8 @@ const Cart = forwardRef(function MobileNav(
                 }
               )}
             </div>
-            <p className={styles["cart-total"]}>total</p>
-            <p className={styles["cart-price"]}>
+            <p className={styles.total}>total</p>
+            <p className={styles.price}>
               ${" "}
               {cartContentsQuery.data.reduce(
                 (total: number, current: CartItem) => {
@@ -94,14 +94,14 @@ const Cart = forwardRef(function MobileNav(
                 0
               )}
             </p>
-            <Link href="/">
-              <a className={`${styles["cart-checkout"]} button-accent`}>
+            <Link href="/checkout">
+              <a className={`${styles.checkout} button-accent`} onClick={close}>
                 checkout
               </a>
             </Link>
           </div>
         ) : (
-          <div className={styles["cart-empty-layout"]}>
+          <div className={styles.empty}>
             <p>Your cart is empty.</p>
             <button onClick={close} className="button-accent">
               Continue shopping

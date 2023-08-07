@@ -1,6 +1,6 @@
 @use "../../styles/mixins" as *;
 
-.cart-container {
+.container {
   width: min(
     var(--container-max-width),
     100% - var(--container-margin-inline-min) * 2
@@ -9,7 +9,7 @@
   position: relative;
 }
 
-.cart-dropdown {
+.dropdown {
   z-index: 3;
   position: absolute;
   top: calc(var(--header-height) + 1.5rem);
@@ -25,13 +25,7 @@
   }
 }
 
-.cart-empty-layout {
-  display: grid;
-  text-align: center;
-  gap: 1.5rem;
-}
-
-.cart-grid {
+.grid {
   display: grid;
   grid-template-areas:
     "title remove"
@@ -40,7 +34,7 @@
     "button button";
 }
 
-.cart-title {
+.title {
   grid-area: title;
   opacity: 1;
   font-size: var(--fs-400);
@@ -49,7 +43,7 @@
   text-transform: uppercase;
 }
 
-.cart-remove {
+.removeAll {
   grid-area: remove;
   justify-self: end;
   background-color: transparent;
@@ -64,19 +58,19 @@
   }
 }
 
-.cart-item-list {
+.itemList {
   grid-area: list;
   margin-top: 2rem;
   display: grid;
   row-gap: 1.5rem;
 }
 
-.cart-total {
+.total {
   margin-top: 2rem;
   text-transform: uppercase;
 }
 
-.cart-price {
+.price {
   margin-top: 2rem;
   font-weight: var(--fw-bold);
   font-size: var(--fs-400);
@@ -84,8 +78,15 @@
   justify-self: end;
 }
 
-.cart-checkout {
+.checkout {
   margin-top: 1.5rem;
   grid-area: button;
   text-align: center;
+}
+
+/* empty cart layout*/
+.empty {
+  display: grid;
+  text-align: center;
+  gap: 1.5rem;
 }

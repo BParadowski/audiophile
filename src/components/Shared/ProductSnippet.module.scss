@@ -40,3 +40,11 @@
     font-weight: var(--fw-bold);
   }
 }
+
+.amount {
+  grid-area: counter;
+  place-self: start;
+
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-300);
+}
