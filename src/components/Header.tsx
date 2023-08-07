@@ -13,17 +13,14 @@ import MainNav from "./Header/MainNav";
 const Header = () => {
   const [navExpanded, setNavExpanded] = useState(false);
   const [cartExpanded, setCartExpanded] = useState(false);
-  const cartId = useContext(cartContext);
-  const router = useRouter();
 
   /* the router is used to make header background transparent 
-    and position it "absolute" on home page. It allows a part of the 
+    and position it "absolute" on home page. It allows for a part of the 
     hero image to become the background. */
+  const router = useRouter();
 
-  const mobileNavRef = useRef<HTMLElement>(null);
-  const hamburgerRef = useRef<HTMLButtonElement>(null);
-  const cartRef = useRef<HTMLDivElement>(null);
-  const cartButtonRef = useRef<HTMLButtonElement>(null);
+  /* querying the database for the number of items in the cart to show on the button*/
+  const cartId = useContext(cartContext);
 
   const fetchCart = () => {
     return fetch("/api/get-cart", {
@@ -33,10 +30,15 @@ const Header = () => {
     }).then((res) => res.json());
   };
 
-  // this function needs to stay to display number of item in the cart
   const cartContentsQuery = useQuery(["cart-query"], fetchCart, {
     enabled: Boolean(cartId),
   });
+
+  /* making the dropdowns close upon clicking outside of their bounds*/
+  const mobileNavRef = useRef<HTMLElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const cartRef = useRef<HTMLDivElement>(null);
+  const cartButtonRef = useRef<HTMLButtonElement>(null);
 
   const closeNav = (e: MouseEvent) => {
     if (
@@ -95,9 +97,10 @@ const Header = () => {
             data-absolute={router.pathname === "/"}
           >
             <button
+              aria-label="Main menu"
               className={styles.hamburger}
               aria-expanded={navExpanded}
-              onClick={() => setNavExpanded((state) => !state)}
+              onClick={() => setNavExpanded(!navExpanded)}
               ref={hamburgerRef}
             ></button>
 
@@ -111,7 +114,7 @@ const Header = () => {
 
             <button
               aria-label="Shopping cart"
-              className={styles["cart-button"]}
+              className={styles.cartButton}
               aria-expanded={cartExpanded}
               onClick={() => setCartExpanded(!cartExpanded)}
               ref={cartButtonRef}

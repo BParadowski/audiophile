@@ -11,7 +11,7 @@ const MobileNav = forwardRef(function MobileNav(
   ref: ForwardedRef<HTMLElement>
 ) {
   return (
-    <nav className={styles.nav} ref={ref}>
+    <nav className={styles.nav} ref={ref} aria-label="Main navigation">
       <div className={styles.dropdown}>
         <ProductCategories onLinkClick={close} />
       </div>
