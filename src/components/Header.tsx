@@ -8,10 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 import { cartContext } from "./CartContextProvider";
 import MobileNav from "./Header/MobileNav";
 import Cart from "./Header/Cart";
+import MainNav from "./Header/MainNav";
 
 const Header = () => {
   const [navExpanded, setNavExpanded] = useState(false);
   const [cartExpanded, setCartExpanded] = useState(false);
+  const cartId = useContext(cartContext);
   const router = useRouter();
 
   /* the router is used to make header background transparent 
@@ -22,7 +24,6 @@ const Header = () => {
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const cartRef = useRef<HTMLDivElement>(null);
   const cartButtonRef = useRef<HTMLButtonElement>(null);
-  const cartId = useContext(cartContext);
 
   const fetchCart = () => {
     return fetch("/api/get-cart", {
@@ -37,28 +38,29 @@ const Header = () => {
     enabled: Boolean(cartId),
   });
 
-  useEffect(() => {
-    const closeNav = (e: MouseEvent) => {
-      if (
-        mobileNavRef.current &&
-        !mobileNavRef.current.contains(e.target as Node) &&
-        hamburgerRef.current &&
-        !hamburgerRef.current.contains(e.target as Node)
-      ) {
-        setNavExpanded(false);
-      }
-    };
-    const closeCart = (e: MouseEvent) => {
-      if (
-        cartButtonRef.current &&
-        !cartButtonRef.current.contains(e.target as Node) &&
-        cartRef.current &&
-        !cartRef.current.contains(e.target as Node)
-      ) {
-        setCartExpanded(false);
-      }
-    };
+  const closeNav = (e: MouseEvent) => {
+    if (
+      mobileNavRef.current &&
+      !mobileNavRef.current.contains(e.target as Node) &&
+      hamburgerRef.current &&
+      !hamburgerRef.current.contains(e.target as Node)
+    ) {
+      setNavExpanded(false);
+    }
+  };
 
+  const closeCart = (e: MouseEvent) => {
+    if (
+      cartButtonRef.current &&
+      !cartButtonRef.current.contains(e.target as Node) &&
+      cartRef.current &&
+      !cartRef.current.contains(e.target as Node)
+    ) {
+      setCartExpanded(false);
+    }
+  };
+
+  useEffect(() => {
     if (navExpanded) {
       window.addEventListener("mousedown", closeNav, true);
       return () => window.removeEventListener("mousedown", closeNav, true);
@@ -89,7 +91,7 @@ const Header = () => {
       <div className="container">
         <div className={styles.wrapper}>
           <div
-            className={styles["flex-container"]}
+            className={styles.flexbox}
             data-absolute={router.pathname === "/"}
           >
             <button
@@ -104,22 +106,9 @@ const Header = () => {
                 <Image src={audiophileLogo} alt="Audiophile logo" />
               </a>
             </Link>
-            <nav className={styles.nav}>
-              <ul role="list">
-                <li>
-                  <Link href="/">home</Link>
-                </li>
-                <li>
-                  <Link href="/headphones">headphones</Link>
-                </li>
-                <li>
-                  <Link href="/speakers">speakers</Link>
-                </li>
-                <li>
-                  <Link href="/earphones">earphones</Link>
-                </li>
-              </ul>
-            </nav>
+
+            <MainNav />
+
             <button
               aria-label="Shopping cart"
               className={styles["cart-button"]}
