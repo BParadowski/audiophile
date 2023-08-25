@@ -77,7 +77,7 @@ const ProductSnippet = ({
   });
 
   return (
-    <div className={styles.grid}>
+    <li className={styles.grid}>
       <Image
         src={`/assets/cart/image-${slug}.jpg`}
         alt=""
@@ -103,7 +103,7 @@ const ProductSnippet = ({
           }
         />
       )}
-    </div>
+    </li>
   );
 };
 

@@ -1,3 +1,52 @@
+@use "../../styles/mixins" as *;
+
 .card {
   display: grid;
+  row-gap: 2rem;
+
+  background-color: var(--clr-white);
+
+  border-radius: var(--border-radius-small);
+  padding-inline: 1.5rem;
+  padding-block: 2rem;
+
+  @include mq(tablet) {
+    padding-inline: 2rem;
+  }
+}
+
+.title {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-400);
+}
+
+.itemList {
+  display: grid;
+  row-gap: 1.5rem;
+}
+
+.linesContainer {
+  display: grid;
+  row-gap: 0.5rem;
+}
+
+.line {
+  display: flex;
+}
+
+.lineName {
+  opacity: 0.5;
+  margin-right: auto;
+  font-size: var(--fs-300);
+}
+
+.price {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-400);
+  opacity: 1;
+}
+
+.priceAccent {
+  @extend .price;
+  color: var(--clr-accent-primary);
 }

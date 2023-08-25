@@ -66,7 +66,7 @@ const Cart = forwardRef(function MobileNav(
             >
               Remove all
             </button>
-            <div className={styles.itemList}>
+            <ul className={styles.itemList}>
               {cartContentsQuery.data.map(
                 (cartItem: CartItem, index: number) => {
                   if (index < 8) {
@@ -83,16 +83,15 @@ const Cart = forwardRef(function MobileNav(
                   } else return null;
                 }
               )}
-            </div>
+            </ul>
             <p className={styles.total}>total</p>
             <p className={styles.price}>
               ${" "}
-              {cartContentsQuery.data.reduce(
-                (total: number, current: CartItem) => {
+              {cartContentsQuery.data
+                .reduce((total: number, current: CartItem) => {
                   return total + current.product.price * current.quantity;
-                },
-                0
-              )}
+                }, 0)
+                .toLocaleString()}
             </p>
             <Link href="/checkout">
               <a className={`${styles.checkout} button-accent`} onClick={close}>

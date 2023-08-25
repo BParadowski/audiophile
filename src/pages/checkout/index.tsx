@@ -10,7 +10,9 @@ const Checkout = () => {
         <div className={styles.checkout}>
           Welcome to the checkout route it is currently in construction!
         </div>
-        <CartSummary />
+        <CartSummary>
+          <button className="button-accent">continue & pay</button>
+        </CartSummary>
       </div>
     </main>
   );
