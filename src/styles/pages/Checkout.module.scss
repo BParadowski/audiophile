@@ -1,3 +1,5 @@
+@use "../mixins" as *;
+
 .background {
   background-color: var(--clr-neutral-v-light);
 }
@@ -6,5 +8,40 @@
   display: grid;
 
   padding: 1.875rem;
+  margin-top: 1.5rem;
   background-color: var(--clr-white);
+  border-radius: var(--border-radius-small);
+}
+
+.heading {
+  font-size: var(--fs-600);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-200);
+}
+
+.fieldsetTitle {
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  text-transform: uppercase;
+  opacity: 1;
+  font-weight: var(--fw-bold);
+  color: var(--clr-accent-primary);
+
+  @include mq(tablet) {
+    margin-top: 3.5rem;
+  }
+}
+
+.wide {
+  grid-column: 1/-1;
+}
+
+.gridFieldset {
+  display: grid;
+  row-gap: 1.5rem;
+
+  @include mq(tablet) {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+  }
 }

@@ -7,6 +7,8 @@ interface InputProps {
   register: UseFormRegister<any>;
   error: FieldError | undefined;
   placeholder?: string;
+  valid: boolean;
+  className?: string;
 }
 
 const TextInput = ({
@@ -15,17 +17,23 @@ const TextInput = ({
   error,
   register,
   placeholder,
+  valid,
+  className,
 }: InputProps) => {
   return (
-    <div className={styles.container}>
-      <label htmlFor={field} className={styles.label}>
-        {label}
-      </label>
-      <p className={styles.error}>{error?.message || ""}</p>
+    <div className={className}>
+      <div className={styles.flex}>
+        <label htmlFor={field} className={styles.label}>
+          {label}
+        </label>
+        <p className={styles.error}>{error?.message || ""}</p>
+      </div>
       <input
         id={field}
         placeholder={placeholder}
         className={styles.input}
+        data-valid={valid}
+        data-error={Boolean(error)}
         {...register(field)}
       />
     </div>
