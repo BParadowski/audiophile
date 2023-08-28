@@ -8,7 +8,6 @@ import Link from "next/link";
 import GoBackButton from "../../../components/Shared/GoBackButton";
 import { getProductPaths, getProductData } from "../../../utils/dbQueries";
 import { Product } from "@prisma/client";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartContext } from "../../../components/CartContextProvider";
 import Counter from "../../../components/Shared/Counter";
 import { useRouter } from "next/router";
@@ -35,29 +34,13 @@ const ProductPage = ({
     quantity: number;
   }>;
 
-  const cartId = useContext(cartContext);
-  const queryClient = useQueryClient();
+  const cart = useContext(cartContext);
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   /* Brings product count back to one every time a user switches product pages */
   useEffect(() => {
     setQuantity(1);
   }, [router.query]);
-
-  const addToCart = (newItem: { productId: Number; quantity: Number }) => {
-    return fetch("/api/add-to-cart", {
-      method: "POST",
-      headers: { "Content-Type": "apllication/json" },
-      body: JSON.stringify({ ...newItem, cartId }),
-    });
-  };
-
-  const mutation = useMutation(addToCart, {
-    onSuccess: async () => {
-      await queryClient.refetchQueries(["cart-query"], { type: "active" });
-      setQuantity(1);
-    },
-  });
 
   return (
     <main>
@@ -90,19 +73,17 @@ const ProductPage = ({
                 }}
                 onPlusClick={() => setQuantity(quantity + 1)}
               />
-              {mutation.isLoading ? (
+              {cart?.addingProduct ? (
                 <button className={`button-accent ${styles.add}`}>
                   Adding...
                 </button>
               ) : (
                 <button
                   className={`button-accent ${styles.add}`}
-                  onClick={() =>
-                    mutation.mutate({
-                      quantity: quantity,
-                      productId: id,
-                    })
-                  }
+                  onClick={() => {
+                    cart?.addItem(id, quantity);
+                    setQuantity(1);
+                  }}
                 >
                   add to cart
                 </button>

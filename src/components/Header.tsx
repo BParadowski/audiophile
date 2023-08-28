@@ -20,19 +20,7 @@ const Header = () => {
   const router = useRouter();
 
   /* querying the database for the number of items in the cart to show on the button*/
-  const cartId = useContext(cartContext);
-
-  const fetchCart = () => {
-    return fetch("/api/get-cart", {
-      method: "POST",
-      headers: { "Content-Type": "apllication/json" },
-      body: JSON.stringify({ cartId }),
-    }).then((res) => res.json());
-  };
-
-  const cartContentsQuery = useQuery(["cart-query"], fetchCart, {
-    enabled: Boolean(cartId),
-  });
+  const cart = useContext(cartContext);
 
   /* making the dropdowns close upon clicking outside of their bounds*/
   const mobileNavRef = useRef<HTMLElement>(null);
@@ -118,7 +106,7 @@ const Header = () => {
               aria-expanded={cartExpanded}
               onClick={() => setCartExpanded(!cartExpanded)}
               ref={cartButtonRef}
-              data-product-count={cartContentsQuery.data?.length ?? "0"}
+              data-product-count={cart?.numberOfItems ?? "0"}
             ></button>
           </div>
         </div>

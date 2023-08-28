@@ -126,7 +126,6 @@
     background-color: var(--clr-neutral-dark);
   }
 }
-
 input[type="radio"] {
   display: grid;
   border: solid 0.0625rem #cecece;
@@ -150,8 +149,8 @@ input[type="radio"] {
     transform: scale(1);
   }
 
-  &:focus {
-    outline: 0.0625rem var(--clr-accent-primary);
+  &:focus-visible {
+    outline: solid 0.125rem var(--clr-accent-primary) !important;
     outline-offset: 0.125rem;
   }
 

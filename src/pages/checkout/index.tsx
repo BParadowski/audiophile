@@ -235,7 +235,7 @@ const Checkout = () => {
           </div>
           <CartSummary>
             <button className="button-accent" type="submit" form="checkoutForm">
-              {method === "card" ? "continue and pay" : "continue"}
+              {method === "card" ? "continue & pay" : "continue"}
             </button>
           </CartSummary>
         </div>

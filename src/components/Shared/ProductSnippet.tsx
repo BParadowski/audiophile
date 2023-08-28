@@ -3,7 +3,6 @@ import Image from "next/future/image";
 import { useContext } from "react";
 import { cartContext } from "../CartContextProvider";
 import Counter from "../Shared/Counter";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface SnippetProps {
   id: number;
@@ -14,16 +13,6 @@ interface SnippetProps {
   displayOnly?: boolean;
 }
 
-interface CartItem {
-  quantity: number;
-  product: {
-    name: string;
-    id: number;
-    slug: string;
-    price: number;
-  };
-}
-
 const ProductSnippet = ({
   id,
   name,
@@ -32,49 +21,7 @@ const ProductSnippet = ({
   slug,
   displayOnly,
 }: SnippetProps) => {
-  const cartId = useContext(cartContext);
-  const queryClient = useQueryClient();
-
-  const updateCart = ({ newQuantity }: { newQuantity: number }) => {
-    return fetch("/api/update-cart", {
-      method: "POST",
-      headers: { "Content-Type": "apllication/json" },
-      body: JSON.stringify({ cartId, productId: id, newQuantity }),
-    });
-  };
-
-  const updateMutation = useMutation(updateCart, {
-    onMutate: async (mutationObject) => {
-      await queryClient.cancelQueries(["cart-query"]);
-
-      // optimistic update
-      if (mutationObject.newQuantity > 0) {
-        queryClient.setQueryData<CartItem[]>(["cart-query"], (oldCart) =>
-          oldCart?.map((item) => {
-            if (item.product.id !== id) return item;
-            else {
-              return {
-                quantity: mutationObject.newQuantity,
-                product: {
-                  id,
-                  slug,
-                  name,
-                  price,
-                },
-              };
-            }
-          })
-        );
-      } else {
-        queryClient.setQueryData<CartItem[]>(["cart-query"], (oldCart) => {
-          return oldCart?.filter((item) => item.product.id !== id);
-        });
-      }
-    },
-    onError: async () => {
-      queryClient.invalidateQueries(["cart-query"]);
-    },
-  });
+  const cart = useContext(cartContext);
 
   return (
     <li className={styles.grid}>
@@ -95,12 +42,8 @@ const ProductSnippet = ({
         <Counter
           number={quantity}
           className={styles.counter}
-          onMinusClick={() =>
-            updateMutation.mutate({ newQuantity: quantity - 1 })
-          }
-          onPlusClick={() =>
-            updateMutation.mutate({ newQuantity: quantity + 1 })
-          }
+          onMinusClick={() => cart?.updateItem(id, quantity - 1)}
+          onPlusClick={() => cart?.updateItem(id, quantity + 1)}
         />
       )}
     </li>
