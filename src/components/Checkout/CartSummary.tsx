@@ -29,7 +29,7 @@ const CartSummary = ({ children }: PropsWithChildren) => {
     enabled: Boolean(cartId),
   });
 
-  let total = cartContentsQuery.data.reduce(
+  let total = cartContentsQuery.data?.reduce(
     (total: number, current: CartItem) => {
       return total + current.product.price * current.quantity;
     },
@@ -58,7 +58,7 @@ const CartSummary = ({ children }: PropsWithChildren) => {
       <div className={styles.linesContainer}>
         <div className={styles.line}>
           <h3 className={styles.lineName}>total</h3>
-          <p className={styles.price}>$ {total.toLocaleString()}</p>
+          <p className={styles.price}>$ {total && total.toLocaleString()}</p>
         </div>
         <div className={styles.line}>
           <h3 className={styles.lineName}>shipping</h3>
@@ -67,13 +67,16 @@ const CartSummary = ({ children }: PropsWithChildren) => {
         <div className={styles.line}>
           <h3 className={styles.lineName}>vat (included)</h3>
           <p className={styles.price}>
-            $ {vat.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+            ${" "}
+            {vat && vat.toLocaleString(undefined, { maximumFractionDigits: 0 })}
           </p>
         </div>
       </div>
       <div className={styles.line}>
         <h3 className={styles.lineName}>grand total</h3>
-        <p className={styles.priceAccent}>$ {(total + 50).toLocaleString()}</p>
+        <p className={styles.priceAccent}>
+          $ {total && (total + 50).toLocaleString()}
+        </p>
       </div>
 
       {children}

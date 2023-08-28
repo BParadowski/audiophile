@@ -13,6 +13,10 @@
   @include mq(tablet) {
     padding-inline: 2rem;
   }
+
+  @include mq(desktop) {
+    align-self: start;
+  }
 }
 
 .title {

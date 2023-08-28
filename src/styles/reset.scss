@@ -52,10 +52,12 @@ picture {
 fieldset {
   all: unset;
   display: block;
+  box-sizing: border-box;
 }
 
 input {
   all: unset;
+  box-sizing: border-box;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

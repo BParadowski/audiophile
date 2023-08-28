@@ -36,7 +36,7 @@ const Footer = () => {
             our demo facility - we’re open 7 days a week.
           </p>
           <p className={styles.copyright}>
-            Copyright 2022. All Rights Reserved
+            Copyright 2023. All Rights Reserved
           </p>
 
           <ul

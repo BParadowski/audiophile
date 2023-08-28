@@ -27,6 +27,7 @@
   font-size: var(--fs-200);
 
   cursor: text;
+  caret-color: var(--clr-accent-primary);
 
   &[data-valid="true"] {
     border-color: var(--clr-accent-primary);
