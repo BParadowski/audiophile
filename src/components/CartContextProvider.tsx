@@ -3,7 +3,7 @@ import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
 export const cartContext = createContext<null | CartContextObject>(null);
 
-interface CartItem {
+export interface CartItem {
   quantity: number;
   product: {
     name: string;

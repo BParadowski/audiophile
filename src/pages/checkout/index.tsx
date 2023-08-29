@@ -7,6 +7,10 @@ import * as z from "zod";
 import TextInput from "../../components/Checkout/TextInput";
 import Image from "next/future/image";
 import PayOnDelivery from "../../../public/assets/checkout/icon-cash-on-delivery.svg";
+import OrderConfirmationModal from "../../components/Checkout/OrderConfirmationModal";
+import { useContext, useEffect, useState } from "react";
+import { cartContext } from "../../components/CartContextProvider";
+import { CartItem } from "../../components/CartContextProvider";
 
 const formSchemaCash = z.object({
   name: z.string().nonempty({ message: "Cannot be empty" }),
@@ -60,7 +64,8 @@ const Checkout = () => {
     register,
     watch,
     handleSubmit,
-    formState: { errors, dirtyFields, isValid, isSubmitting },
+    reset,
+    formState: { errors, dirtyFields, isSubmitSuccessful },
   } = useForm<FormInput>({
     resolver: zodResolver(formSchema),
     mode: "onTouched",
@@ -77,6 +82,22 @@ const Checkout = () => {
       cardPin: "",
     },
   });
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalItems, setModalItems] = useState<CartItem[] | undefined>([]);
+  const [grandTotal, setGrandTotal] = useState<string | undefined>("$ 0");
+  const cart = useContext(cartContext);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      setModalItems(cart?.items);
+      setGrandTotal(cart?.priceWithShipping);
+      setModalOpen(true);
+      cart?.clearCart();
+      reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [isSubmitSuccessful]);
 
   const method = watch("paymentMethod");
 
@@ -240,6 +261,12 @@ const Checkout = () => {
           </CartSummary>
         </div>
       </div>
+      {modalOpen && (
+        <OrderConfirmationModal
+          items={modalItems ?? []}
+          grandTotal={grandTotal ?? "$ 0"}
+        />
+      )}
     </main>
   );
 };

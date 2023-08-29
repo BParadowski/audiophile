@@ -121,4 +121,10 @@
     grid-column: 1/-1;
     column-gap: 2rem;
   }
+
+  @include mq(mobile-only) {
+    p {
+      text-align: center;
+    }
+  }
 }
