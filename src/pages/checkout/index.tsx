@@ -117,7 +117,7 @@ const Checkout = () => {
                   return { itemId: item.product.id, quantity: item.quantity };
                 });
 
-                 await fetch("/api/new-order", {
+                await fetch("/api/new-order", {
                   method: "POST",
                   headers: { "Content-Type": "apllication/json" },
                   body: JSON.stringify({ ...data, items: itemsAbr }),
@@ -236,16 +236,20 @@ const Checkout = () => {
                         field="cardNumber"
                         label="e-Money Number"
                         placeholder="238521993"
+                        // @ts-ignore
                         error={errors.cardNumber}
                         register={register}
+                        // @ts-ignore
                         valid={isFieldValid("cardNumber")}
                       />
                       <TextInput
                         field="cardPin"
                         label="e-Money PIN"
                         placeholder="6891"
+                        // @ts-ignore
                         error={errors.cardPin}
                         register={register}
+                        // @ts-ignore
                         valid={isFieldValid("cardPin")}
                       />
                     </>
