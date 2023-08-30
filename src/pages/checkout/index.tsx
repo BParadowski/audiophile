@@ -112,7 +112,17 @@ const Checkout = () => {
           <div className={styles.checkout}>
             <h1 className={styles.heading}>checkout</h1>
             <form
-              onSubmit={handleSubmit((data) => console.log(data))}
+              onSubmit={handleSubmit(async (data) => {
+                const itemsAbr = cart?.items?.map((item) => {
+                  return { itemId: item.product.id, quantity: item.quantity };
+                });
+
+                 await fetch("/api/new-order", {
+                  method: "POST",
+                  headers: { "Content-Type": "apllication/json" },
+                  body: JSON.stringify({ ...data, items: itemsAbr }),
+                }).then((res) => res.json());
+              })}
               id="checkoutForm"
             >
               <fieldset>

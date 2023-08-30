@@ -17,9 +17,8 @@ export default async function handler(
     paymentMethod,
     cardNumber,
     cardPin,
+    items,
   } = JSON.parse(req.body);
-
-  const items = req.body.items;
 
   try {
     if (paymentMethod === "cash") {
@@ -56,8 +55,8 @@ export default async function handler(
       });
     }
 
-    res.status(200).end();
+    res.status(200).json({ message: "order succesfuly placed" });
   } catch (e) {
-    res.status(500).end();
+    res.status(500).json({ message: "order placing unsuccefull" });
   }
 }
