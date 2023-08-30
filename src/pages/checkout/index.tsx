@@ -65,7 +65,7 @@ const Checkout = () => {
     watch,
     handleSubmit,
     reset,
-    formState: { errors, dirtyFields, isSubmitSuccessful },
+    formState: { errors, dirtyFields, isSubmitSuccessful, isSubmitting },
   } = useForm<FormInput>({
     resolver: zodResolver(formSchema),
     mode: "onTouched",
@@ -255,9 +255,19 @@ const Checkout = () => {
             </form>
           </div>
           <CartSummary>
-            <button className="button-accent" type="submit" form="checkoutForm">
-              {method === "card" ? "continue & pay" : "continue"}
-            </button>
+            {isSubmitting ? (
+              <button className="button-accent" type="button">
+                Placing order...
+              </button>
+            ) : (
+              <button
+                className="button-accent"
+                type="submit"
+                form="checkoutForm"
+              >
+                {method === "card" ? "continue & pay" : "continue"}
+              </button>
+            )}
           </CartSummary>
         </div>
       </div>

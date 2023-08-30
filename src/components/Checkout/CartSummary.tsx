@@ -6,6 +6,15 @@ import ProductSnippet from "../Shared/ProductSnippet";
 const CartSummary = ({ children }: PropsWithChildren) => {
   const cart = useContext(cartContext);
 
+  if (cart?.numberOfItems === 0) {
+    return (
+      <div className={styles.card}>
+        <h2 className={styles.title}>summary</h2>
+        <p>Your cart is empty, there is nothing to check out with!</p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.card}>
       <h2 className={styles.title}>summary</h2>
