@@ -70,9 +70,14 @@ const CartContextProvider = ({ children }: Props) => {
     enabled: Boolean(cartId),
   });
 
-  const clearingMutation = useMutation(["cart-query"], clearCart, {
-    onSuccess: async () => {
-      await queryClient.setQueryData(["cart-query"], []);
+  const clearingMutation = useMutation(["cart-query"], {
+    mutationFn: clearCart,
+
+    onMutate: () => {
+      queryClient.setQueryData(["cart-query"], []);
+    },
+    onError: () => {
+      queryClient.invalidateQueries(["cart-query"]);
     },
   });
 
@@ -120,9 +125,6 @@ const CartContextProvider = ({ children }: Props) => {
     onError: async () => {
       queryClient.invalidateQueries(["cart-query"]);
     },
-    // onSuccess: async () => {
-    //   await queryClient.refetchQueries(["cart-query"], { type: "active" });
-    // },
   });
 
   const addToCart = (newItem: { productId: Number; quantity: Number }) => {
