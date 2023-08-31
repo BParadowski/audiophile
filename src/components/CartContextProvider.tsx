@@ -73,8 +73,9 @@ const CartContextProvider = ({ children }: Props) => {
   const clearingMutation = useMutation(["cart-query"], {
     mutationFn: clearCart,
 
-    onMutate: () => {
-      queryClient.setQueryData(["cart-query"], []);
+    onMutate: async () => {
+      await queryClient.cancelQueries(["cart-query"]);
+      queryClient.setQueryData<CartItem[]>(["cart-query"], (oldData) => []);
     },
     onError: () => {
       queryClient.invalidateQueries(["cart-query"]);
