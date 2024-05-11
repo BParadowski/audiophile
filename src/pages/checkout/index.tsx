@@ -11,53 +11,11 @@ import OrderConfirmationModal from "../../components/Checkout/OrderConfirmationM
 import { useContext, useEffect, useState } from "react";
 import { cartContext } from "../../components/CartContextProvider";
 import { CartItem } from "../../components/CartContextProvider";
-
-const formSchemaCash = z.object({
-  name: z.string().nonempty({ message: "Cannot be empty" }),
-  email: z
-    .string()
-    .nonempty({ message: "Cannot be empty" })
-    .email({ message: "Invalid format" }),
-  phoneNumber: z.string().nonempty({ message: "Cannot be empty" }),
-  address: z.string().nonempty({ message: "Cannot be empty" }),
-  zipCode: z
-    .string()
-    .nonempty({ message: "Cannot be empty" })
-    .regex(/^\d+$/, { message: "Must contain digits only" })
-    .length(5, { message: "Must be 5 digits long" }),
-  city: z.string().nonempty({ message: "Cannot be empty" }),
-  country: z.string().nonempty({ message: "Cannot be empty" }),
-  paymentMethod: z.literal("cash"),
-});
-
-const formSchemaCard = z.object({
-  name: z.string().nonempty({ message: "Cannot be empty" }),
-  email: z
-    .string()
-    .nonempty({ message: "Cannot be empty" })
-    .email({ message: "Invalid format" }),
-  phoneNumber: z.string().nonempty({ message: "Cannot be empty" }),
-  address: z.string().nonempty({ message: "Cannot be empty" }),
-  zipCode: z
-    .string()
-    .nonempty({ message: "Cannot be empty" })
-    .regex(/^\d+$/, { message: "Must contain digits only" })
-    .length(5, { message: "Must be 5 digits long" }),
-  city: z.string().nonempty({ message: "Cannot be empty" }),
-  country: z.string().nonempty({ message: "Cannot be empty" }),
-  paymentMethod: z.literal("card"),
-  cardNumber: z.string().nonempty({ message: "Cannot be empty" }),
-  cardPin: z.string().nonempty({ message: "Cannot be empty" }),
-});
-
-const formSchema = z.discriminatedUnion("paymentMethod", [
-  formSchemaCard,
-  formSchemaCash,
-]);
-
-type FormInput = z.infer<typeof formSchema>;
-
-type Field = keyof FormInput;
+import {
+  formSchema,
+  Field,
+  FormInput,
+} from "../../components/Checkout/formSchema";
 
 const Checkout = () => {
   const {

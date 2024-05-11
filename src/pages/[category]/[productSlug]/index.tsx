@@ -91,6 +91,7 @@ const ProductPage = ({
             </div>
           </div>
         </div>
+
         <div className={styles["grid-features"]}>
           <h2 className={styles["features_heading"]}>features</h2>
           <p className={styles["features_description"]}>{features}</p>
@@ -104,6 +105,7 @@ const ProductPage = ({
             ))}
           </ul>
         </div>
+
         <section aria-label="Product gallery">
           <div className={styles["grid-gallery"]}>
             <Picture
@@ -129,6 +131,7 @@ const ProductPage = ({
             />
           </div>
         </section>
+
         <section aria-labelledby="also-like">
           <h1 id="also-like" className={styles["also-like-heading"]}>
             you may also like
@@ -151,9 +154,11 @@ const ProductPage = ({
             ))}
           </div>
         </section>
+
         <div className={styles["categories-wrapper"]}>
           <ProductCategories />
         </div>
+
         <div className={styles["manifesto-wrapper"]}>
           <Manifesto />
         </div>
