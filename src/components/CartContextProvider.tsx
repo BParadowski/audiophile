@@ -134,20 +134,21 @@ const CartContextProvider = ({ children }: Props) => {
   );
 
   const cart: CartContextObject = {
+    addItem: (productId: number, quantity: number) => {
+      addingMutation.mutate({ productId, quantity });
+    },
+    updateItem: (id: number, newQuantity: number) => {
+      updateMutation.mutate({ newQuantity, id });
+    },
     clearCart: () => {
       clearingMutation.mutate();
     },
+
     items: cartContentsQuery.data,
     numberOfItems: cartContentsQuery.data?.length,
     totalPrice: totalPrice?.toLocaleString(),
     priceWithShipping: (totalPrice + 50).toLocaleString(),
     vat: (totalPrice * 0.2).toLocaleString(),
-    updateItem: (id: number, newQuantity: number) => {
-      updateMutation.mutate({ newQuantity, id });
-    },
-    addItem: (productId: number, quantity: number) => {
-      addingMutation.mutate({ productId, quantity });
-    },
     addingProduct: addingMutation.isLoading,
   };
 

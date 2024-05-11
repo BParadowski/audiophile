@@ -4,7 +4,6 @@ import styles from "./Header.module.scss";
 import audiophileLogo from "../../public/assets/shared/desktop/logo.svg";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
 import { cartContext } from "./CartContextProvider";
 import MobileNav from "./Header/MobileNav";
 import Cart from "./Header/Cart";
