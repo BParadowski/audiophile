@@ -16,11 +16,14 @@ const Home: NextPage = () => {
         <meta name="description" content="Best audio equipment" />
         <link rel="icon" href="/assets/favicon-32x32.png" />
       </Head>
+
       <Hero />
+
       <div className="container">
         <div className={styles["categories-wrapper"]}>
           <ProductCategories />
         </div>
+
         <section
           aria-labelledby="home-section"
           className={styles["products-wrapper"]}
@@ -76,6 +79,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </section>
+
         <div className={styles["manifesto-wrapper"]}>
           <Manifesto />
         </div>
