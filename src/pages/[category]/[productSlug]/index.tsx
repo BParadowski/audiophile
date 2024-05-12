@@ -147,8 +147,8 @@ const ProductPage = ({
                 />
                 {/* Replace shortens the name of some items for design purposes */}
                 <h2>{item.name.replace(/headphones/i, "")}</h2>
-                <Link href={`/${item.categoryName}/${item.slug}`}>
-                  <a className="button-accent">see product</a>
+                <Link href={`/${item.categoryName}/${item.slug}`} className="button-accent">
+                  see product
                 </Link>
               </div>
             ))}

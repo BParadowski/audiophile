@@ -30,8 +30,8 @@ const ProductCard = ({
             {name}
           </h2>
           <p className={styles.description}>{description}</p>
-          <Link href={`/${categoryName}/${slug}`}>
-            <a className="button-accent">see product</a>
+          <Link href={`/${categoryName}/${slug}`} className="button-accent">
+            see product
           </Link>
         </div>
       </div>

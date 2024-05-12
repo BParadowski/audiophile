@@ -91,10 +91,10 @@ const Header = () => {
               ref={hamburgerRef}
             ></button>
 
-            <Link href="/">
-              <a className={styles.logo}>
-                <Image src={audiophileLogo} alt="Audiophile logo" />
-              </a>
+            <Link href="/" className={styles.logo}>
+
+              <Image src={audiophileLogo} alt="Audiophile logo" />
+
             </Link>
 
             <MainNav />

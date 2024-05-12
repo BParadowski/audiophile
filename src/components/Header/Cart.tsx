@@ -44,10 +44,13 @@ const Cart = forwardRef(function MobileNav(
             </ul>
             <p className={styles.total}>total</p>
             <p className={styles.price}>$ {cart.totalPrice}</p>
-            <Link href="/checkout">
-              <a className={`${styles.checkout} button-accent`} onClick={close}>
+            <Link
+              href="/checkout"
+              className={`${styles.checkout} button-accent`}
+              onClick={close}>
+              
                 checkout
-              </a>
+              
             </Link>
           </div>
         ) : (

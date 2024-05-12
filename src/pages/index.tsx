@@ -44,8 +44,8 @@ const Home: NextPage = () => {
                 Upgrade to premium speakers that are phenomenally built to
                 deliver truly remarkable sound.
               </p>
-              <Link href="/speakers/zx9-speaker">
-                <a className="button-neutral-dark">see product</a>
+              <Link href="/speakers/zx9-speaker" className="button-neutral-dark">
+                see product
               </Link>
             </div>
             <div className={styles.medium}>
@@ -58,8 +58,8 @@ const Home: NextPage = () => {
               />
               <div className={styles.medium_wrapper}>
                 <h2 className={styles.medium_heading}>ZX7 SPEAKER</h2>
-                <Link href="/speakers/zx7-speaker">
-                  <a className="button-neutral-light">see product</a>
+                <Link href="/speakers/zx7-speaker" className="button-neutral-light">
+                  see product
                 </Link>
               </div>
             </div>
@@ -72,8 +72,8 @@ const Home: NextPage = () => {
             />
             <div className={styles.small}>
               <h2 className={styles.small_heading}>YX1 EARPHONES</h2>
-              <Link href="/earphones/yx1-earphones">
-                <a className="button-neutral-light">see product</a>
+              <Link href="/earphones/yx1-earphones" className="button-neutral-light">
+                see product
               </Link>
             </div>
           </div>
