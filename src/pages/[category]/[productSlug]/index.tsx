@@ -13,15 +13,15 @@ import Manifesto from "@/components/Shared/Manifesto";
 import Picture from "@/components/Shared/Picture";
 import ProductCategories from "@/components/Shared/ProductCategories";
 
-import { getProductData, getProductPaths } from "@/utils/dbQueries";
+import { getProductData, getProductPaths } from "@/utils/backend/dbQueries";
 
-const ProductPage = ({
-  productData,
-}: {
+interface ProductPageProps {
   productData: Product & {
     relatedProducts: Pick<Product, "name" | "slug" | "categoryName">[];
   };
-}) => {
+}
+
+const ProductPage = ({ productData }: ProductPageProps) => {
   const { id, name, slug, isNew, price, description, features, relatedProducts } = productData;
   const accessories = productData.accessories as Array<{
     item: string;

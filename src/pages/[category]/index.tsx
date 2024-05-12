@@ -4,17 +4,17 @@ import { Product } from "@prisma/client";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import ProductCard from "@/components/Category/ProductCard";
+import ProductCard from "@/components/CategoryPage/ProductCard";
 import Manifesto from "@/components/Shared/Manifesto";
 import ProductCategories from "@/components/Shared/ProductCategories";
 
-import { getCategories, getProductsByCategory } from "@/utils/dbQueries";
+import { getCategories, getProductsByCategory } from "@/utils/backend/dbQueries";
 
-const Category = ({
-  products,
-}: {
+interface CategoryPageProps {
   products: Pick<Product, "name" | "slug" | "categoryName" | "description" | "isNew">[];
-}) => {
+}
+
+const Category = ({ products }: CategoryPageProps) => {
   const router = useRouter();
 
   return (

@@ -3,19 +3,20 @@ import styles from "@/styles/pages/Checkout.module.scss";
 import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { NextPage } from "next";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { CartItem } from "@/components/CartContextProvider";
 import { cartContext } from "@/components/CartContextProvider";
-import CartSummary from "@/components/Checkout/CartSummary";
-import OrderConfirmationModal from "@/components/Checkout/OrderConfirmationModal";
-import TextInput from "@/components/Checkout/TextInput";
-import { Field, FormInput, formSchema } from "@/components/Checkout/formSchema";
+import CartSummary from "@/components/CheckoutPage/CartSummary";
+import OrderConfirmationModal from "@/components/CheckoutPage/OrderConfirmationModal";
+import TextInput from "@/components/CheckoutPage/TextInput";
+import { Field, FormInput, formSchema } from "@/components/CheckoutPage/formSchema";
 import GoBackButton from "@/components/Shared/GoBackButton";
 
-const Checkout = () => {
+const Checkout: NextPage = () => {
   const {
     register,
     watch,

@@ -1,10 +1,8 @@
-import prisma from "../../utils/prisma";
+import prisma from "../../utils/backend/prisma";
+
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { cartId } = JSON.parse(req.body);
   const cart = await prisma.cart.findUnique({
     where: {

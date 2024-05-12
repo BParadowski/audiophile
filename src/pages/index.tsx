@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import Hero from "@/components/Home/Hero";
+import Hero from "@/components/HomePage/Hero";
 import Manifesto from "@/components/Shared/Manifesto";
 import Picture from "@/components/Shared/Picture";
 import ProductCategories from "@/components/Shared/ProductCategories";
