@@ -3,7 +3,6 @@ import styles from "../../styles/pages/Checkout.module.scss";
 import CartSummary from "../../components/Checkout/CartSummary";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import TextInput from "../../components/Checkout/TextInput";
 import Image from "next/image";
 import PayOnDelivery from "../../../public/assets/checkout/icon-cash-on-delivery.svg";
