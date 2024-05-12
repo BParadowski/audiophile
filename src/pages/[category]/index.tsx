@@ -1,19 +1,19 @@
-import { useRouter } from "next/router";
-import { getCategories, getProductsByCategory } from "../../utils/dbQueries";
-import Head from "next/head";
-import styles from "../../styles/pages/Category.module.scss";
-import ProductCategories from "../../components/Shared/ProductCategories";
-import Manifesto from "../../components/Shared/Manifesto";
-import ProductCard from "../../components/Category/ProductCard";
+import styles from "@/styles/pages/Category.module.scss";
+
 import { Product } from "@prisma/client";
+import Head from "next/head";
+import { useRouter } from "next/router";
+
+import ProductCard from "@/components/Category/ProductCard";
+import Manifesto from "@/components/Shared/Manifesto";
+import ProductCategories from "@/components/Shared/ProductCategories";
+
+import { getCategories, getProductsByCategory } from "@/utils/dbQueries";
 
 const Category = ({
   products,
 }: {
-  products: Pick<
-    Product,
-    "name" | "slug" | "categoryName" | "description" | "isNew"
-  >[];
+  products: Pick<Product, "name" | "slug" | "categoryName" | "description" | "isNew">[];
 }) => {
   const router = useRouter();
 
@@ -44,11 +44,7 @@ const Category = ({
 
 export default Category;
 
-export async function getStaticProps({
-  params,
-}: {
-  params: { category: string };
-}) {
+export async function getStaticProps({ params }: { params: { category: string } }) {
   const products = await getProductsByCategory(params.category);
 
   return {

@@ -1,10 +1,12 @@
-import "../styles/globals.scss";
+import "@/styles/globals.scss";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import CartContextProvider from "../components/CartContextProvider";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+import CartContextProvider from "@/components/CartContextProvider";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Layout from "@/components/Layout";
 
 const client = new QueryClient();
 

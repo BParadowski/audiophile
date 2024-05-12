@@ -1,11 +1,13 @@
+import styles from "@/styles/pages/Home.module.scss";
+
 import type { NextPage } from "next";
-import Link from "next/link";
 import Head from "next/head";
-import styles from "../styles/pages/Home.module.scss";
-import Picture from "../components/Shared/Picture";
-import Hero from "../components/Home/Hero";
-import ProductCategories from "../components/Shared/ProductCategories";
-import Manifesto from "../components/Shared/Manifesto";
+import Link from "next/link";
+
+import Hero from "@/components/Home/Hero";
+import Manifesto from "@/components/Shared/Manifesto";
+import Picture from "@/components/Shared/Picture";
+import ProductCategories from "@/components/Shared/ProductCategories";
 
 const Home: NextPage = () => {
   return (
@@ -23,10 +25,7 @@ const Home: NextPage = () => {
           <ProductCategories />
         </div>
 
-        <section
-          aria-labelledby="home-section"
-          className={styles["products-wrapper"]}
-        >
+        <section aria-labelledby="home-section" className={styles["products-wrapper"]}>
           <h1 id="home-section" className="sr-only">
             Most popular
           </h1>
@@ -40,10 +39,7 @@ const Home: NextPage = () => {
                 className={styles.big_picture}
               />
               <h2 className={styles.big_heading}>ZX9 SPEAKER</h2>
-              <p>
-                Upgrade to premium speakers that are phenomenally built to
-                deliver truly remarkable sound.
-              </p>
+              <p>Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.</p>
               <Link href="/speakers/zx9-speaker" className="button-neutral-dark">
                 see product
               </Link>

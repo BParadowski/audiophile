@@ -27,6 +27,5 @@ export default async function handler(
     },
   });
 
-  //   console.log(cart?.contents);
   res.status(200).json(cart?.contents);
 }

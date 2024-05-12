@@ -1,16 +1,19 @@
-import Head from "next/head";
-import styles from "../../../styles/pages/Product.module.scss";
-import ProductCategories from "../../../components/Shared/ProductCategories";
-import Manifesto from "../../../components/Shared/Manifesto";
-import Picture from "../../../components/Shared/Picture";
-import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
-import GoBackButton from "../../../components/Shared/GoBackButton";
-import { getProductPaths, getProductData } from "../../../utils/dbQueries";
+import styles from "@/styles/pages/Product.module.scss";
+
 import { Product } from "@prisma/client";
-import { cartContext } from "../../../components/CartContextProvider";
-import Counter from "../../../components/Shared/Counter";
+import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+
+import { cartContext } from "@/components/CartContextProvider";
+import Counter from "@/components/Shared/Counter";
+import GoBackButton from "@/components/Shared/GoBackButton";
+import Manifesto from "@/components/Shared/Manifesto";
+import Picture from "@/components/Shared/Picture";
+import ProductCategories from "@/components/Shared/ProductCategories";
+
+import { getProductData, getProductPaths } from "@/utils/dbQueries";
 
 const ProductPage = ({
   productData,
@@ -19,16 +22,7 @@ const ProductPage = ({
     relatedProducts: Pick<Product, "name" | "slug" | "categoryName">[];
   };
 }) => {
-  const {
-    id,
-    name,
-    slug,
-    isNew,
-    price,
-    description,
-    features,
-    relatedProducts,
-  } = productData;
+  const { id, name, slug, isNew, price, description, features, relatedProducts } = productData;
   const accessories = productData.accessories as Array<{
     item: string;
     quantity: number;
@@ -75,9 +69,7 @@ const ProductPage = ({
                 onPlusClick={() => setQuantity(quantity + 1)}
               />
               {cart?.addingProduct ? (
-                <button className={`button-accent ${styles.add}`}>
-                  Adding...
-                </button>
+                <button className={`button-accent ${styles.add}`}>Adding...</button>
               ) : (
                 <button
                   className={`button-accent ${styles.add}`}
@@ -148,10 +140,7 @@ const ProductPage = ({
                 />
                 {/* Replace shortens the name of some items for design purposes */}
                 <h2>{item.name.replace(/headphones/i, "")}</h2>
-                <Link
-                  href={`/${item.categoryName}/${item.slug}`}
-                  className="button-accent"
-                >
+                <Link href={`/${item.categoryName}/${item.slug}`} className="button-accent">
                   see product
                 </Link>
               </div>
@@ -173,17 +162,11 @@ const ProductPage = ({
 
 export default ProductPage;
 
-export async function getStaticProps({
-  params,
-}: {
-  params: { category: string; productSlug: string };
-}) {
+export async function getStaticProps({ params }: { params: { category: string; productSlug: string } }) {
   const productData = await getProductData(params.productSlug);
 
   if (!productData) {
-    throw new Error(
-      `Product with slug: [ ${params.productSlug} ] does not exist in the database.`
-    );
+    throw new Error(`Product with slug: [ ${params.productSlug} ] does not exist in the database.`);
   }
   return {
     props: { productData },

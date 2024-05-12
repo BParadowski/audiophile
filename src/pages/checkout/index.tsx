@@ -1,20 +1,19 @@
-import GoBackButton from "../../components/Shared/GoBackButton";
-import styles from "../../styles/pages/Checkout.module.scss";
-import CartSummary from "../../components/Checkout/CartSummary";
-import { useForm } from "react-hook-form";
+import styles from "@/styles/pages/Checkout.module.scss";
+
+import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import TextInput from "../../components/Checkout/TextInput";
 import Image from "next/image";
-import PayOnDelivery from "../../../public/assets/checkout/icon-cash-on-delivery.svg";
-import OrderConfirmationModal from "../../components/Checkout/OrderConfirmationModal";
 import { useContext, useEffect, useState } from "react";
-import { cartContext } from "../../components/CartContextProvider";
-import { CartItem } from "../../components/CartContextProvider";
-import {
-  formSchema,
-  Field,
-  FormInput,
-} from "../../components/Checkout/formSchema";
+import { useForm } from "react-hook-form";
+
+import { CartItem } from "@/components/CartContextProvider";
+import { cartContext } from "@/components/CartContextProvider";
+import CartSummary from "@/components/Checkout/CartSummary";
+import OrderConfirmationModal from "@/components/Checkout/OrderConfirmationModal";
+import TextInput from "@/components/Checkout/TextInput";
+import { Field, FormInput, formSchema } from "@/components/Checkout/formSchema";
+import GoBackButton from "@/components/Shared/GoBackButton";
 
 const Checkout = () => {
   const {
@@ -58,8 +57,7 @@ const Checkout = () => {
 
   const method = watch("paymentMethod");
 
-  const isFieldValid = (field: Field) =>
-    Boolean(dirtyFields[field] && !errors[field]);
+  const isFieldValid = (field: Field) => Boolean(dirtyFields[field] && !errors[field]);
 
   return (
     <main className={styles.background}>
@@ -170,19 +168,11 @@ const Checkout = () => {
                   <p className={styles.paymentTitle}>Payment Method</p>
                   <div className={styles.radios}>
                     <label className={styles.radio}>
-                      <input
-                        {...register("paymentMethod")}
-                        type="radio"
-                        value="card"
-                      />
+                      <input {...register("paymentMethod")} type="radio" value="card" />
                       e-Money
                     </label>
                     <label className={styles.radio}>
-                      <input
-                        {...register("paymentMethod")}
-                        type="radio"
-                        value="cash"
-                      />
+                      <input {...register("paymentMethod")} type="radio" value="cash" />
                       Cash on Delivery
                     </label>
                   </div>
@@ -214,10 +204,8 @@ const Checkout = () => {
                     <div className={styles.cashMessage}>
                       <Image src={PayOnDelivery} alt=""></Image>
                       <p>
-                        The ‘Cash on Delivery’ option enables you to pay in cash
-                        when our delivery courier arrives at your residence.
-                        Just make sure your address is correct so that your
-                        order will not be cancelled.
+                        The ‘Cash on Delivery’ option enables you to pay in cash when our delivery courier arrives at
+                        your residence. Just make sure your address is correct so that your order will not be cancelled.
                       </p>
                     </div>
                   )}
@@ -231,23 +219,14 @@ const Checkout = () => {
                 Placing order...
               </button>
             ) : (
-              <button
-                className="button-accent"
-                type="submit"
-                form="checkoutForm"
-              >
+              <button className="button-accent" type="submit" form="checkoutForm">
                 {method === "card" ? "continue & pay" : "continue"}
               </button>
             )}
           </CartSummary>
         </div>
       </div>
-      {modalOpen && (
-        <OrderConfirmationModal
-          items={modalItems ?? []}
-          grandTotal={grandTotal ?? "$ 0"}
-        />
-      )}
+      {modalOpen && <OrderConfirmationModal items={modalItems ?? []} grandTotal={grandTotal ?? "$ 0"} />}
     </main>
   );
 };
