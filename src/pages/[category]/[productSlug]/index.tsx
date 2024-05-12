@@ -37,6 +37,7 @@ const ProductPage = ({
   const cart = useContext(cartContext);
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
+
   /* Brings product count back to one every time a user switches product pages */
   useEffect(() => {
     setQuantity(1);
@@ -133,9 +134,9 @@ const ProductPage = ({
         </section>
 
         <section aria-labelledby="also-like">
-          <h1 id="also-like" className={styles["also-like-heading"]}>
+          <h2 id="also-like" className={styles["also-like-heading"]}>
             you may also like
-          </h1>
+          </h2>
           <div className={styles["grid-also-like"]}>
             {relatedProducts.map((item) => (
               <div key={item.slug} className={styles["item-card"]}>
@@ -147,7 +148,10 @@ const ProductPage = ({
                 />
                 {/* Replace shortens the name of some items for design purposes */}
                 <h2>{item.name.replace(/headphones/i, "")}</h2>
-                <Link href={`/${item.categoryName}/${item.slug}`} className="button-accent">
+                <Link
+                  href={`/${item.categoryName}/${item.slug}`}
+                  className="button-accent"
+                >
                   see product
                 </Link>
               </div>
