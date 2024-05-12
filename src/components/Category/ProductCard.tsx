@@ -1,6 +1,8 @@
-import Picture from "../Shared/Picture";
 import styles from "./ProductCard.module.scss";
+
 import Link from "next/link";
+
+import Picture from "@/components/Shared/Picture";
 
 const ProductCard = ({
   product,

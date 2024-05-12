@@ -1,6 +1,7 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext } from "react";
-import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
-import useCartId from "../hooks/useCartId";
+
+import useCartId from "@/hooks/useCartId";
 
 export const cartContext = createContext<null | CartContextObject>(null);
 
@@ -66,13 +67,7 @@ const CartContextProvider = ({ children }: Props) => {
     },
   });
 
-  const updateCart = ({
-    newQuantity,
-    id,
-  }: {
-    newQuantity: number;
-    id: number;
-  }) => {
+  const updateCart = ({ newQuantity, id }: { newQuantity: number; id: number }) => {
     return fetch("/api/update-cart", {
       method: "POST",
       headers: { "Content-Type": "apllication/json" },
@@ -101,9 +96,7 @@ const CartContextProvider = ({ children }: Props) => {
         );
       } else {
         queryClient.setQueryData<CartItem[]>(["cart-query"], (oldCart) => {
-          return oldCart?.filter(
-            (item) => item.product.id !== mutationObject.id
-          );
+          return oldCart?.filter((item) => item.product.id !== mutationObject.id);
         });
       }
     },
@@ -126,12 +119,9 @@ const CartContextProvider = ({ children }: Props) => {
     },
   });
 
-  const totalPrice = cartContentsQuery.data?.reduce(
-    (total: number, current: CartItem) => {
-      return total + current.product.price * current.quantity;
-    },
-    0
-  );
+  const totalPrice = cartContentsQuery.data?.reduce((total: number, current: CartItem) => {
+    return total + current.product.price * current.quantity;
+  }, 0);
 
   const cart: CartContextObject = {
     addItem: (productId: number, quantity: number) => {

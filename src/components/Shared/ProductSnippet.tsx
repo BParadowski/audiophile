@@ -1,8 +1,10 @@
 import styles from "./ProductSnippet.module.scss";
+
 import Image from "next/image";
 import { useContext } from "react";
-import { cartContext } from "../CartContextProvider";
-import Counter from "../Shared/Counter";
+
+import { cartContext } from "@/components/CartContextProvider";
+import Counter from "@/components/Shared/Counter";
 
 interface SnippetProps {
   id: number;
@@ -13,14 +15,7 @@ interface SnippetProps {
   displayOnly?: boolean;
 }
 
-const ProductSnippet = ({
-  id,
-  name,
-  price,
-  quantity,
-  slug,
-  displayOnly,
-}: SnippetProps) => {
+const ProductSnippet = ({ id, name, price, quantity, slug, displayOnly }: SnippetProps) => {
   const cart = useContext(cartContext);
 
   return (
@@ -32,9 +27,7 @@ const ProductSnippet = ({
         width={150}
         height={150}
       />
-      <p className={styles.name}>
-        {name.replaceAll(/headphones|earphones|speaker|wireless/gi, "")}
-      </p>
+      <p className={styles.name}>{name.replaceAll(/headphones|earphones|speaker|wireless/gi, "")}</p>
       <p className={styles.price}>{`$ ${price}`}</p>
       {displayOnly ? (
         <p className={styles.amount}>{quantity}x</p>

@@ -1,10 +1,12 @@
 import styles from "./Footer.module.scss";
+
+import iconFacebook from "@/public/assets/shared/desktop/icon-facebook.svg";
+import iconInstagram from "@/public/assets/shared/desktop/icon-instagram.svg";
+import iconTwitter from "@/public/assets/shared/desktop/icon-twitter.svg";
+import audiophileLogo from "@/public/assets/shared/desktop/logo.svg";
+
 import Image from "next/image";
 import Link from "next/link";
-import audiophileLogo from "../../public/assets/shared/desktop/logo.svg";
-import iconFacebook from "../../public/assets/shared/desktop/icon-facebook.svg";
-import iconInstagram from "../../public/assets/shared/desktop/icon-instagram.svg";
-import iconTwitter from "../../public/assets/shared/desktop/icon-twitter.svg";
 
 const Footer = () => {
   return (
@@ -30,20 +32,13 @@ const Footer = () => {
             </ul>
           </nav>
           <p className={styles.description}>
-            Audiophile is an all in one stop to fulfill your audio needs. We’re
-            a small team of music lovers and sound specialists who are devoted
-            to helping you get the most out of personal audio. Come and visit
-            our demo facility - we’re open 7 days a week.
+            Audiophile is an all in one stop to fulfill your audio needs. We’re a small team of music lovers and sound
+            specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo
+            facility - we’re open 7 days a week.
           </p>
-          <p className={styles.copyright}>
-            Copyright 2023. All Rights Reserved
-          </p>
+          <p className={styles.copyright}>Copyright 2023. All Rights Reserved</p>
 
-          <ul
-            className={styles.socials}
-            role="list"
-            aria-label="Social media links"
-          >
+          <ul className={styles.socials} role="list" aria-label="Social media links">
             <li>
               <a href="" aria-label="Facebook">
                 <Image src={iconFacebook} className={styles.icon} alt="" />

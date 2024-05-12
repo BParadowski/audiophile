@@ -6,7 +6,8 @@
     "^@/public/(.*)$",
     "<THIRD_PARTY_MODULES>",
     "^@/components/(.*)$",
-    "^@/utils.(.*)$"
+    "^@/utils.(.*)$",
+    "^@/hooks.(.*)$"
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,

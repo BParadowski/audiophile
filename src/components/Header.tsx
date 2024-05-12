@@ -1,13 +1,16 @@
-import Image from "next/image";
-import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Header.module.scss";
-import audiophileLogo from "../../public/assets/shared/desktop/logo.svg";
+
+import audiophileLogo from "@/public/assets/shared/desktop/logo.svg";
+
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { cartContext } from "./CartContextProvider";
-import MobileNav from "./Header/MobileNav";
-import Cart from "./Header/Cart";
-import MainNav from "./Header/MainNav";
+import { useContext, useEffect, useRef, useState } from "react";
+
+import { cartContext } from "@/components/CartContextProvider";
+import Cart from "@/components/Header/Cart";
+import MainNav from "@/components/Header/MainNav";
+import MobileNav from "@/components/Header/MobileNav";
 
 const Header = () => {
   const [navExpanded, setNavExpanded] = useState(false);
@@ -62,27 +65,16 @@ const Header = () => {
   return (
     <header className={styles.header} data-absolute={router.pathname === "/"}>
       {/* Mobile nav and cart dropdowns */}
-      {navExpanded && (
-        <MobileNav close={() => setNavExpanded(false)} ref={mobileNavRef} />
-      )}
-      {cartExpanded && (
-        <Cart close={() => setCartExpanded(false)} ref={cartRef} />
-      )}
+      {navExpanded && <MobileNav close={() => setNavExpanded(false)} ref={mobileNavRef} />}
+      {cartExpanded && <Cart close={() => setCartExpanded(false)} ref={cartRef} />}
 
       {/* Backdrop for both */}
-      <div
-        className={styles.backdrop}
-        data-cart-open={cartExpanded}
-        data-nav-open={navExpanded}
-      ></div>
+      <div className={styles.backdrop} data-cart-open={cartExpanded} data-nav-open={navExpanded}></div>
 
       {/* Actual header */}
       <div className="container">
         <div className={styles.wrapper}>
-          <div
-            className={styles.flexbox}
-            data-absolute={router.pathname === "/"}
-          >
+          <div className={styles.flexbox} data-absolute={router.pathname === "/"}>
             <button
               aria-label="Main menu"
               className={styles.hamburger}
@@ -92,9 +84,7 @@ const Header = () => {
             ></button>
 
             <Link href="/" className={styles.logo}>
-
               <Image src={audiophileLogo} alt="Audiophile logo" />
-
             </Link>
 
             <MainNav />

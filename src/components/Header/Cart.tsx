@@ -1,17 +1,16 @@
-import { forwardRef, ForwardedRef, useContext } from "react";
 import styles from "./Cart.module.scss";
-import { cartContext } from "../CartContextProvider";
-import ProductSnippet from "../Shared/ProductSnippet";
+
 import Link from "next/link";
+import { ForwardedRef, forwardRef, useContext } from "react";
+
+import { cartContext } from "@/components/CartContextProvider";
+import ProductSnippet from "@/components/Shared/ProductSnippet";
 
 interface cartProps {
   close: () => void;
 }
 
-const Cart = forwardRef(function MobileNav(
-  { close }: cartProps,
-  ref: ForwardedRef<HTMLDivElement>
-) {
+const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedRef<HTMLDivElement>) {
   const cart = useContext(cartContext);
 
   return (
@@ -20,10 +19,7 @@ const Cart = forwardRef(function MobileNav(
         {cart && cart.items?.length && cart.items.length > 0 ? (
           <div className={styles.grid}>
             <p className={styles.title}>Cart ({cart.items?.length})</p>
-            <button
-              className={styles.removeAll}
-              onClick={() => cart.clearCart()}
-            >
+            <button className={styles.removeAll} onClick={() => cart.clearCart()}>
               Remove all
             </button>
             <ul className={styles.itemList}>
@@ -44,13 +40,8 @@ const Cart = forwardRef(function MobileNav(
             </ul>
             <p className={styles.total}>total</p>
             <p className={styles.price}>$ {cart.totalPrice}</p>
-            <Link
-              href="/checkout"
-              className={`${styles.checkout} button-accent`}
-              onClick={close}>
-              
-                checkout
-              
+            <Link href="/checkout" className={`${styles.checkout} button-accent`} onClick={close}>
+              checkout
             </Link>
           </div>
         ) : (

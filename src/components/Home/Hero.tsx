@@ -1,6 +1,8 @@
-import Picture from "../Shared/Picture";
 import styles from "./Hero.module.scss";
+
 import Link from "next/link";
+
+import Picture from "@/components/Shared/Picture";
 
 const Hero = () => {
   return (
@@ -11,8 +13,7 @@ const Hero = () => {
             <h1 className={styles["new-product"]}>new product</h1>
             <h2>XX99 Mark II HeadphoneS</h2>
             <p className={styles["hero-text"]}>
-              Experience natural, lifelike audio and exceptional build quality
-              made for the passionate music enthusiast.
+              Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.
             </p>
             <Link href="/headphones/xx99-mark-two-headphones" className="button-accent">
               see product

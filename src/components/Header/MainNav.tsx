@@ -1,4 +1,5 @@
 import styles from "./MainNav.module.scss";
+
 import Link from "next/link";
 
 const MainNav = () => {

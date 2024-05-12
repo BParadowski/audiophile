@@ -1,7 +1,9 @@
 import styles from "./CartSummary.module.scss";
+
 import { PropsWithChildren, useContext } from "react";
-import { cartContext } from "../CartContextProvider";
-import ProductSnippet from "../Shared/ProductSnippet";
+
+import { cartContext } from "@/components/CartContextProvider";
+import ProductSnippet from "@/components/Shared/ProductSnippet";
 
 const CartSummary = ({ children }: PropsWithChildren) => {
   const cart = useContext(cartContext);

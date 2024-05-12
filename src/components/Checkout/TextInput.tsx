@@ -1,5 +1,6 @@
-import { UseFormRegister, FieldError } from "react-hook-form";
 import styles from "./TextInput.module.scss";
+
+import { FieldError, UseFormRegister } from "react-hook-form";
 
 interface InputProps {
   field: string;
@@ -11,15 +12,7 @@ interface InputProps {
   className?: string;
 }
 
-const TextInput = ({
-  field,
-  label,
-  error,
-  register,
-  placeholder,
-  valid,
-  className,
-}: InputProps) => {
+const TextInput = ({ field, label, error, register, placeholder, valid, className }: InputProps) => {
   return (
     <div className={className}>
       <div className={styles.flex}>

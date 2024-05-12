@@ -1,6 +1,7 @@
+import styles from "./GoBackButton.module.scss";
+
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import styles from "./GoBackButton.module.scss";
 
 const GoBackButton = () => {
   const router = useRouter();
