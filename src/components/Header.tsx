@@ -1,4 +1,4 @@
-import Image from "next/future/image";
+import Image from "next/image";
 import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Header.module.scss";
 import audiophileLogo from "../../public/assets/shared/desktop/logo.svg";

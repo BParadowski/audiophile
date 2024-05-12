@@ -1,5 +1,5 @@
 import styles from "./Footer.module.scss";
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 import audiophileLogo from "../../public/assets/shared/desktop/logo.svg";
 import iconFacebook from "../../public/assets/shared/desktop/icon-facebook.svg";

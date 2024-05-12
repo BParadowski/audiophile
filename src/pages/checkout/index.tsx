@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import TextInput from "../../components/Checkout/TextInput";
-import Image from "next/future/image";
+import Image from "next/image";
 import PayOnDelivery from "../../../public/assets/checkout/icon-cash-on-delivery.svg";
 import OrderConfirmationModal from "../../components/Checkout/OrderConfirmationModal";
 import { useContext, useEffect, useState } from "react";

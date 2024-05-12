@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/future/image";
+import Image from "next/image";
 import styles from "./ProductCategories.module.scss";
 import earphonesImg from "../../../public/assets/shared/desktop/image-category-thumbnail-earphones.png";
 import speakersImg from "../../../public/assets/shared/desktop/image-category-thumbnail-speakers.png";

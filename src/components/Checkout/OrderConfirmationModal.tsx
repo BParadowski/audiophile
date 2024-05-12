@@ -1,4 +1,4 @@
-import Image from "next/future/image";
+import Image from "next/image";
 import Confirmation from "../../../public/assets/checkout/icon-order-confirmation.svg";
 import Link from "next/link";
 import styles from "./OrderConfirmationModal.module.scss";

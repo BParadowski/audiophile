@@ -1,5 +1,5 @@
 import styles from "./ProductSnippet.module.scss";
-import Image from "next/future/image";
+import Image from "next/image";
 import { useContext } from "react";
 import { cartContext } from "../CartContextProvider";
 import Counter from "../Shared/Counter";
