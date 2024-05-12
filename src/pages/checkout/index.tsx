@@ -1,29 +1,21 @@
 import styles from "@/styles/pages/Checkout.module.scss";
 
-import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
-import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 
 import { CartItem } from "@/components/CartContextProvider";
 import { cartContext } from "@/components/CartContextProvider";
 import CartSummary from "@/components/CheckoutPage/CartSummary";
+import CheckoutForm from "@/components/CheckoutPage/CheckoutForm";
 import OrderConfirmationModal from "@/components/CheckoutPage/OrderConfirmationModal";
-import TextInput from "@/components/CheckoutPage/TextInput";
-import { Field, FormInput, formSchema } from "@/components/CheckoutPage/formSchema";
+import { FormInput, formSchema } from "@/components/CheckoutPage/formSchema";
 import GoBackButton from "@/components/Shared/GoBackButton";
 
 const Checkout: NextPage = () => {
-  const {
-    register,
-    watch,
-    handleSubmit,
-    reset,
-    formState: { errors, dirtyFields, isSubmitSuccessful, isSubmitting },
-  } = useForm<FormInput>({
+  const formMethodsAndProperties = useForm<FormInput>({
     resolver: zodResolver(formSchema),
     mode: "onTouched",
     defaultValues: {
@@ -39,6 +31,13 @@ const Checkout: NextPage = () => {
       cardPin: "",
     },
   });
+
+  const {
+    watch,
+    reset,
+    handleSubmit,
+    formState: { isSubmitSuccessful, isSubmitting },
+  } = formMethodsAndProperties;
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalItems, setModalItems] = useState<CartItem[] | undefined>([]);
@@ -56,178 +55,43 @@ const Checkout: NextPage = () => {
     }
   }, [isSubmitSuccessful]);
 
-  const method = watch("paymentMethod");
+  const selectedPaymentMethod = watch("paymentMethod");
 
-  const isFieldValid = (field: Field) => Boolean(dirtyFields[field] && !errors[field]);
+  const submitForm = handleSubmit(async (data) => {
+    const itemsAbr = cart?.items?.map((item) => {
+      return { itemId: item.product.id, quantity: item.quantity };
+    });
+
+    await fetch("/api/new-order", {
+      method: "POST",
+      headers: { "Content-Type": "apllication/json" },
+      body: JSON.stringify({ ...data, items: itemsAbr }),
+    }).then((res) => res.json());
+  });
 
   return (
     <main className={styles.background}>
       <div className="container">
         <GoBackButton />
         <div className={styles.layout}>
-          <div className={styles.checkout}>
-            <h1 className={styles.heading}>checkout</h1>
-            <form
-              onSubmit={handleSubmit(async (data) => {
-                const itemsAbr = cart?.items?.map((item) => {
-                  return { itemId: item.product.id, quantity: item.quantity };
-                });
+          <FormProvider {...formMethodsAndProperties}>
+            <CheckoutForm />
 
-                await fetch("/api/new-order", {
-                  method: "POST",
-                  headers: { "Content-Type": "apllication/json" },
-                  body: JSON.stringify({ ...data, items: itemsAbr }),
-                }).then((res) => res.json());
-              })}
-              id="checkoutForm"
-            >
-              <fieldset>
-                <legend className="sr-only">billing details</legend>
-                <p aria-hidden="true" className={styles.fieldsetTitle}>
-                  billing details
-                </p>
-
-                <div className={styles.gridFieldset}>
-                  <TextInput
-                    field="name"
-                    label="Name"
-                    placeholder="Alexei Ward"
-                    error={errors.name}
-                    register={register}
-                    valid={isFieldValid("name")}
-                  />
-
-                  <TextInput
-                    field="email"
-                    label="Email Adress"
-                    placeholder="alexei@mail.com"
-                    error={errors.email}
-                    register={register}
-                    valid={isFieldValid("email")}
-                  />
-
-                  <TextInput
-                    field="phoneNumber"
-                    label="Phone Number"
-                    placeholder="+1 (202) 555-0136"
-                    error={errors.phoneNumber}
-                    register={register}
-                    valid={isFieldValid("phoneNumber")}
-                  />
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend className="sr-only">shipping info</legend>
-                <p aria-hidden="true" className={styles.fieldsetTitle}>
-                  shipping info
-                </p>
-
-                <div className={styles.gridFieldset}>
-                  <TextInput
-                    className={styles.wide}
-                    field="address"
-                    label="Your Address"
-                    placeholder="1137 Williams Avenue"
-                    error={errors.address}
-                    register={register}
-                    valid={isFieldValid("address")}
-                  />
-
-                  <TextInput
-                    field="zipCode"
-                    label="Zip Code"
-                    placeholder="10001"
-                    error={errors.zipCode}
-                    register={register}
-                    valid={isFieldValid("zipCode")}
-                  />
-
-                  <TextInput
-                    field="city"
-                    label="City"
-                    placeholder="New York"
-                    error={errors.city}
-                    register={register}
-                    valid={isFieldValid("city")}
-                  />
-                  <TextInput
-                    field="country"
-                    label="Country"
-                    placeholder="United States"
-                    error={errors.country}
-                    register={register}
-                    valid={isFieldValid("country")}
-                  />
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend className="sr-only">payment details</legend>
-                <p aria-hidden="true" className={styles.fieldsetTitle}>
-                  payment details
-                </p>
-                <div className={styles.gridFieldset}>
-                  <p className={styles.paymentTitle}>Payment Method</p>
-                  <div className={styles.radios}>
-                    <label className={styles.radio}>
-                      <input {...register("paymentMethod")} type="radio" value="card" />
-                      e-Money
-                    </label>
-                    <label className={styles.radio}>
-                      <input {...register("paymentMethod")} type="radio" value="cash" />
-                      Cash on Delivery
-                    </label>
-                  </div>
-
-                  {method === "card" ? (
-                    <>
-                      <TextInput
-                        field="cardNumber"
-                        label="e-Money Number"
-                        placeholder="238521993"
-                        // @ts-ignore
-                        error={errors.cardNumber}
-                        register={register}
-                        // @ts-ignore
-                        valid={isFieldValid("cardNumber")}
-                      />
-                      <TextInput
-                        field="cardPin"
-                        label="e-Money PIN"
-                        placeholder="6891"
-                        // @ts-ignore
-                        error={errors.cardPin}
-                        register={register}
-                        // @ts-ignore
-                        valid={isFieldValid("cardPin")}
-                      />
-                    </>
-                  ) : (
-                    <div className={styles.cashMessage}>
-                      <Image src={PayOnDelivery} alt=""></Image>
-                      <p>
-                        The ‘Cash on Delivery’ option enables you to pay in cash when our delivery courier arrives at
-                        your residence. Just make sure your address is correct so that your order will not be cancelled.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </fieldset>
-            </form>
-          </div>
-          <CartSummary>
-            {isSubmitting ? (
-              <button className="button-accent" type="button">
-                Placing order...
-              </button>
-            ) : (
-              <button className="button-accent" type="submit" form="checkoutForm">
-                {method === "card" ? "continue & pay" : "continue"}
-              </button>
-            )}
-          </CartSummary>
+            <CartSummary>
+              {isSubmitting ? (
+                <button className="button-accent" type="button">
+                  Placing order...
+                </button>
+              ) : (
+                <button className="button-accent" type="submit" onClick={() => submitForm()}>
+                  {selectedPaymentMethod === "card" ? "continue & pay" : "continue"}
+                </button>
+              )}
+            </CartSummary>
+            {modalOpen && <OrderConfirmationModal items={modalItems ?? []} grandTotal={grandTotal ?? "$ 0"} />}
+          </FormProvider>
         </div>
       </div>
-      {modalOpen && <OrderConfirmationModal items={modalItems ?? []} grandTotal={grandTotal ?? "$ 0"} />}
     </main>
   );
 };

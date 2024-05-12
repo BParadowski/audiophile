@@ -1,4 +1,4 @@
-@use "../styles/mixins" as *;
+@use "../../styles/mixins" as *;
 
 // desktop first
 
@@ -88,7 +88,7 @@
     width: 1rem;
     height: 1rem;
 
-    background-image: url("../../public/assets/shared/tablet/icon-hamburger.svg");
+    background-image: url("../../../public/assets/shared/tablet/icon-hamburger.svg");
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -109,7 +109,7 @@
 
 .cartButton {
   position: relative;
-  background-image: url("../../public/assets/shared/desktop/icon-cart.svg");
+  background-image: url("../../../public/assets/shared/desktop/icon-cart.svg");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

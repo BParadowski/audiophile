@@ -1,0 +1,21 @@
+.radio {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+
+  padding: 1rem;
+
+  border: 0.0625rem solid #cfcfcf;
+  border-radius: var(--border-radius-small);
+
+  font-size: var(--fs-200);
+  font-weight: var(--fw-bold);
+
+  cursor: pointer;
+
+  // won't work on mozilla until they implement has() selector, too bad
+  &:has(input:checked),
+  &:hover {
+    border-color: var(--clr-accent-primary);
+  }
+}

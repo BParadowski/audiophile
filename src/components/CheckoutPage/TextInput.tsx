@@ -1,25 +1,31 @@
 import styles from "./TextInput.module.scss";
+import { Field } from "./formSchema";
 
-import { FieldError, UseFormRegister } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 interface InputProps {
-  field: string;
+  field: Field;
   label: string;
-  register: UseFormRegister<any>;
-  error: FieldError | undefined;
   placeholder?: string;
-  valid: boolean;
   className?: string;
 }
 
-const TextInput = ({ field, label, error, register, placeholder, valid, className }: InputProps) => {
+const TextInput = ({ field, label, placeholder, className }: InputProps) => {
+  const {
+    register,
+    formState: { errors, dirtyFields },
+  } = useFormContext();
+
+  const error = errors[field];
+  const valid = Boolean(dirtyFields[field] && !errors[field]);
+
   return (
     <div className={className}>
       <div className={styles.flex}>
         <label htmlFor={field} className={styles.label}>
           {label}
         </label>
-        <p className={styles.error}>{error?.message || ""}</p>
+        <p className={styles.error}>{error ? `${error?.message}` : ""}</p>
       </div>
       <input
         id={field}

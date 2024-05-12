@@ -1,4 +1,4 @@
-@use "../styles/mixins" as *;
+@use "../../styles/mixins" as *;
 
 .footer {
   background-color: var(--clr-neutral-v-dark);
@@ -83,8 +83,8 @@
     margin-top: 3rem;
 
     .icon:hover {
-      filter: brightness(0) saturate(100%) invert(71%) sepia(55%)
-        saturate(2873%) hue-rotate(328deg) brightness(91%) contrast(85%);
+      filter: brightness(0) saturate(100%) invert(71%) sepia(55%) saturate(2873%) hue-rotate(328deg) brightness(91%)
+        contrast(85%);
     }
   }
 }
