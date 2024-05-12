@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import Head from "next/head";
-import Image from "next/future/image";
 import styles from "../styles/pages/Home.module.scss";
 import Picture from "../components/Shared/Picture";
 import Hero from "../components/Home/Hero";
