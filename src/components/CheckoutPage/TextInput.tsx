@@ -1,10 +1,10 @@
 import styles from "./TextInput.module.scss";
-import { Field } from "./formSchema";
+import { FormField } from "./formSchema";
 
 import { useFormContext } from "react-hook-form";
 
 interface InputProps {
-  field: Field;
+  field: FormField;
   label: string;
   placeholder?: string;
   className?: string;

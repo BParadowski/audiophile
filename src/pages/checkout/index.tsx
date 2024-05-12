@@ -11,11 +11,11 @@ import { cartContext } from "@/components/CartContextProvider";
 import CartSummary from "@/components/CheckoutPage/CartSummary";
 import CheckoutForm from "@/components/CheckoutPage/CheckoutForm";
 import OrderConfirmationModal from "@/components/CheckoutPage/OrderConfirmationModal";
-import { FormInput, formSchema } from "@/components/CheckoutPage/formSchema";
+import { FormField, FormSchemaType, formSchema } from "@/components/CheckoutPage/formSchema";
 import GoBackButton from "@/components/Shared/GoBackButton";
 
 const Checkout: NextPage = () => {
-  const formMethodsAndProperties = useForm<FormInput>({
+  const formMethodsAndProperties = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     mode: "onTouched",
     defaultValues: {

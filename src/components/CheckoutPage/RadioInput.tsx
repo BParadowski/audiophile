@@ -1,10 +1,10 @@
 import styles from "./RadioInput.module.scss";
-import { Field } from "./formSchema";
+import { FormField } from "./formSchema";
 
 import { useFormContext } from "react-hook-form";
 
 interface RadioInputProps {
-  field: Field;
+  field: FormField;
   value: string;
   text: string;
 }
