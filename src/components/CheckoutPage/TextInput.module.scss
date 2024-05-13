@@ -29,7 +29,7 @@
   cursor: text;
   caret-color: var(--clr-accent-primary);
 
-  &[data-valid="true"] {
+  &[aria-invalid="false"] {
     border-color: var(--clr-accent-primary);
   }
 

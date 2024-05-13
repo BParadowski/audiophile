@@ -5,12 +5,12 @@ import { useFormContext } from "react-hook-form";
 
 interface InputProps {
   field: FormField;
-  label: string;
+  labelText: string;
   placeholder?: string;
   className?: string;
 }
 
-const TextInput = ({ field, label, placeholder, className }: InputProps) => {
+const TextInput = ({ field, labelText, placeholder, className }: InputProps) => {
   const {
     register,
     formState: { errors, dirtyFields },
@@ -23,15 +23,17 @@ const TextInput = ({ field, label, placeholder, className }: InputProps) => {
     <div className={className}>
       <div className={styles.flex}>
         <label htmlFor={field} className={styles.label}>
-          {label}
+          {labelText}
         </label>
-        <p className={styles.error}>{error ? `${error?.message}` : ""}</p>
+        <p className={styles.error} role="alert">
+          {error ? `${error?.message}` : ""}
+        </p>
       </div>
       <input
         id={field}
         placeholder={placeholder}
         className={styles.input}
-        data-valid={valid}
+        aria-invalid={!valid}
         data-error={Boolean(error)}
         {...register(field)}
       />

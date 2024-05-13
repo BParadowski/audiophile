@@ -5,7 +5,7 @@ import useCartId from "@/hooks/useCartId";
 
 export const cartContext = createContext<null | CartContextObject>(null);
 
-export interface CartItem {
+export interface CartItemWithQuantity {
   quantity: number;
   product: {
     name: string;
@@ -16,7 +16,7 @@ export interface CartItem {
 }
 
 interface CartContextObject {
-  items: CartItem[] | undefined;
+  items: CartItemWithQuantity[] | undefined;
   numberOfItems: number;
   totalPrice: string;
   priceWithShipping: string;
@@ -60,7 +60,7 @@ const CartContextProvider = ({ children }: Props) => {
 
     onMutate: async () => {
       await queryClient.cancelQueries(["cart-query"]);
-      queryClient.setQueryData<CartItem[]>(["cart-query"], (oldData) => []);
+      queryClient.setQueryData<CartItemWithQuantity[]>(["cart-query"], (oldData) => []);
     },
     onError: () => {
       queryClient.invalidateQueries(["cart-query"]);
@@ -86,16 +86,16 @@ const CartContextProvider = ({ children }: Props) => {
 
       // optimistic update
       if (mutationObject.newQuantity > 0) {
-        queryClient.setQueryData<CartItem[]>(["cart-query"], (oldCart) =>
+        queryClient.setQueryData<CartItemWithQuantity[]>(["cart-query"], (oldCart) =>
           oldCart?.map((item) => {
             if (item.product.id !== mutationObject.id) return item;
             else {
               return { ...item, quantity: mutationObject.newQuantity };
             }
-          })
+          }),
         );
       } else {
-        queryClient.setQueryData<CartItem[]>(["cart-query"], (oldCart) => {
+        queryClient.setQueryData<CartItemWithQuantity[]>(["cart-query"], (oldCart) => {
           return oldCart?.filter((item) => item.product.id !== mutationObject.id);
         });
       }
@@ -119,7 +119,7 @@ const CartContextProvider = ({ children }: Props) => {
     },
   });
 
-  const totalPrice = cartContentsQuery.data?.reduce((total: number, current: CartItem) => {
+  const totalPrice = cartContentsQuery.data?.reduce((total: number, current: CartItemWithQuantity) => {
     return total + current.product.price * current.quantity;
   }, 0);
 

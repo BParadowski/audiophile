@@ -41,8 +41,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
-    res.status(200).json({ message: "order succesfuly placed" });
+    res.status(200).json({ message: "order succesfuly placed", success: true });
   } catch (e) {
-    res.status(500).json({ message: "order placing unsuccefull" });
+    res.status(500).json({ message: "order placing unsuccefull", success: false });
   }
 }

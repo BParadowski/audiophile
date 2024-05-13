@@ -1,22 +1,45 @@
 import styles from "./CheckoutForm.module.scss";
+import { formHTMLId } from "./formConfig";
 
 import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
 
 import Image from "next/image";
-import { useFormContext } from "react-hook-form";
 
 import RadioInput from "@/components/CheckoutPage/RadioInput";
 import TextInput from "@/components/CheckoutPage/TextInput";
+import { useContext, useState } from "react";
+import { cartContext } from "../CartContextProvider";
+import { FieldValues, useFormContext } from "react-hook-form";
+import { placeNewOrder } from "@/utils/frontend/placeNewOrder";
 
 const CheckoutForm = () => {
-  const { watch } = useFormContext();
+  const cart = useContext(cartContext);
+  const { watch, reset, handleSubmit } = useFormContext();
+  // const [modalState, setModalState] = useState({ open: false, items: [], grandTotal: 0 });
 
   const selectedPaymentMethod = watch("paymentMethod");
+
+  const onSubmit = async (data: FieldValues) => {
+    if (!cart?.items || cart.items.length === 0) {
+      reset();
+      return;
+    }
+
+    const result = await placeNewOrder(cart.items, data);
+
+    if (result.success) {
+      cart?.clearCart();
+      reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      // setModalState({open: true, items: result.cartItems, grandTotal: })
+      return;
+    }
+  };
 
   return (
     <div className={styles.checkout}>
       <h1 className={styles.heading}>checkout</h1>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)} id={formHTMLId}>
         <fieldset>
           <legend className="sr-only">billing details</legend>
           <p aria-hidden="true" className={styles.fieldsetTitle}>
@@ -24,9 +47,9 @@ const CheckoutForm = () => {
           </p>
 
           <div className={styles.gridFieldset}>
-            <TextInput field="name" label="Name" placeholder="Alexei Ward" />
-            <TextInput field="email" label="Email Adress" placeholder="alexei@mail.com" />
-            <TextInput field="phoneNumber" label="Phone Number" placeholder="+1 (202) 555-0136" />
+            <TextInput field="name" labelText="Name" placeholder="Alexei Ward" />
+            <TextInput field="email" labelText="Email Adress" placeholder="alexei@mail.com" />
+            <TextInput field="phoneNumber" labelText="Phone Number" placeholder="+1 (202) 555-0136" />
           </div>
         </fieldset>
         <fieldset>
@@ -38,12 +61,12 @@ const CheckoutForm = () => {
             <TextInput
               className={styles.wide}
               field="address"
-              label="Your Address"
+              labelText="Your Address"
               placeholder="1137 Williams Avenue"
             />
-            <TextInput field="zipCode" label="Zip Code" placeholder="10001" />
-            <TextInput field="city" label="City" placeholder="New York" />
-            <TextInput field="country" label="Country" placeholder="United States" />
+            <TextInput field="zipCode" labelText="Zip Code" placeholder="10001" />
+            <TextInput field="city" labelText="City" placeholder="New York" />
+            <TextInput field="country" labelText="Country" placeholder="United States" />
           </div>
         </fieldset>
         <fieldset>
@@ -60,8 +83,8 @@ const CheckoutForm = () => {
 
             {selectedPaymentMethod === "card" ? (
               <>
-                <TextInput field="cardNumber" label="e-Money Number" placeholder="238521993" />
-                <TextInput field="cardPin" label="e-Money PIN" placeholder="6891" />
+                <TextInput field="cardNumber" labelText="e-Money Number" placeholder="238521993" />
+                <TextInput field="cardPin" labelText="e-Money PIN" placeholder="6891" />
               </>
             ) : (
               <div className={styles.cashMessage}>

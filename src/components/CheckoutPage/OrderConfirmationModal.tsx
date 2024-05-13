@@ -7,10 +7,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 
-import { CartItem } from "@/components/CartContextProvider";
+import { CartItemWithQuantity } from "@/components/CartContextProvider";
 import ProductSnippet from "@/components/Shared/ProductSnippet";
 
-const OrderConfirmationModal = ({ items, grandTotal }: { items: CartItem[]; grandTotal: string }) => {
+const OrderConfirmationModal = ({ items, grandTotal }: { items: CartItemWithQuantity[]; grandTotal: string }) => {
   const numberOfItems = items.length;
   const [numberDisplayed, setNumberDisplayed] = useState(1);
 
@@ -71,7 +71,7 @@ const OrderConfirmationModal = ({ items, grandTotal }: { items: CartItem[]; gran
             </Link>
           </div>
         </>,
-        document.body
+        document.body,
       )}
     </>
   );

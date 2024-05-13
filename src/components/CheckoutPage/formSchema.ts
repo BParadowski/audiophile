@@ -28,11 +28,4 @@ export const formSchema = z.discriminatedUnion("paymentMethod", [formSchemaCash,
 
 export type FormSchemaType = z.infer<typeof formSchema>;
 
-type CommonSchemaKeys = keyof z.infer<typeof formSchemaCommon>;
-type CardSchemaKeys = keyof z.infer<typeof formSchemaCard>;
-type CashSchemaKeys = keyof z.infer<typeof formSchemaCash>;
-
-type CardSpecificFields = Exclude<CardSchemaKeys, CommonSchemaKeys | "paymentMethod">;
-type CashSpecificFields = Exclude<CashSchemaKeys, CommonSchemaKeys | "paymentMethod">;
-
-export type FormField = keyof FormSchemaType | CardSpecificFields | CashSpecificFields;
+export type FormField = keyof z.infer<typeof formSchemaCash> | keyof z.infer<typeof formSchemaCard>;
