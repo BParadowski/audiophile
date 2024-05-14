@@ -1,0 +1,39 @@
+import styles from "./YouMayAlsoLikeSection.module.scss";
+
+import Link from "next/link";
+import { ProductNameSlugAndCategoryName } from "src/pages/[category]/[productSlug]";
+
+import Picture from "@/components/Shared/Picture";
+
+interface YouMayAlsoLikeSectionProps {
+  relatedProducts: ProductNameSlugAndCategoryName[];
+}
+
+const YouMayAlsoLikeSection = ({ relatedProducts }: YouMayAlsoLikeSectionProps) => {
+  return (
+    <section aria-labelledby="also-like">
+      <h2 id="also-like" className={styles.heading}>
+        you may also like
+      </h2>
+      <div className={styles.grid}>
+        {relatedProducts.map((item) => (
+          <div key={item.slug} className={styles.itemCard}>
+            <Picture
+              desktopUrl={`/assets/shared/desktop/image-${item.slug}.jpg`}
+              tabletUrl={`/assets/shared/tablet/image-${item.slug}.jpg`}
+              mobileUrl={`/assets/shared/mobile/image-${item.slug}.jpg`}
+              alt="Picture of the product"
+            />
+            {/* Replace shortens the name of some items for design purposes */}
+            <h2>{item.name.replace(/headphones/i, "")}</h2>
+            <Link href={`/${item.categoryName}/${item.slug}`} className="button-accent">
+              see product
+            </Link>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default YouMayAlsoLikeSection;

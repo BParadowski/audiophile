@@ -1,0 +1,47 @@
+@use "../../styles/mixins" as *;
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-areas:
+    "first"
+    "second"
+    "third";
+
+  margin-top: 7.5rem;
+
+  .first,
+  .second,
+  .third {
+    img {
+      border-radius: var(--border-radius-small);
+    }
+    overflow: hidden;
+  }
+
+  .first {
+    grid-area: first;
+  }
+  .second {
+    grid-area: second;
+  }
+  .third {
+    grid-area: third;
+  }
+}
+
+@include mq(tablet) {
+  .grid {
+    grid-template-columns: 28fr 40fr;
+    grid-template-areas:
+      "first third"
+      "second third";
+    place-items: center;
+  }
+}
+
+@include mq(desktop) {
+  .grid {
+    gap: 2rem;
+  }
+}

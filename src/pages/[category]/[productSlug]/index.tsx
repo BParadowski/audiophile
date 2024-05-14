@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
 import { cartContext } from "@/components/CartContextProvider";
+import ProductGallery from "@/components/ProductPage/ProductGallery";
+import YouMayAlsoLikeSection from "@/components/ProductPage/YouMayAlsoLikeSection";
 import Counter from "@/components/Shared/Counter";
 import GoBackButton from "@/components/Shared/GoBackButton";
 import Manifesto from "@/components/Shared/Manifesto";
@@ -15,9 +17,12 @@ import ProductCategories from "@/components/Shared/ProductCategories";
 
 import { getProductData, getProductPaths } from "@/utils/backend/dbQueries";
 
+// Type returned by getStaticProps used in "you may also like" section
+export type ProductNameSlugAndCategoryName = Pick<Product, "name" | "slug" | "categoryName">;
+
 interface ProductPageProps {
   productData: Product & {
-    relatedProducts: Pick<Product, "name" | "slug" | "categoryName">[];
+    relatedProducts: ProductNameSlugAndCategoryName[];
   };
 }
 
@@ -99,54 +104,9 @@ const ProductPage = ({ productData }: ProductPageProps) => {
           </ul>
         </div>
 
-        <section aria-label="Product gallery">
-          <div className={styles["grid-gallery"]}>
-            <Picture
-              className={styles.first}
-              desktopUrl={`/assets/product-${slug}/desktop/image-gallery-1.jpg`}
-              tabletUrl={`/assets/product-${slug}/tablet/image-gallery-1.jpg`}
-              mobileUrl={`/assets/product-${slug}/mobile/image-gallery-1.jpg`}
-              alt=""
-            />
-            <Picture
-              className={styles.second}
-              desktopUrl={`/assets/product-${slug}/desktop/image-gallery-2.jpg`}
-              tabletUrl={`/assets/product-${slug}/tablet/image-gallery-2.jpg`}
-              mobileUrl={`/assets/product-${slug}/mobile/image-gallery-2.jpg`}
-              alt=""
-            />
-            <Picture
-              className={styles.third}
-              desktopUrl={`/assets/product-${slug}/desktop/image-gallery-3.jpg`}
-              tabletUrl={`/assets/product-${slug}/tablet/image-gallery-3.jpg`}
-              mobileUrl={`/assets/product-${slug}/mobile/image-gallery-3.jpg`}
-              alt=""
-            />
-          </div>
-        </section>
+        <ProductGallery slug={slug} />
 
-        <section aria-labelledby="also-like">
-          <h2 id="also-like" className={styles["also-like-heading"]}>
-            you may also like
-          </h2>
-          <div className={styles["grid-also-like"]}>
-            {relatedProducts.map((item) => (
-              <div key={item.slug} className={styles["item-card"]}>
-                <Picture
-                  desktopUrl={`/assets/shared/desktop/image-${item.slug}.jpg`}
-                  tabletUrl={`/assets/shared/tablet/image-${item.slug}.jpg`}
-                  mobileUrl={`/assets/shared/mobile/image-${item.slug}.jpg`}
-                  alt="Picture of the product"
-                />
-                {/* Replace shortens the name of some items for design purposes */}
-                <h2>{item.name.replace(/headphones/i, "")}</h2>
-                <Link href={`/${item.categoryName}/${item.slug}`} className="button-accent">
-                  see product
-                </Link>
-              </div>
-            ))}
-          </div>
-        </section>
+        <YouMayAlsoLikeSection relatedProducts={relatedProducts} />
 
         <div className={styles["categories-wrapper"]}>
           <ProductCategories />

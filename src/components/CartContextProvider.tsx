@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext } from "react";
+import { SHIPPING_COST_IN_DOLLARS, VAT } from "src/constants/constants";
 
 import useCartId from "@/hooks/useCartId";
 
@@ -137,8 +138,8 @@ const CartContextProvider = ({ children }: Props) => {
     items: cartContentsQuery.data,
     numberOfItems: cartContentsQuery.data?.length,
     totalPrice: totalPrice?.toLocaleString(),
-    priceWithShipping: (totalPrice + 50).toLocaleString(),
-    vat: (totalPrice * 0.2).toLocaleString(),
+    priceWithShipping: (totalPrice + SHIPPING_COST_IN_DOLLARS).toLocaleString(),
+    vat: (totalPrice * VAT).toLocaleString(),
     addingProduct: addingMutation.isLoading,
   };
 

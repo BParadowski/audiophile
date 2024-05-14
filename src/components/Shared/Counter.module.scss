@@ -24,12 +24,5 @@
 }
 
 .plus {
-  opacity: 0.3;
-  flex: 1;
-  cursor: pointer;
-
-  &:hover {
-    color: var(--clr-accent-primary);
-    opacity: 1;
-  }
+  @extend .minus;
 }
