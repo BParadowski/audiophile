@@ -1,5 +1,6 @@
-import { CartItemWithQuantity } from "@/components/CartContextProvider";
 import { FieldValues } from "react-hook-form";
+
+import { CartItemWithQuantity } from "@/components/CartContextProvider";
 
 export const placeNewOrder = async (cartItems: CartItemWithQuantity[], formData: FieldValues) => {
   const itemsAbr = cartItems?.map((item) => {

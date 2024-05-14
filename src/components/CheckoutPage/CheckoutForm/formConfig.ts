@@ -1,6 +1,7 @@
-import { UseFormProps } from "react-hook-form";
 import { FormSchemaType, formSchema } from "./formSchema";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { UseFormProps } from "react-hook-form";
 
 export const formConfig: UseFormProps<FormSchemaType> = {
   resolver: zodResolver(formSchema),

@@ -3,10 +3,10 @@ import styles from "@/styles/pages/Checkout.module.scss";
 import { NextPage } from "next";
 
 import CartSummary from "@/components/CheckoutPage/CartSummary";
-import CheckoutForm from "@/components/CheckoutPage/CheckoutForm";
+import CheckoutForm from "@/components/CheckoutPage/CheckoutForm/CheckoutForm";
+import CheckoutFormSubmitButton from "@/components/CheckoutPage/CheckoutForm/CheckoutFormSubmitButton";
+import FormContextProvider from "@/components/CheckoutPage/CheckoutForm/FormContextProvider";
 import GoBackButton from "@/components/Shared/GoBackButton";
-import FormContextProvider from "@/components/CheckoutPage/FormContextProvider";
-import CheckoutFormSubmitButton from "@/components/CheckoutPage/CheckoutFormSubmitButton";
 
 const Checkout: NextPage = () => {
   return (

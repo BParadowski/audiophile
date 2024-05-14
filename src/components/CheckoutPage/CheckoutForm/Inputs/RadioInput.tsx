@@ -1,5 +1,5 @@
+import { FormField } from "../formSchema";
 import styles from "./RadioInput.module.scss";
-import { FormField } from "./formSchema";
 
 import { useFormContext } from "react-hook-form";
 

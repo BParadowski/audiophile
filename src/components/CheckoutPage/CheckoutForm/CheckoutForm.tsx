@@ -4,12 +4,13 @@ import { formHTMLId } from "./formConfig";
 import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
 
 import Image from "next/image";
-
-import RadioInput from "@/components/CheckoutPage/RadioInput";
-import TextInput from "@/components/CheckoutPage/TextInput";
-import { useContext, useState } from "react";
-import { cartContext } from "../CartContextProvider";
+import { useContext } from "react";
 import { FieldValues, useFormContext } from "react-hook-form";
+
+import { cartContext } from "@/components/CartContextProvider";
+import RadioInput from "@/components/CheckoutPage/CheckoutForm/Inputs/RadioInput";
+import TextInput from "@/components/CheckoutPage/CheckoutForm/Inputs/TextInput";
+
 import { placeNewOrder } from "@/utils/frontend/placeNewOrder";
 
 const CheckoutForm = () => {
