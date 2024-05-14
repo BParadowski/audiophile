@@ -2,14 +2,11 @@ import styles from "@/styles/pages/Product.module.scss";
 
 import { Product } from "@prisma/client";
 import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
 
-import { cartContext } from "@/components/CartContextProvider";
+import AddToCart from "@/components/ProductPage/AddToCart";
+import ProductDetails from "@/components/ProductPage/ProductDetails";
 import ProductGallery from "@/components/ProductPage/ProductGallery";
 import YouMayAlsoLikeSection from "@/components/ProductPage/YouMayAlsoLikeSection";
-import Counter from "@/components/Shared/Counter";
 import GoBackButton from "@/components/Shared/GoBackButton";
 import Manifesto from "@/components/Shared/Manifesto";
 import Picture from "@/components/Shared/Picture";
@@ -19,6 +16,11 @@ import { getProductData, getProductPaths } from "@/utils/backend/dbQueries";
 
 // Type returned by getStaticProps used in "you may also like" section
 export type ProductNameSlugAndCategoryName = Pick<Product, "name" | "slug" | "categoryName">;
+// Shape of JSON in accessories prop
+export type Accessory = {
+  item: string;
+  quantity: number;
+};
 
 interface ProductPageProps {
   productData: Product & {
@@ -28,19 +30,7 @@ interface ProductPageProps {
 
 const ProductPage = ({ productData }: ProductPageProps) => {
   const { id, name, slug, isNew, price, description, features, relatedProducts } = productData;
-  const accessories = productData.accessories as Array<{
-    item: string;
-    quantity: number;
-  }>;
-
-  const cart = useContext(cartContext);
-  const router = useRouter();
-  const [quantity, setQuantity] = useState(1);
-
-  /* Brings product count back to one every time a user switches product pages */
-  useEffect(() => {
-    setQuantity(1);
-  }, [router.query]);
+  const accessories = productData.accessories as Accessory[];
 
   return (
     <main>
@@ -63,46 +53,11 @@ const ProductPage = ({ productData }: ProductPageProps) => {
             <h1 className={styles.heading}>{name}</h1>
             <p className={styles.description}>{description}</p>
             <p aria-label="Price" className={styles.price}>{`$ ${price}`}</p>
-            <div className={styles["buttons-wrapper"]}>
-              <Counter
-                number={quantity}
-                onMinusClick={() => {
-                  if (quantity > 1) {
-                    setQuantity(quantity - 1);
-                  }
-                }}
-                onPlusClick={() => setQuantity(quantity + 1)}
-              />
-              {cart?.addingProduct ? (
-                <button className={`button-accent ${styles.add}`}>Adding...</button>
-              ) : (
-                <button
-                  className={`button-accent ${styles.add}`}
-                  onClick={() => {
-                    cart?.addItem(id, quantity);
-                    setQuantity(1);
-                  }}
-                >
-                  add to cart
-                </button>
-              )}
-            </div>
+            <AddToCart productId={id} />
           </div>
         </div>
 
-        <div className={styles["grid-features"]}>
-          <h2 className={styles["features_heading"]}>features</h2>
-          <p className={styles["features_description"]}>{features}</p>
-          <h2 className={styles["features_heading-box"]}>in the box</h2>
-          <ul role="list" className={styles["features_item-list"]}>
-            {accessories.map((item) => (
-              <li key={item.item}>
-                <span>{`${item.quantity}x`}</span>
-                <p>{item.item}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ProductDetails features={features} accessories={accessories} />
 
         <ProductGallery slug={slug} />
 

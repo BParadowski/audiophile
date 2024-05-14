@@ -1,0 +1,104 @@
+@use "../../styles/mixins" as *;
+
+.grid {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.heading,
+.headingBox {
+  margin-top: 5.5rem;
+
+  font-size: var(--fs-500);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-500);
+  letter-spacing: var(--ls-100);
+}
+
+.description,
+.itemList {
+  margin-top: 1.5rem;
+}
+
+.description {
+  white-space: pre-line;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  li {
+    display: flex;
+    align-items: center;
+    span {
+      margin-right: 1.5rem;
+
+      font-weight: var(--fw-bold);
+      font-size: var(--fs-200);
+      line-height: var(--lh-300);
+      color: var(--clr-accent-primary);
+    }
+  }
+}
+
+@include mq(tablet) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "features features"
+      "description description"
+      "box list";
+  }
+
+  .heading {
+    grid-area: features;
+  }
+
+  .description {
+    grid-area: description;
+    margin-top: 2rem;
+  }
+
+  .headingBox {
+    align-self: start;
+    grid-area: box;
+  }
+
+  .itemList {
+    grid-area: list;
+  }
+  .heading,
+  .headingBox {
+    font-size: clamp(1.7rem, 2.8vw + 0.5rem, var(--fs-700));
+  }
+
+  .heading,
+  .headingBox,
+  .itemList {
+    margin-top: 6.5rem;
+  }
+}
+
+@include mq(desktop) {
+  .grid {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "features box"
+      "description list";
+  }
+
+  .heading,
+  .headingBox {
+    margin-top: 8rem;
+  }
+
+  .description {
+    margin-right: 7rem;
+  }
+
+  .description,
+  .itemList {
+    margin-top: 2rem;
+  }
+}

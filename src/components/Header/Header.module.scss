@@ -8,11 +8,11 @@
   &[data-absolute="true"] {
     background-color: transparent;
   }
-  /* Below: lighten the line separating the header
-  on pages other than Home so that it is better visible
-  on pitch black background */
 
   &[data-absolute="false"] {
+    /* lighten the line separating the header
+    on pages other than Home so that it is better visible
+    on pitch black background */
     .wrapper::after {
       opacity: 0.17;
     }

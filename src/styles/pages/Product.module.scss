@@ -16,13 +16,6 @@
   }
 }
 
-.buttons-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: clamp(1rem, 2.4vw, 2.5rem);
-}
-
 /* main grid items */
 
 .main_image {
@@ -68,14 +61,6 @@
     opacity: 1;
     font-size: var(--fs-400);
   }
-
-  .buttons-wrapper {
-    margin-top: 1.5rem;
-  }
-
-  .add {
-    min-width: calc(11ch + 4rem);
-  }
 }
 
 @include mq(tablet) {
@@ -112,14 +97,6 @@
       .price {
         margin-top: 0.75rem;
       }
-
-      .buttons-wrapper {
-        margin-top: 0.75rem;
-      }
-
-      .add {
-        min-width: none;
-      }
     }
   }
 }
@@ -147,118 +124,6 @@
       max-width: min(45ch, 40vw);
     }
     .price {
-      margin-top: 2rem;
-    }
-
-    .buttons-wrapper {
-      margin-top: 2rem;
-    }
-
-    .add {
-      min-width: calc(11ch + 4rem);
-    }
-  }
-}
-
-/* features grid and items */
-
-.grid-features {
-  display: grid;
-  grid-auto-flow: row;
-
-  .features_heading,
-  .features_heading-box {
-    margin-top: 5.5rem;
-
-    font-size: var(--fs-500);
-    font-weight: var(--fw-bold);
-    line-height: var(--lh-500);
-    letter-spacing: var(--ls-100);
-  }
-
-  .features_description,
-  .features_item-list {
-    margin-top: 1.5rem;
-  }
-
-  .features_description {
-    white-space: pre-line;
-  }
-
-  .features_item-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    li {
-      display: flex;
-      align-items: center;
-      span {
-        margin-right: 1.5rem;
-
-        font-weight: var(--fw-bold);
-        font-size: var(--fs-200);
-        line-height: var(--lh-300);
-        color: var(--clr-accent-primary);
-      }
-    }
-  }
-}
-
-@include mq(tablet) {
-  .grid-features {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "features features"
-      "description description"
-      "box list";
-    .features_heading {
-      grid-area: features;
-    }
-
-    .features_description {
-      grid-area: description;
-      margin-top: 2rem;
-    }
-
-    .features_heading-box {
-      align-self: start;
-      grid-area: box;
-    }
-
-    .features_item-list {
-      grid-area: list;
-    }
-    .features_heading,
-    .features_heading-box {
-      font-size: clamp(1.7rem, 2.8vw + 0.5rem, var(--fs-700));
-    }
-
-    .features_heading,
-    .features_heading-box,
-    .features_item-list {
-      margin-top: 6.5rem;
-    }
-  }
-}
-
-@include mq(desktop) {
-  .grid-features {
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-      "features box"
-      "description list";
-
-    .features_heading,
-    .features_heading-box {
-      margin-top: 8rem;
-    }
-
-    .features_description {
-      margin-right: 7rem;
-    }
-
-    .features_description,
-    .features_item-list {
       margin-top: 2rem;
     }
   }
