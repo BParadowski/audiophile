@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createContext } from "react";
+import { PropsWithChildren, createContext } from "react";
 import { SHIPPING_COST_IN_DOLLARS, VAT } from "src/constants/constants";
 
 import useCartId from "@/hooks/useCartId";
@@ -28,11 +28,7 @@ interface CartContextObject {
   addingProduct: boolean;
 }
 
-type Props = {
-  children: JSX.Element[] | JSX.Element;
-};
-
-const CartContextProvider = ({ children }: Props) => {
+const CartContextProvider = ({ children }: PropsWithChildren) => {
   const cartId = useCartId();
   const queryClient = useQueryClient();
 
