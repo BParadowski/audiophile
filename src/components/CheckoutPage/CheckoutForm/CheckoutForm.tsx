@@ -1,22 +1,29 @@
 import styles from "./CheckoutForm.module.scss";
+import OrderConfirmationModal from "./OrderConfirmationModal/OrderConfirmationModal";
 import { formHTMLId } from "./formConfig";
 
 import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
 
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FieldValues, useFormContext } from "react-hook-form";
 
-import { cartContext } from "@/components/CartContextProvider";
+import { CartItemWithQuantity, cartContext } from "@/components/CartContextProvider";
 import RadioInput from "@/components/CheckoutPage/CheckoutForm/Inputs/RadioInput";
 import TextInput from "@/components/CheckoutPage/CheckoutForm/Inputs/TextInput";
 
 import { placeNewOrder } from "@/utils/frontend/placeNewOrder";
 
+interface OrderConfirmationModalState {
+  open: boolean;
+  items: CartItemWithQuantity[];
+  grandTotal: number;
+}
+
 const CheckoutForm = () => {
   const cart = useContext(cartContext);
   const { watch, reset, handleSubmit } = useFormContext();
-  // const [modalState, setModalState] = useState({ open: false, items: [], grandTotal: 0 });
+  const [modalState, setModalState] = useState<OrderConfirmationModalState>({ open: false, items: [], grandTotal: 0 });
 
   const selectedPaymentMethod = watch("paymentMethod");
 
@@ -32,13 +39,14 @@ const CheckoutForm = () => {
       cart?.clearCart();
       reset();
       window.scrollTo({ top: 0, behavior: "smooth" });
-      // setModalState({open: true, items: result.cartItems, grandTotal: })
+      setModalState({ open: true, items: result.cartItems, grandTotal: result.grandTotal });
       return;
     }
   };
 
   return (
     <div className={styles.checkout}>
+      {modalState.open && <OrderConfirmationModal items={modalState.items} grandTotal={`${modalState.grandTotal}`} />}
       <h1 className={styles.heading}>checkout</h1>
       <form onSubmit={handleSubmit(onSubmit)} id={formHTMLId}>
         <fieldset>

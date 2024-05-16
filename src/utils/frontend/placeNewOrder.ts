@@ -14,8 +14,12 @@ export const placeNewOrder = async (cartItems: CartItemWithQuantity[], formData:
   }).then((res) => res.json());
 
   if (apiRes.success) {
-    return { cartItems, success: true };
+    const grandTotal = cartItems.reduce((acc, c) => {
+      return acc + c.quantity * c.product.price;
+    }, 0);
+
+    return { cartItems, success: true, grandTotal };
   } else {
-    return { cartItems: undefined, success: false };
+    return { cartItems: [], success: false, grandTotal: 0 };
   }
 };
