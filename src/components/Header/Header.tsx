@@ -1,3 +1,5 @@
+import { cartIdContext } from "../Cart/CartIdContextProvider";
+import { useCart } from "../Cart/useCart";
 import styles from "./Header.module.scss";
 
 import audiophileLogo from "@/public/assets/shared/desktop/logo.svg";
@@ -21,8 +23,8 @@ const Header = () => {
     hero image to become the background. */
   const router = useRouter();
 
-  /* querying the database for the number of items in the cart to show on the button*/
-  const cart = useContext(cartContext);
+  /* to get number of items in cart*/
+  const cart = useCart();
 
   /* making the dropdowns close upon clicking outside of their bounds*/
   const mobileNavRef = useRef<HTMLElement>(null);
@@ -95,7 +97,7 @@ const Header = () => {
               aria-expanded={cartExpanded}
               onClick={() => setCartExpanded(!cartExpanded)}
               ref={cartButtonRef}
-              data-product-count={cart?.numberOfItems ?? "0"}
+              data-product-count={cart?.items?.length ?? "0"}
             ></button>
           </div>
         </div>

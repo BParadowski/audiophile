@@ -1,9 +1,10 @@
+import { useCart } from "../Cart/useCart";
 import styles from "./Cart.module.scss";
 
 import Link from "next/link";
 import { ForwardedRef, forwardRef, useContext } from "react";
 
-import { cartContext } from "@/components/CartContextProvider";
+import { cartIdContext } from "@/components/Cart/CartIdContextProvider";
 import ProductSnippet from "@/components/Shared/ProductSnippet";
 
 interface cartProps {
@@ -11,7 +12,7 @@ interface cartProps {
 }
 
 const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedRef<HTMLDivElement>) {
-  const cart = useContext(cartContext);
+  const cart = useCart();
 
   return (
     <div className={styles.container}>
@@ -19,11 +20,11 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
         {cart && cart.items?.length && cart.items.length > 0 ? (
           <div className={styles.grid}>
             <p className={styles.title}>Cart ({cart.items?.length})</p>
-            <button className={styles.removeAll} onClick={() => cart.clearCart()}>
+            <button className={styles.removeAll} onClick={() => undefined}>
               Remove all
             </button>
             <ul className={styles.itemList}>
-              {cart.items?.map((cartItem, index: number) => {
+              {cart.items?.map((cartItem, index) => {
                 if (index < 8) {
                   return (
                     <ProductSnippet

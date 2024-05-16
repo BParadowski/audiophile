@@ -9,7 +9,7 @@ generator client {
 
 model Cart {
   id         String     @id @default(cuid())
-  contents   CartItem[]
+  items   CartItem[]
   createdAt  DateTime   @default(now())
   modifiedAt DateTime   @default(now())
 }

@@ -1,19 +1,30 @@
-const fetchCart = (cartId: string) => {
-  return fetch("/api/get-cart", {
-    method: "POST",
-    headers: { "Content-Type": "apllication/json" },
-    body: JSON.stringify({ cartId }),
-  }).then((res) => res.json());
-};
+import { cartIdContext } from "./CartIdContextProvider";
 
-const getCartQO = (cartId: string) => ({
-  queryKey: ["cart-query"],
-  queryFn: () => fetchCart(cartId),
-  enabled: Boolean(cartId),
-});
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { ItemsWithProductDetails } from "src/pages/api/get-cart";
 
-const useCart = (cartId: string | null) => {
-  const cartContentsQuery = useQuery(["cart-query"], fetchCart, {
+export const useCart = () => {
+  const cartId = useContext(cartIdContext);
+
+  const { data } = useQuery({
+    queryKey: ["cart-query", cartId],
+    queryFn: async () =>
+      (await fetch("/api/get-cart", {
+        method: "POST",
+        headers: { "Content-Type": "apllication/json" },
+        body: JSON.stringify({ cartId }),
+      }).then((res) => {
+        return res.json();
+      })) as ItemsWithProductDetails,
     enabled: Boolean(cartId),
   });
+
+  const items = data?.items;
+
+  const totalPrice = items?.reduce((total, current) => {
+    return total + current.product.price * current.quantity;
+  }, 0);
+
+  return { items, totalPrice };
 };
