@@ -63,11 +63,11 @@ const ProductPage = ({ productData }: ProductPageProps) => {
 
         <YouMayAlsoLikeSection relatedProducts={relatedProducts} />
 
-        <div className={styles["categories-wrapper"]}>
+        <div className={styles.categoriesWrapper}>
           <ProductCategories />
         </div>
 
-        <div className={styles["manifesto-wrapper"]}>
+        <div className={styles.manifestoWrapper}>
           <Manifesto />
         </div>
       </div>

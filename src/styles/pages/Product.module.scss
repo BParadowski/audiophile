@@ -124,7 +124,7 @@
 
 /* wrappers */
 
-.categories-wrapper {
+.categoriesWrapper {
   margin-top: 7.5rem;
 
   @include mq(desktop) {
@@ -132,7 +132,7 @@
   }
 }
 
-.manifesto-wrapper {
+.manifestoWrapper {
   margin-block: 7.5rem;
 
   @include mq(desktop) {
