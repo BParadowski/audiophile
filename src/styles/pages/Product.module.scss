@@ -1,131 +1,124 @@
 @use "../mixins" as *;
 
-.grid-main {
+.grid {
   display: grid;
+}
 
-  @include mq(tablet) {
+.productImage {
+  margin-top: 1.5rem;
+  overflow: hidden;
+  border-radius: var(--border-radius-small);
+}
+
+.new {
+  margin-top: 2rem;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-600);
+  color: var(--clr-accent-primary);
+  font-size: var(--fs-200);
+}
+
+.new + .heading {
+  margin-top: 1.5rem;
+}
+
+.heading {
+  margin-top: 2rem;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-600);
+  letter-spacing: var(--ls-100);
+  width: min-content;
+}
+
+.description {
+  margin-top: 1.5rem;
+}
+
+.price {
+  margin-top: 1.5rem;
+  color: var(--clr-black);
+  font-weight: var(--fw-bold);
+  opacity: 1;
+  font-size: var(--fs-400);
+}
+
+@include mq(tablet) {
+  .grid {
     margin-top: 1.5rem;
     grid-template-columns: 6fr 10fr;
     grid-template-rows: auto;
     align-items: center;
   }
 
-  @include mq(desktop) {
-    margin-top: 0.5rem;
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* main grid items */
-
-.main_image {
-  margin-top: 1.5rem;
-  overflow: hidden;
-  border-radius: var(--border-radius-small);
-
-  @include mq(tablet) {
+  .productImage {
     margin-block: auto;
     place-self: center;
   }
-}
 
-.main_description-wrapper {
+  .descriptionWrapper {
+    margin-left: clamp(1rem, 3vw + 1rem, 4rem);
+  }
   .new {
-    margin-top: 2rem;
-    text-transform: uppercase;
-    letter-spacing: var(--ls-600);
-    color: var(--clr-accent-primary);
-    font-size: var(--fs-200);
+    margin-top: 0;
   }
 
   .new + .heading {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 
   .heading {
-    margin-top: 2rem;
-    font-weight: var(--fw-bold);
-    font-size: var(--fs-600);
-    letter-spacing: var(--ls-100);
-    width: min-content;
+    height: min-content;
+    margin-top: 0;
   }
 
   .description {
-    margin-top: 1.5rem;
-  }
-
-  .price {
-    margin-top: 1.5rem;
-    color: var(--clr-black);
-    font-weight: var(--fw-bold);
-    opacity: 1;
-    font-size: var(--fs-400);
-  }
-}
-
-@include mq(tablet) {
-  .main_description-wrapper {
-    margin-left: clamp(1rem, 3vw + 1rem, 4rem);
-
-    .new {
-      margin-top: 0;
-    }
-
-    .new + .heading {
-      margin-top: 1rem;
-    }
-
-    .heading {
-      height: min-content;
-      margin-top: 0;
-    }
-
-    .description {
-      margin-top: 2rem;
-      max-width: min(50vw, 50ch);
-    }
+    margin-top: 2rem;
+    max-width: min(50vw, 50ch);
   }
 }
 
 @include mq(tablet) {
   @media only screen and (max-width: 38rem) {
-    .main_description-wrapper {
-      .description {
-        margin-top: 0.75rem;
-      }
+    .description {
+      margin-top: 0.75rem;
+    }
 
-      .price {
-        margin-top: 0.75rem;
-      }
+    .price {
+      margin-top: 0.75rem;
     }
   }
 }
 
 @include mq(desktop) {
-  .main_image {
+  .grid {
+    margin-top: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .productImage {
     margin-top: 3.5rem;
   }
 
-  .main_description-wrapper {
+  .descriptionWrapper {
     margin-left: clamp(5rem, 6.5vw + 1rem, 7rem);
+  }
 
-    .new {
-      margin-top: 2rem;
-    }
-    .heading {
-      font-size: var(--fs-800);
-      letter-spacing: var(--ls-400);
-      line-height: var(--lh-700);
-      margin-top: 3rem;
-      width: min-content;
-    }
-    .description {
-      margin-top: 1.5rem;
-      max-width: min(45ch, 40vw);
-    }
-    .price {
-      margin-top: 2rem;
-    }
+  .new {
+    margin-top: 2rem;
+  }
+  .heading {
+    font-size: var(--fs-800);
+    letter-spacing: var(--ls-400);
+    line-height: var(--lh-700);
+    margin-top: 3rem;
+    width: min-content;
+  }
+  .description {
+    margin-top: 1.5rem;
+    max-width: min(45ch, 40vw);
+  }
+  .price {
+    margin-top: 2rem;
   }
 }
 
