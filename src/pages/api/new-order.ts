@@ -4,7 +4,7 @@ import prisma from "@/utils/backend/prisma";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id, name, email, phoneNumber, address, zipCode, city, country, paymentMethod, cardNumber, cardPin, items } =
-    JSON.parse(req.body);
+    req.body;
 
   const orderData = {
     id,
@@ -18,6 +18,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     paymentMethod,
     items,
   };
+
+  console.log(orderData);
 
   try {
     if (paymentMethod === "cash") {

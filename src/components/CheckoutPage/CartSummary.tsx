@@ -1,14 +1,18 @@
+import { useCart } from "../Cart/useCart";
 import styles from "./CartSummary.module.scss";
 
 import { PropsWithChildren, useContext } from "react";
+import { SHIPPING_COST_IN_DOLLARS, VAT } from "src/constants/constants";
 
-import { cartContext } from "@/components/CartContextProvider";
 import ProductSnippet from "@/components/Shared/ProductSnippet";
 
 const CartSummary = ({ children }: PropsWithChildren) => {
-  const cart = useContext(cartContext);
+  const cart = useCart();
 
-  if (cart?.numberOfItems === 0) {
+  const priceOfAllItems = cart?.totalPrice;
+  const vatAmount = (priceOfAllItems ?? 0) * VAT;
+
+  if (cart?.items?.length === 0) {
     return (
       <div className={styles.card}>
         <h2 className={styles.title}>summary</h2>
@@ -38,20 +42,20 @@ const CartSummary = ({ children }: PropsWithChildren) => {
       <div className={styles.linesContainer}>
         <div className={styles.line}>
           <h3 className={styles.lineName}>total</h3>
-          <p className={styles.price}>$ {cart?.totalPrice}</p>
+          <p className={styles.price}>$ {priceOfAllItems?.toLocaleString()}</p>
         </div>
         <div className={styles.line}>
           <h3 className={styles.lineName}>shipping</h3>
-          <p className={styles.price}>$ 50</p>
+          <p className={styles.price}>$ {`${SHIPPING_COST_IN_DOLLARS}`}</p>
         </div>
         <div className={styles.line}>
           <h3 className={styles.lineName}>vat (included)</h3>
-          <p className={styles.price}>$ {cart?.vat}</p>
+          <p className={styles.price}>$ {vatAmount.toLocaleString()}</p>
         </div>
       </div>
       <div className={styles.line}>
         <h3 className={styles.lineName}>grand total</h3>
-        <p className={styles.priceAccent}>$ {cart?.priceWithShipping}</p>
+        <p className={styles.priceAccent}>$ {((priceOfAllItems ?? 0) + SHIPPING_COST_IN_DOLLARS).toLocaleString()}</p>
       </div>
 
       {children}

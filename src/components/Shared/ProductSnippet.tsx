@@ -1,9 +1,8 @@
+import { useUpdateCart } from "../Cart/useUpdateCart";
 import styles from "./ProductSnippet.module.scss";
 
 import Image from "next/image";
-import { useContext } from "react";
 
-import { cartContext } from "@/components/CartContextProvider";
 import Counter from "@/components/Shared/Counter";
 
 interface SnippetProps {
@@ -13,10 +12,12 @@ interface SnippetProps {
   quantity: number;
   slug: string;
   displayOnly?: boolean;
+  onMinusClick?: () => void;
+  onPlusClick?: () => void;
 }
 
-const ProductSnippet = ({ id, name, price, quantity, slug, displayOnly }: SnippetProps) => {
-  const cart = useContext(cartContext);
+const ProductSnippet = ({ id, name, price, quantity, slug, displayOnly, onMinusClick, onPlusClick }: SnippetProps) => {
+  const { updateCart } = useUpdateCart();
 
   return (
     <li className={styles.grid}>
@@ -35,8 +36,11 @@ const ProductSnippet = ({ id, name, price, quantity, slug, displayOnly }: Snippe
         <Counter
           number={quantity}
           className={styles.counter}
-          onMinusClick={() => cart?.updateItem(id, quantity - 1)}
-          onPlusClick={() => cart?.updateItem(id, quantity + 1)}
+          //@ts-ignore
+          onMinusClick={() => onMinusClick()}
+          //@ts-ignore
+
+          onPlusClick={() => onPlusClick()}
         />
       )}
     </li>

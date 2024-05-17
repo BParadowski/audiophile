@@ -16,13 +16,14 @@ const itemsSelect = {
         },
       },
     },
+    orderBy: { createdAt: "asc" },
   },
 } satisfies Prisma.CartSelect;
 
-export type ItemsWithProductDetails = Prisma.CartGetPayload<{ select: typeof itemsSelect }>;
+export type ItemsWithProductDetails = Prisma.CartGetPayload<{ select: typeof itemsSelect }>["items"];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { cartId } = JSON.parse(req.body);
+  const { cartId } = req.body;
   const cartItems = await prisma.cart.findUnique({
     where: {
       id: cartId,
@@ -31,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   });
 
   if (cartItems) {
-    res.status(200).json(cartItems);
+    res.status(200).json(cartItems.items);
   } else {
     res.status(500).json({ success: false, message: "Cart not found" });
   }

@@ -7,9 +7,8 @@ import audiophileLogo from "@/public/assets/shared/desktop/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { cartContext } from "@/components/CartContextProvider";
 import Cart from "@/components/Header/Cart";
 import MainNav from "@/components/Header/MainNav";
 import MobileNav from "@/components/Header/MobileNav";

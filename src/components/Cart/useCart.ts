@@ -12,7 +12,7 @@ export const useCart = () => {
     queryFn: async () =>
       (await fetch("/api/get-cart", {
         method: "POST",
-        headers: { "Content-Type": "apllication/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cartId }),
       }).then((res) => {
         return res.json();
@@ -20,7 +20,7 @@ export const useCart = () => {
     enabled: Boolean(cartId),
   });
 
-  const items = data?.items;
+  const items = data;
 
   const totalPrice = items?.reduce((total, current) => {
     return total + current.product.price * current.quantity;
