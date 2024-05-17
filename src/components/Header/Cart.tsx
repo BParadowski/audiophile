@@ -49,6 +49,7 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
                         price={cartItem.product.price}
                         quantity={itemBeingUpdated.newQuantity}
                         slug={cartItem.product.slug}
+                        withCounter
                         onMinusClick={() =>
                           updateCart({ id: cartItem.product.id, newQuantity: itemBeingUpdated.newQuantity - 1 })
                         }
@@ -69,6 +70,7 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
                       price={cartItem.product.price}
                       quantity={cartItem.quantity}
                       slug={cartItem.product.slug}
+                      withCounter
                       onMinusClick={() => updateCart({ id: cartItem.product.id, newQuantity: cartItem.quantity - 1 })}
                       onPlusClick={() => updateCart({ id: cartItem.product.id, newQuantity: cartItem.quantity + 1 })}
                     />
@@ -77,7 +79,7 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
               })}
             </ul>
             <p className={styles.total}>total</p>
-            <p className={styles.price}>$ {cart.totalPrice}</p>
+            <p className={styles.price}>$ {cart.totalPrice?.toLocaleString()}</p>
             <Link href="/checkout" className={`${styles.checkout} button-accent`} onClick={close}>
               checkout
             </Link>

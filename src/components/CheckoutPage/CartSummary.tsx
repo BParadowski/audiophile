@@ -34,7 +34,6 @@ const CartSummary = ({ children }: PropsWithChildren) => {
               price={cartItem.product.price}
               quantity={cartItem.quantity}
               slug={cartItem.product.slug}
-              displayOnly={true}
             />
           );
         })}

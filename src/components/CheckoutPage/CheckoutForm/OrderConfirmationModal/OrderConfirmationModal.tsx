@@ -41,7 +41,6 @@ const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProduct
                             price={cartItem.product.price}
                             quantity={cartItem.quantity}
                             slug={cartItem.product.slug}
-                            displayOnly={true}
                           />
                         );
                       }

@@ -1,6 +1,6 @@
 import { PropsWithChildren, createContext } from "react";
 
-import useCartId from "@/hooks/useCartId";
+import { useCartId } from "@/components/Cart/useCartId";
 
 export const cartIdContext = createContext<string | null>(null);
 

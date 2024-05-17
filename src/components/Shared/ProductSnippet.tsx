@@ -1,4 +1,3 @@
-import { useUpdateCart } from "../Cart/useUpdateCart";
 import styles from "./ProductSnippet.module.scss";
 
 import Image from "next/image";
@@ -11,14 +10,12 @@ interface SnippetProps {
   price: number;
   quantity: number;
   slug: string;
-  displayOnly?: boolean;
+  withCounter?: boolean;
   onMinusClick?: () => void;
   onPlusClick?: () => void;
 }
 
-const ProductSnippet = ({ id, name, price, quantity, slug, displayOnly, onMinusClick, onPlusClick }: SnippetProps) => {
-  const { updateCart } = useUpdateCart();
-
+const ProductSnippet = ({ name, price, quantity, slug, withCounter, onMinusClick, onPlusClick }: SnippetProps) => {
   return (
     <li className={styles.grid}>
       <Image
@@ -30,18 +27,15 @@ const ProductSnippet = ({ id, name, price, quantity, slug, displayOnly, onMinusC
       />
       <p className={styles.name}>{name.replaceAll(/headphones|earphones|speaker|wireless/gi, "")}</p>
       <p className={styles.price}>{`$ ${price}`}</p>
-      {displayOnly ? (
-        <p className={styles.amount}>{quantity}x</p>
-      ) : (
+      {withCounter ? (
         <Counter
           number={quantity}
           className={styles.counter}
-          //@ts-ignore
-          onMinusClick={() => onMinusClick()}
-          //@ts-ignore
-
-          onPlusClick={() => onPlusClick()}
+          onMinusClick={() => onMinusClick?.()}
+          onPlusClick={() => onPlusClick?.()}
         />
+      ) : (
+        <p className={styles.amount}>{quantity}x</p>
       )}
     </li>
   );

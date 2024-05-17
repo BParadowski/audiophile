@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useCartId() {
+export const useCartId = () => {
   const [cartId, setCartId] = useState<null | string>(null);
 
   useEffect(() => {
@@ -23,4 +23,4 @@ export default function useCartId() {
   }
 
   return cartId;
-}
+};
