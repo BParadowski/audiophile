@@ -31,6 +31,7 @@ export const useUpdateCart = () => {
 
   const updateCart = updateMutation.mutate;
   const itemBeingUpdated = updateMutation.variables;
+  const isPending = updateMutation.isPending;
 
-  return { updateCart, itemBeingUpdated };
+  return { updateCart, itemBeingUpdated, isPending };
 };

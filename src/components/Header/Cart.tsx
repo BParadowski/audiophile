@@ -15,7 +15,7 @@ interface cartProps {
 const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedRef<HTMLDivElement>) {
   const cart = useCart();
   const { clearCart, isClearingPending } = useClearCart();
-  const { updateCart, itemBeingUpdated } = useUpdateCart();
+  const { updateCart, itemBeingUpdated, isPending } = useUpdateCart();
 
   const shouldRenderItemList =
     !isClearingPending &&
@@ -33,7 +33,12 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
       <div ref={ref} className={styles.dropdown}>
         {shouldRenderItemList ? (
           <div className={styles.grid}>
-            <p className={styles.title}>Cart ({cart.items?.length})</p>
+            <p className={styles.title}>
+              Cart{" "}
+              <span className={itemBeingUpdated?.newQuantity === 0 && isPending === true ? styles.gray : ""}>
+                ({cart.items?.length})
+              </span>
+            </p>
             <button className={styles.removeAll} onClick={() => clearCart()}>
               Remove all
             </button>
@@ -79,7 +84,9 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
               })}
             </ul>
             <p className={styles.total}>total</p>
-            <p className={styles.price}>$ {cart.totalPrice?.toLocaleString()}</p>
+            <p
+              className={`${styles.price} ${isPending ? styles.gray : ""}`}
+            >{`$ ${cart.totalPrice?.toLocaleString()}`}</p>
             <Link href="/checkout" className={`${styles.checkout} button-accent`} onClick={close}>
               checkout
             </Link>

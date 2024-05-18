@@ -1,10 +1,7 @@
 @use "../../styles/mixins" as *;
 
 .container {
-  width: min(
-    var(--container-max-width),
-    100% - var(--container-margin-inline-min) * 2
-  );
+  width: min(var(--container-max-width), 100% - var(--container-margin-inline-min) * 2);
   margin-inline: auto;
   position: relative;
 }
@@ -76,6 +73,10 @@
   font-size: var(--fs-400);
   opacity: 1;
   justify-self: end;
+}
+
+.gray {
+  opacity: 0.3;
 }
 
 .checkout {
