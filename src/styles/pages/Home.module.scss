@@ -1,6 +1,6 @@
 @use "../mixins" as *;
 
-.grid {
+.popularGrid {
   display: grid;
   row-gap: 1.5rem;
 
@@ -27,7 +27,7 @@
   }
 }
 
-.productsWrapper {
+.popularWrapper {
   margin-top: 7.5rem;
 
   @include mq(tablet) {

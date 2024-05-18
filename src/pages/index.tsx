@@ -26,11 +26,11 @@ const Home: NextPage = () => {
           <ProductCategories />
         </div>
 
-        <section aria-labelledby="home-section" className={styles.productsWrapper}>
+        <section aria-labelledby="home-section" className={styles.popularWrapper}>
           <h2 id="home-section" className="sr-only">
             Most popular
           </h2>
-          <div className={styles.grid}>
+          <div className={styles.popularGrid}>
             <ZX9Showcase />
             <ZX7Showcase />
             <YX1Showcase />
