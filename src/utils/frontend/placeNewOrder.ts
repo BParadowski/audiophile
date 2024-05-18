@@ -1,15 +1,14 @@
 import { FieldValues } from "react-hook-form";
+import { ItemsWithProductDetails } from "src/pages/api/get-cart";
 
-import { CartItemWithQuantity } from "@/components/CartContextProvider";
-
-export const placeNewOrder = async (cartItems: CartItemWithQuantity[], formData: FieldValues) => {
+export const placeNewOrder = async (cartItems: ItemsWithProductDetails, formData: FieldValues) => {
   const itemsAbr = cartItems?.map((item) => {
     return { itemId: item.product.id, quantity: item.quantity };
   });
 
   const apiRes = await fetch("/api/new-order", {
     method: "POST",
-    headers: { "Content-Type": "apllication/json" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ...formData, items: itemsAbr }),
   }).then((res) => res.json());
 

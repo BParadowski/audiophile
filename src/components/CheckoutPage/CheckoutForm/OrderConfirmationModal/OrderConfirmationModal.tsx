@@ -6,11 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { ItemsWithProductDetails } from "src/pages/api/get-cart";
 
-import { CartItemWithQuantity } from "@/components/CartContextProvider";
 import ProductSnippet from "@/components/Shared/ProductSnippet";
 
-const OrderConfirmationModal = ({ items, grandTotal }: { items: CartItemWithQuantity[]; grandTotal: string }) => {
+const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProductDetails; grandTotal: string }) => {
   const numberOfItems = items.length;
   const [numberDisplayed, setNumberDisplayed] = useState(1);
 
@@ -41,7 +41,6 @@ const OrderConfirmationModal = ({ items, grandTotal }: { items: CartItemWithQuan
                             price={cartItem.product.price}
                             quantity={cartItem.quantity}
                             slug={cartItem.product.slug}
-                            displayOnly={true}
                           />
                         );
                       }

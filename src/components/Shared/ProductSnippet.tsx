@@ -1,9 +1,7 @@
 import styles from "./ProductSnippet.module.scss";
 
 import Image from "next/image";
-import { useContext } from "react";
 
-import { cartContext } from "@/components/CartContextProvider";
 import Counter from "@/components/Shared/Counter";
 
 interface SnippetProps {
@@ -12,12 +10,12 @@ interface SnippetProps {
   price: number;
   quantity: number;
   slug: string;
-  displayOnly?: boolean;
+  withCounter?: boolean;
+  onMinusClick?: () => void;
+  onPlusClick?: () => void;
 }
 
-const ProductSnippet = ({ id, name, price, quantity, slug, displayOnly }: SnippetProps) => {
-  const cart = useContext(cartContext);
-
+const ProductSnippet = ({ name, price, quantity, slug, withCounter, onMinusClick, onPlusClick }: SnippetProps) => {
   return (
     <li className={styles.grid}>
       <Image
@@ -29,15 +27,15 @@ const ProductSnippet = ({ id, name, price, quantity, slug, displayOnly }: Snippe
       />
       <p className={styles.name}>{name.replaceAll(/headphones|earphones|speaker|wireless/gi, "")}</p>
       <p className={styles.price}>{`$ ${price}`}</p>
-      {displayOnly ? (
-        <p className={styles.amount}>{quantity}x</p>
-      ) : (
+      {withCounter ? (
         <Counter
           number={quantity}
           className={styles.counter}
-          onMinusClick={() => cart?.updateItem(id, quantity - 1)}
-          onPlusClick={() => cart?.updateItem(id, quantity + 1)}
+          onMinusClick={() => onMinusClick?.()}
+          onPlusClick={() => onPlusClick?.()}
         />
+      ) : (
+        <p className={styles.amount}>{quantity}x</p>
       )}
     </li>
   );

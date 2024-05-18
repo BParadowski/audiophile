@@ -1,8 +1,8 @@
-import { cartContext } from "../CartContextProvider";
+import { useAddToCart } from "../Cart/useAddToCart";
 import styles from "./AddToCart.module.scss";
 
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Counter from "@/components/Shared/Counter";
 
@@ -11,7 +11,7 @@ interface AddToCartProps {
 }
 
 const AddToCart = ({ productId }: AddToCartProps) => {
-  const cart = useContext(cartContext);
+  const { addToCart, isAdding } = useAddToCart();
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
 
@@ -31,13 +31,13 @@ const AddToCart = ({ productId }: AddToCartProps) => {
         }}
         onPlusClick={() => setQuantity(quantity + 1)}
       />
-      {cart?.addingProduct ? (
+      {isAdding ? (
         <button className={`button-accent ${styles.add}`}>Adding...</button>
       ) : (
         <button
           className={`button-accent ${styles.add}`}
           onClick={() => {
-            cart?.addItem(productId, quantity);
+            addToCart({ productId, quantity });
             setQuantity(1);
           }}
         >

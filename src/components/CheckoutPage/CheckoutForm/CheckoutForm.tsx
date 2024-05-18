@@ -5,10 +5,12 @@ import { formHTMLId } from "./formConfig";
 import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
 
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FieldValues, useFormContext } from "react-hook-form";
+import { ItemsWithProductDetails } from "src/pages/api/get-cart";
 
-import { CartItemWithQuantity, cartContext } from "@/components/CartContextProvider";
+import { useCart } from "@/components/Cart/useCart";
+import { useClearCart } from "@/components/Cart/useClearCart";
 import RadioInput from "@/components/CheckoutPage/CheckoutForm/Inputs/RadioInput";
 import TextInput from "@/components/CheckoutPage/CheckoutForm/Inputs/TextInput";
 
@@ -16,14 +18,15 @@ import { placeNewOrder } from "@/utils/frontend/placeNewOrder";
 
 interface OrderConfirmationModalState {
   open: boolean;
-  items: CartItemWithQuantity[];
+  items: ItemsWithProductDetails;
   grandTotal: number;
 }
 
 const CheckoutForm = () => {
-  const cart = useContext(cartContext);
+  const cart = useCart();
   const { watch, reset, handleSubmit } = useFormContext();
   const [modalState, setModalState] = useState<OrderConfirmationModalState>({ open: false, items: [], grandTotal: 0 });
+  const { clearCart } = useClearCart();
 
   const selectedPaymentMethod = watch("paymentMethod");
 
@@ -36,7 +39,7 @@ const CheckoutForm = () => {
     const result = await placeNewOrder(cart.items, data);
 
     if (result.success) {
-      cart?.clearCart();
+      clearCart();
       reset();
       window.scrollTo({ top: 0, behavior: "smooth" });
       setModalState({ open: true, items: result.cartItems, grandTotal: result.grandTotal });

@@ -41,14 +41,14 @@ const ProductPage = ({ productData }: ProductPageProps) => {
       </Head>
       <div className="container">
         <GoBackButton />
-        <div className={styles["grid-main"]}>
+        <div className={styles.grid}>
           <Picture
             desktopUrl={`/assets/product-${slug}/desktop/image-product.jpg`}
             tabletUrl={`/assets/product-${slug}/tablet/image-product.jpg`}
             mobileUrl={`/assets/product-${slug}/mobile/image-product.jpg`}
-            className={styles["main_image"]}
+            className={styles.productImage}
           />
-          <div className={styles["main_description-wrapper"]}>
+          <div className={styles.descriptionWrapper}>
             {isNew && <p className={styles.new}>new product</p>}
             <h1 className={styles.heading}>{name}</h1>
             <p className={styles.description}>{description}</p>
@@ -63,11 +63,11 @@ const ProductPage = ({ productData }: ProductPageProps) => {
 
         <YouMayAlsoLikeSection relatedProducts={relatedProducts} />
 
-        <div className={styles["categories-wrapper"]}>
+        <div className={styles.categoriesWrapper}>
           <ProductCategories />
         </div>
 
-        <div className={styles["manifesto-wrapper"]}>
+        <div className={styles.manifestoWrapper}>
           <Manifesto />
         </div>
       </div>

@@ -24,7 +24,7 @@ const Category = ({ products }: CategoryPageProps) => {
         <meta name="description" content={`${router.query.category}`} />
         <link rel="icon" href="/assets/favicon-32x32.png" />
       </Head>
-      <div className={styles["title-wrapper"]}>
+      <div className={styles.titleWrapper}>
         <div className={`container ${styles.container}`}>
           <h1 className={styles.title}>{router.query.category}</h1>
         </div>
