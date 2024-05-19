@@ -36,7 +36,7 @@ const Footer = () => {
             specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo
             facility - we’re open 7 days a week.
           </p>
-          <p className={styles.copyright}>Copyright 2023. All Rights Reserved</p>
+          <p className={styles.copyright}>Copyright 2024. All Rights Reserved</p>
 
           <ul className={styles.socials} role="list" aria-label="Social media links">
             <li>
