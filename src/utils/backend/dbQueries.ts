@@ -1,5 +1,7 @@
 import prisma from "./prisma";
 
+import { Prisma } from "@prisma/client";
+
 export const getCategories = async () => {
   const categories = await prisma.category.findMany();
   return categories;
@@ -17,7 +19,7 @@ export const getProductsByCategory = async (categoryName: string) => {
       description: true,
       categoryName: true,
     },
-  });
+  } satisfies Prisma.ProductFindManyArgs);
 
   /* sort new products first*/
 
@@ -40,7 +42,7 @@ export const getProductPaths = async () => {
       slug: true,
       categoryName: true,
     },
-  });
+  } satisfies Prisma.ProductFindManyArgs);
 
   return paths;
 };
@@ -55,7 +57,7 @@ export const getProductData = async (productSlug: string) => {
         select: { name: true, slug: true, categoryName: true },
       },
     },
-  });
+  } satisfies Prisma.ProductFindUniqueArgs);
 
   return product;
 };

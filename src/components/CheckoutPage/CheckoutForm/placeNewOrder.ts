@@ -6,7 +6,7 @@ export const placeNewOrder = async (cartItems: ItemsWithProductDetails, formData
   const apiRes = await fetch("/api/orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...formData, items: cartItems }),
+    body: JSON.stringify({ formData, items: cartItems }),
   }).then((res) => res.json());
 
   if (apiRes.success) {

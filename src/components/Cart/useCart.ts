@@ -2,21 +2,21 @@ import { cartIdContext } from "./CartIdContextProvider";
 
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
-import { ItemsWithProductDetails } from "src/pages/api/get-cart";
+import { ItemsWithProductDetails } from "src/pages/api/carts";
 
 export const useCart = () => {
   const cartId = useContext(cartIdContext);
 
   const { data } = useQuery({
     queryKey: ["cart-query", cartId],
-    queryFn: async () =>
-      (await fetch("/api/get-cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cartId }),
-      }).then((res) => {
-        return res.json();
-      })) as ItemsWithProductDetails,
+    queryFn: async () => {
+      try {
+        const res = await fetch(`/api/carts?id=${cartId}`);
+        return res.json() as Promise<ItemsWithProductDetails>;
+      } catch (err) {
+        throw new Error(JSON.stringify(err));
+      }
+    },
     enabled: Boolean(cartId),
   });
 

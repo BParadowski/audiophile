@@ -16,7 +16,7 @@ export const useCartId = () => {
     }
 
     async function getNewCartId() {
-      const response = await fetch("/api/new-cart");
+      const response = await fetch("/api/carts", { method: "POST" });
       const id: string = await response.json();
       return id;
     }
