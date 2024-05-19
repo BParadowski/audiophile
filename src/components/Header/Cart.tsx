@@ -4,7 +4,7 @@ import { useUpdateCart } from "../Cart/useUpdateCart";
 import styles from "./Cart.module.scss";
 
 import Link from "next/link";
-import { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef, useCallback } from "react";
 
 import ProductSnippet from "@/components/Shared/ProductSnippet";
 
@@ -16,6 +16,8 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
   const cart = useCart();
   const { clearCart, isClearingPending } = useClearCart();
   const { updateCart, itemBeingUpdated, isPending } = useUpdateCart();
+
+  const onClearCartClick = useCallback(() => clearCart(), [clearCart]);
 
   const shouldRenderItemList =
     !isClearingPending &&
@@ -30,7 +32,7 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
 
   return (
     <div className={styles.container}>
-      <div ref={ref} className={styles.dropdown}>
+      <div ref={ref} className={styles.dropdown} role="alertdialog">
         {shouldRenderItemList ? (
           <div className={styles.grid}>
             <p className={styles.title}>
@@ -39,7 +41,7 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
                 ({cart.items?.length})
               </span>
             </p>
-            <button className={styles.removeAll} onClick={() => clearCart()}>
+            <button className={styles.removeAll} onClick={onClearCartClick}>
               Remove all
             </button>
             <ul className={styles.itemList}>

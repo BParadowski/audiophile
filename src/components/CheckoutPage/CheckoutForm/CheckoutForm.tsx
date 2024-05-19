@@ -1,11 +1,12 @@
 import styles from "./CheckoutForm.module.scss";
 import OrderConfirmationModal from "./OrderConfirmationModal/OrderConfirmationModal";
 import { formHTMLId } from "./formConfig";
+import { placeNewOrder } from "./placeNewOrder";
 
 import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, useFormContext } from "react-hook-form";
 import { ItemsWithProductDetails } from "src/pages/api/get-cart";
 
@@ -13,8 +14,6 @@ import { useCart } from "@/components/Cart/useCart";
 import { useClearCart } from "@/components/Cart/useClearCart";
 import RadioInput from "@/components/CheckoutPage/CheckoutForm/Inputs/RadioInput";
 import TextInput from "@/components/CheckoutPage/CheckoutForm/Inputs/TextInput";
-
-import { placeNewOrder } from "@/utils/frontend/placeNewOrder";
 
 interface OrderConfirmationModalState {
   open: boolean;
@@ -31,22 +30,25 @@ const CheckoutForm = () => {
 
   const [modalState, setModalState] = useState<OrderConfirmationModalState>({ open: false, items: [], grandTotal: 0 });
 
-  const onSubmit = async (data: FieldValues) => {
-    if (!cart?.items || cart.items.length === 0) {
-      reset();
-      return;
-    }
+  const onSubmit = useCallback(
+    async (data: FieldValues) => {
+      if (!cart?.items || cart.items.length === 0) {
+        reset();
+        return;
+      }
 
-    const result = await placeNewOrder(cart.items, data);
+      const result = await placeNewOrder(cart.items, data);
 
-    if (result.success) {
-      clearCart();
-      reset();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setModalState({ open: true, items: result.cartItems, grandTotal: result.grandTotal });
-      return;
-    }
-  };
+      if (result.success) {
+        clearCart();
+        reset();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setModalState({ open: true, items: result.cartItems, grandTotal: result.grandTotal });
+        return;
+      }
+    },
+    [cart.items, reset, clearCart],
+  );
 
   return (
     <div className={styles.checkout}>
