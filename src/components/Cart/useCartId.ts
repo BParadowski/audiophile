@@ -14,13 +14,13 @@ export const useCartId = () => {
         setCartId(id);
       });
     }
-  }, []);
 
-  async function getNewCartId() {
-    const response = await fetch("/api/new-cart");
-    const id: string = await response.json();
-    return id;
-  }
+    async function getNewCartId() {
+      const response = await fetch("/api/new-cart");
+      const id: string = await response.json();
+      return id;
+    }
+  }, []);
 
   return cartId;
 };

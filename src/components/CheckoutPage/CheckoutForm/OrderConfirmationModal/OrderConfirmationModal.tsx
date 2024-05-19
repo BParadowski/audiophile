@@ -21,7 +21,7 @@ const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProduct
       {createPortal(
         <>
           <div className={styles.backdrop}></div>
-          <div className={styles.card}>
+          <div className={styles.card} role="alertdialog">
             <Image src={Confirmation} alt="A check mark"></Image>
             <h2 className={styles.thankYou}>
               thank you <br></br> for your order

@@ -24,11 +24,12 @@ interface OrderConfirmationModalState {
 
 const CheckoutForm = () => {
   const cart = useCart();
-  const { watch, reset, handleSubmit } = useFormContext();
-  const [modalState, setModalState] = useState<OrderConfirmationModalState>({ open: false, items: [], grandTotal: 0 });
   const { clearCart } = useClearCart();
 
+  const { watch, reset, handleSubmit } = useFormContext();
   const selectedPaymentMethod = watch("paymentMethod");
+
+  const [modalState, setModalState] = useState<OrderConfirmationModalState>({ open: false, items: [], grandTotal: 0 });
 
   const onSubmit = async (data: FieldValues) => {
     if (!cart?.items || cart.items.length === 0) {

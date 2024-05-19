@@ -8,15 +8,15 @@ export const formConfig: UseFormProps<FormSchemaType> = {
   mode: "onTouched",
   defaultValues: {
     name: "",
-    email: "",
-    phoneNumber: "",
-    address: "",
-    zipCode: "",
-    city: "",
-    country: "",
+    email: "alexei@mail.com",
+    phoneNumber: "+1 (202) 555-0136",
+    address: "1137 Williams Avenue",
+    zipCode: "1045",
+    city: "New York",
+    country: "United States",
     paymentMethod: "card",
-    cardNumber: "",
-    cardPin: "",
+    cardNumber: "238521993",
+    cardPin: "6891",
   },
 };
 
