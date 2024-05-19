@@ -1,6 +1,7 @@
 import styles from "./ProductSnippet.module.scss";
 
 import Image from "next/image";
+import { memo } from "react";
 
 import Counter from "@/components/Shared/Counter";
 
@@ -27,13 +28,8 @@ const ProductSnippet = ({ name, price, quantity, slug, withCounter, onMinusClick
       />
       <p className={styles.name}>{name.replaceAll(/headphones|earphones|speaker|wireless/gi, "")}</p>
       <p className={styles.price}>{`$ ${price}`}</p>
-      {withCounter ? (
-        <Counter
-          number={quantity}
-          className={styles.counter}
-          onMinusClick={() => onMinusClick?.()}
-          onPlusClick={() => onPlusClick?.()}
-        />
+      {withCounter && onMinusClick && onPlusClick ? (
+        <Counter number={quantity} className={styles.counter} onMinusClick={onMinusClick} onPlusClick={onPlusClick} />
       ) : (
         <p className={styles.amount}>{quantity}x</p>
       )}
@@ -41,4 +37,4 @@ const ProductSnippet = ({ name, price, quantity, slug, withCounter, onMinusClick
   );
 };
 
-export default ProductSnippet;
+export default memo(ProductSnippet);

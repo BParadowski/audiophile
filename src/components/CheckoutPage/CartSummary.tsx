@@ -1,7 +1,7 @@
 import { useCart } from "../Cart/useCart";
 import styles from "./CartSummary.module.scss";
 
-import { PropsWithChildren, useContext } from "react";
+import { PropsWithChildren } from "react";
 import { SHIPPING_COST_IN_DOLLARS, VAT } from "src/constants/constants";
 
 import ProductSnippet from "@/components/Shared/ProductSnippet";
