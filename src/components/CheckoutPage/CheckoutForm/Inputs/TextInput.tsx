@@ -1,6 +1,7 @@
 import { FormField } from "../formSchema";
 import styles from "./TextInput.module.scss";
 
+import { memo } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface InputProps {
@@ -41,4 +42,4 @@ const TextInput = ({ field, labelText, placeholder, className }: InputProps) => 
   );
 };
 
-export default TextInput;
+export default memo(TextInput);

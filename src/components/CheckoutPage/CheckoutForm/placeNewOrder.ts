@@ -1,6 +1,6 @@
 import { FieldValues } from "react-hook-form";
 import { SHIPPING_COST_IN_DOLLARS } from "src/constants/constants";
-import { ItemsWithProductDetails } from "src/pages/api/get-cart";
+import { ItemsWithProductDetails } from "src/pages/api/carts";
 
 export const placeNewOrder = async (cartItems: ItemsWithProductDetails, formData: FieldValues) => {
   const apiRes = await fetch("/api/orders", {

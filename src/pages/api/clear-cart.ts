@@ -12,5 +12,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       cartId: cartId,
     },
   });
-  res.status(200).end();
+  res.status(204).end();
 }

@@ -8,7 +8,7 @@ import PayOnDelivery from "@/public/assets/checkout/icon-cash-on-delivery.svg";
 import Image from "next/image";
 import { useCallback, useState } from "react";
 import { FieldValues, useFormContext } from "react-hook-form";
-import { ItemsWithProductDetails } from "src/pages/api/get-cart";
+import { ItemsWithProductDetails } from "src/pages/api/carts";
 
 import { useCart } from "@/components/Cart/useCart";
 import { useClearCart } from "@/components/Cart/useClearCart";

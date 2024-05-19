@@ -1,6 +1,7 @@
 import { FormField } from "../formSchema";
 import styles from "./RadioInput.module.scss";
 
+import { memo } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface RadioInputProps {
@@ -20,4 +21,4 @@ const RadioInput = ({ field, value, text }: RadioInputProps) => {
   );
 };
 
-export default RadioInput;
+export default memo(RadioInput);
