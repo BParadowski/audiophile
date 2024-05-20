@@ -1,4 +1,5 @@
 import { cartIdContext } from "./CartIdContextProvider";
+import { cartQueryKey } from "./useCart";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -16,7 +17,7 @@ export const useAddToCart = () => {
       });
     },
     onSettled: async () => {
-      return await queryClient.invalidateQueries({ queryKey: ["cart-query"] });
+      return await queryClient.invalidateQueries({ queryKey: cartQueryKey });
     },
   });
 

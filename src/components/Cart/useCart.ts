@@ -4,11 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { ItemsWithProductDetails } from "src/pages/api/carts";
 
+export const cartQueryKey = ["cart-query"];
+
 export const useCart = () => {
   const cartId = useContext(cartIdContext);
 
   const { data } = useQuery({
-    queryKey: ["cart-query"],
+    queryKey: cartQueryKey,
     queryFn: async () => {
       try {
         const res = await fetch(`/api/carts?id=${cartId}`);

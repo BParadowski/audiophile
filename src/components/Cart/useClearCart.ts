@@ -1,4 +1,5 @@
 import { cartIdContext } from "./CartIdContextProvider";
+import { cartQueryKey } from "./useCart";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -17,11 +18,11 @@ export const useClearCart = () => {
     },
 
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["cart-query"] });
+      await queryClient.cancelQueries({ queryKey: cartQueryKey });
     },
 
     onSettled: async () => {
-      return await queryClient.invalidateQueries({ queryKey: ["cart-query"] });
+      return await queryClient.invalidateQueries({ queryKey: cartQueryKey });
     },
   });
 
