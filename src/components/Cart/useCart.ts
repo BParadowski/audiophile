@@ -9,7 +9,7 @@ export const cartQueryKey = ["cart-query"];
 export const useCart = () => {
   const cartId = useContext(cartIdContext);
 
-  const { data, isFetching, isLoading } = useQuery({
+  const { data, isSuccess, isLoading } = useQuery({
     queryKey: cartQueryKey,
     queryFn: async ({ signal }) => {
       try {
@@ -28,5 +28,5 @@ export const useCart = () => {
     return total + current.product.price * current.quantity;
   }, 0);
 
-  return { items, totalPrice, isFetching, isLoading };
+  return { items, totalPrice, isSuccess, isLoading };
 };

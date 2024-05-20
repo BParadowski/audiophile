@@ -1,22 +1,28 @@
 import { formHTMLId } from "./formConfig";
 
+import { useMutationState } from "@tanstack/react-query";
 import { useFormContext } from "react-hook-form";
 
-import { useCart } from "@/components/Cart/useCart";
+import { updateMutationKey } from "@/components/Cart/useUpdateCart";
 
 const CheckoutFormSubmitButton = () => {
   const {
     formState: { isSubmitting },
     watch,
   } = useFormContext();
-  const cart = useCart();
+
+  const cartUpdatePending =
+    useMutationState({
+      filters: { mutationKey: updateMutationKey },
+      select: (mutation) => mutation.state.status,
+    }).at(-1) === "pending";
 
   const selectedPaymentMethod = watch("paymentMethod");
 
-  if (cart.isFetching) {
+  if (cartUpdatePending) {
     return (
       <button className="button-accent" type="button">
-        Loading cart...
+        Updating cart...
       </button>
     );
   } else if (isSubmitting) {

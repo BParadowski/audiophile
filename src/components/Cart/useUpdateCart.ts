@@ -4,13 +4,16 @@ import { cartQueryKey } from "./useCart";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 
+export const updateMutationKey = ["update-cart-mutation"];
+
 export const useUpdateCart = () => {
   const cartId = useContext(cartIdContext);
   const queryClient = useQueryClient();
 
   const updateMutation = useMutation({
-    mutationFn: ({ newQuantity, id }: { newQuantity: number; id: number }) => {
-      return fetch("/api/update-cart", {
+    mutationKey: updateMutationKey,
+    mutationFn: async ({ newQuantity, id }: { newQuantity: number; id: number }) => {
+      return await fetch("/api/update-cart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
