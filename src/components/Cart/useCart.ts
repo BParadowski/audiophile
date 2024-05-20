@@ -8,7 +8,7 @@ export const useCart = () => {
   const cartId = useContext(cartIdContext);
 
   const { data } = useQuery({
-    queryKey: ["cart-query", cartId],
+    queryKey: ["cart-query"],
     queryFn: async () => {
       try {
         const res = await fetch(`/api/carts?id=${cartId}`);
