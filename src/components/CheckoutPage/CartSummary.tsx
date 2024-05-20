@@ -12,6 +12,15 @@ const CartSummary = ({ children }: PropsWithChildren) => {
   const priceOfAllItems = cart?.totalPrice;
   const vatAmount = (priceOfAllItems ?? 0) * VAT;
 
+  if (cart.isLoading) {
+    return (
+      <div className={styles.card}>
+        <h2 className={styles.title}>summary</h2>
+        <p>Loading cart contents...</p>
+      </div>
+    );
+  }
+
   if (cart?.items?.length === 0) {
     return (
       <div className={styles.card}>
