@@ -29,12 +29,11 @@ export type ItemsWithProductDetails = Prisma.CartGetPayload<{ select: typeof ite
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const cartId = req.query.id;
+  if (typeof cartId !== "string") {
+    return res.status(400).json({ message: "Incorrect query params.", success: false });
+  }
 
   if (req.method === "GET") {
-    if (typeof cartId !== "string") {
-      return res.status(400).json({ message: "Incorrect query params.", success: false });
-    }
-
     let cartItems;
     try {
       cartItems = await prisma.cart.findUnique({
@@ -65,6 +64,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } catch (err) {
       res.status(500).json({ message: "Error creating cart in the database", success: false });
     }
-  } else if (req.method === "PUT") {
+  } else if (req.method === "DELETE") {
+    try {
+      await prisma.cartItem.deleteMany({
+        where: {
+          cartId: cartId,
+        },
+      } satisfies Prisma.CartItemDeleteManyArgs);
+      res.status(204).end();
+    } catch (err) {
+      res.status(404).json({ message: "Cart not found", success: false });
+    }
   }
 }

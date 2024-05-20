@@ -9,11 +9,9 @@ export const useClearCart = () => {
   const queryClient = useQueryClient();
 
   const clearingMutation = useMutation({
-    mutationFn: () => {
-      return fetch("/api/clear-cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cartId }),
+    mutationFn: async () => {
+      return fetch(`/api/carts?id=${cartId}`, {
+        method: "DELETE",
       });
     },
 
