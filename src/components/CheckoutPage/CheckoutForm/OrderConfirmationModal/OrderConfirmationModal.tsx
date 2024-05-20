@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { ItemsWithProductDetails } from "src/pages/api/get-cart";
+import { ItemsWithProductDetails } from "src/pages/api/carts";
 
 import ProductSnippet from "@/components/Shared/ProductSnippet";
 
