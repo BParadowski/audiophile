@@ -10,7 +10,7 @@ import { ItemsWithProductDetails } from "src/pages/api/carts";
 
 import ProductSnippet from "@/components/Shared/ProductSnippet";
 
-const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProductDetails; grandTotal: string }) => {
+const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProductDetails; grandTotal: number }) => {
   const numberOfItems = items.length;
   const [numberDisplayed, setNumberDisplayed] = useState(1);
 
@@ -61,7 +61,7 @@ const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProduct
               </div>
               <div className={styles.totalBox}>
                 <p className={styles.totalTitle}>grand total</p>
-                <p className={styles.totalNumber}>$ {grandTotal}</p>
+                <p className={styles.totalNumber}>$ {grandTotal.toLocaleString()}</p>
               </div>
             </div>
 

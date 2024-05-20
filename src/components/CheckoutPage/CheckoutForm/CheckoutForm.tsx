@@ -52,7 +52,7 @@ const CheckoutForm = () => {
 
   return (
     <div className={styles.checkout}>
-      {modalState.open && <OrderConfirmationModal items={modalState.items} grandTotal={`${modalState.grandTotal}`} />}
+      {modalState.open && <OrderConfirmationModal items={modalState.items} grandTotal={modalState.grandTotal} />}
       <h1 className={styles.heading}>checkout</h1>
       <form onSubmit={handleSubmit(onSubmit)} id={formHTMLId}>
         <fieldset>
