@@ -11,9 +11,9 @@ export const useCart = () => {
 
   const { data } = useQuery({
     queryKey: cartQueryKey,
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       try {
-        const res = await fetch(`/api/carts?id=${cartId}`);
+        const res = await fetch(`/api/carts?id=${cartId}`, { signal });
         return res.json() as Promise<ItemsWithProductDetails>;
       } catch (err) {
         throw new Error(JSON.stringify(err));
