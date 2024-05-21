@@ -14,7 +14,7 @@ const YX1Showcase = () => {
       />
       <div className={styles.card}>
         <h2 className={styles.heading}>YX1 EARPHONES</h2>
-        <Button href="/earphones/yx1-earphones" className={styles.link} theme="neutralLight">
+        <Button href="/earphones/yx1-earphones" className={styles.link} theme="neutralLight" as="Link">
           see product
         </Button>
       </div>

@@ -1,4 +1,5 @@
 import { useAddToCart } from "../Cart/useAddToCart";
+import Button from "../Shared/Button";
 import styles from "./AddToCart.module.scss";
 
 import { useRouter } from "next/router";
@@ -32,17 +33,20 @@ const AddToCart = ({ productId }: AddToCartProps) => {
         onPlusClick={() => setQuantity(quantity + 1)}
       />
       {isAdding ? (
-        <button className={`button-accent ${styles.add}`}>Adding...</button>
+        <Button className={styles.add} theme="accent">
+          Adding...
+        </Button>
       ) : (
-        <button
-          className={`button-accent ${styles.add}`}
+        <Button
+          theme="accent"
+          className={styles.add}
           onClick={() => {
             addToCart({ productId, quantity });
             setQuantity(1);
           }}
         >
           add to cart
-        </button>
+        </Button>
       )}
     </div>
   );

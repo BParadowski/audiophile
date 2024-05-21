@@ -1,3 +1,4 @@
+import Button from "../Shared/Button";
 import Picture from "../Shared/Picture";
 import styles from "./ZX9Showcase.module.scss";
 
@@ -17,9 +18,9 @@ const ZX9Showcase = () => {
       <p className={styles.description}>
         Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.
       </p>
-      <Link href="/speakers/zx9-speaker" className={`button-neutral-dark ${styles.link}`}>
+      <Button href="/speakers/zx9-speaker" className={styles.link} theme="neutralDark" as="Link">
         see product
-      </Link>
+      </Button>
     </div>
   );
 };

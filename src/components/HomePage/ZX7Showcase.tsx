@@ -1,7 +1,6 @@
+import Button from "../Shared/Button";
 import Picture from "../Shared/Picture";
 import styles from "./ZX7Showcase.module.scss";
-
-import Link from "next/link";
 
 const ZX7Showcase = () => {
   return (
@@ -15,9 +14,9 @@ const ZX7Showcase = () => {
       />
       <div className={styles.wrapper}>
         <h2 className={styles.heading}>ZX7 SPEAKER</h2>
-        <Link href="/speakers/zx7-speaker" className={`button-neutral-light ${styles.link}`}>
+        <Button href="/speakers/zx7-speaker" className={styles.link} theme="neutralLight" as="Link">
           see product
-        </Link>
+        </Button>
       </div>
     </div>
   );
