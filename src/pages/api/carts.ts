@@ -3,10 +3,7 @@ import prisma from "../../utils/backend/prisma";
 import { Prisma } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export type CartsApiRes = {
-  message: string;
-  success: boolean;
-};
+/* GET response payload type*/
 
 const itemsSelect = {
   items: {
