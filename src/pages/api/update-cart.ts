@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     },
     data: {
-      quantity: newQuantity,
+      quantity: quantity,
     },
   } satisfies Prisma.CartItemUpdateArgs;
 
