@@ -24,6 +24,8 @@ const itemsSelect = {
 
 export type ItemsWithProductDetails = Prisma.CartGetPayload<{ select: typeof itemsSelect }>["items"];
 
+/* PATCH*/
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const cartId = req.query.id;
 

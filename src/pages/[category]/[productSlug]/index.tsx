@@ -12,7 +12,7 @@ import Manifesto from "@/components/Shared/Manifesto";
 import Picture from "@/components/Shared/Picture";
 import ProductCategories from "@/components/Shared/ProductCategories";
 
-import { getProductData, getProductPaths } from "@/utils/backend/dbQueries";
+import { getProductData, getProductPaths } from "@/utils/backend/ssgDbQueries";
 
 // Type returned by getStaticProps used in "you may also like" section
 export type ProductNameSlugAndCategoryName = Pick<Product, "name" | "slug" | "categoryName">;

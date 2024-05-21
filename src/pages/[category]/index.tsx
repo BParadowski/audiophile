@@ -8,7 +8,7 @@ import ProductCard from "@/components/CategoryPage/ProductCard";
 import Manifesto from "@/components/Shared/Manifesto";
 import ProductCategories from "@/components/Shared/ProductCategories";
 
-import { getCategories, getProductsByCategory } from "@/utils/backend/dbQueries";
+import { getCategories, getProductsByCategory } from "@/utils/backend/ssgDbQueries";
 
 interface CategoryPageProps {
   products: Pick<Product, "name" | "slug" | "categoryName" | "description" | "isNew">[];
