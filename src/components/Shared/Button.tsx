@@ -1,20 +1,18 @@
 import styles from "./Button.module.scss";
 
 import Link, { LinkProps } from "next/link";
-import { AnchorHTMLAttributes, ButtonHTMLAttributes, ForwardedRef, forwardRef } from "react";
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes, ForwardedRef, forwardRef } from "react";
 
 interface BaseProps {
   theme: "accent" | "neutralLight" | "neutralDark";
 }
 
-interface StyledButtonProps extends BaseProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className"> {
+interface StyledButtonProps extends BaseProps, ButtonHTMLAttributes<HTMLButtonElement> {
   as?: "button";
 }
 
-interface StyledLinkProps
-  extends BaseProps,
-    LinkProps,
-    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "className"> {
+interface StyledLinkProps extends BaseProps, LinkProps, Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> {
+  children?: React.ReactNode;
   as: "Link";
 }
 
@@ -22,16 +20,16 @@ type LinkOrButtonProps = StyledButtonProps | StyledLinkProps;
 
 const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, LinkOrButtonProps>(function Button(props, ref) {
   if (props.as === "Link") {
-    const { as, theme, children, ...rest } = props;
+    const { as, className, theme, children, ...rest } = props;
     return (
-      <Link className={styles[theme]} {...rest} ref={ref as ForwardedRef<HTMLAnchorElement>}>
+      <Link className={`${styles[theme]} ${className}`} {...rest} ref={ref as ForwardedRef<HTMLAnchorElement>}>
         {children}
       </Link>
     );
   } else {
-    const { as, theme, children, ...rest } = props;
+    const { as, className, theme, children, ...rest } = props;
     return (
-      <button className={styles[theme]} {...rest} ref={ref as ForwardedRef<HTMLButtonElement>}>
+      <button className={`${styles[theme]} ${className}`} {...rest} ref={ref as ForwardedRef<HTMLButtonElement>}>
         {children}
       </button>
     );

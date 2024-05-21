@@ -4,6 +4,7 @@ import { useMutationState } from "@tanstack/react-query";
 import { useFormContext } from "react-hook-form";
 
 import { updateMutationKey } from "@/components/Cart/useUpdateCart";
+import Button from "@/components/Shared/Button";
 
 const CheckoutFormSubmitButton = () => {
   const {
@@ -21,21 +22,21 @@ const CheckoutFormSubmitButton = () => {
 
   if (cartUpdatePending) {
     return (
-      <button className="button-accent" type="button">
+      <Button theme="accent" type="button">
         Updating cart...
-      </button>
+      </Button>
     );
   } else if (isSubmitting) {
     return (
-      <button className="button-accent" type="button">
+      <Button theme="accent" type="button">
         Placing order...
-      </button>
+      </Button>
     );
   } else {
     return (
-      <button className="button-accent" type="submit" form={formHTMLId}>
+      <Button theme="accent" type="submit" form={formHTMLId}>
         {selectedPaymentMethod === "card" ? "continue & pay" : "continue"}
-      </button>
+      </Button>
     );
   }
 };

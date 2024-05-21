@@ -1,7 +1,6 @@
+import Button from "../Shared/Button";
 import Picture from "../Shared/Picture";
 import styles from "./YX1Showcase.module.scss";
-
-import Link from "next/link";
 
 const YX1Showcase = () => {
   return (
@@ -15,9 +14,9 @@ const YX1Showcase = () => {
       />
       <div className={styles.card}>
         <h2 className={styles.heading}>YX1 EARPHONES</h2>
-        <Link href="/earphones/yx1-earphones" className={`button-neutral-light ${styles.link}`}>
+        <Button href="/earphones/yx1-earphones" className={styles.link} theme="neutralLight">
           see product
-        </Link>
+        </Button>
       </div>
     </div>
   );

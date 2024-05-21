@@ -1,6 +1,7 @@
 import { useCart } from "../Cart/useCart";
 import { useClearCart } from "../Cart/useClearCart";
 import { useUpdateCart } from "../Cart/useUpdateCart";
+import Button from "../Shared/Button";
 import styles from "./Cart.module.scss";
 
 import Link from "next/link";
@@ -96,9 +97,9 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
         ) : (
           <div className={styles.empty}>
             <p>Your cart is empty.</p>
-            <button onClick={close} className="button-accent">
+            <Button onClick={close} theme="accent">
               Continue shopping
-            </button>
+            </Button>
           </div>
         )}
       </div>

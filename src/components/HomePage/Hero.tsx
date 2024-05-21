@@ -1,7 +1,6 @@
 import styles from "./Hero.module.scss";
 
-import Link from "next/link";
-
+import Button from "@/components/Shared/Button";
 import Picture from "@/components/Shared/Picture";
 
 const Hero = () => {
@@ -15,9 +14,9 @@ const Hero = () => {
             <p className={styles["hero-text"]}>
               Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.
             </p>
-            <Link href="/headphones/xx99-mark-two-headphones" className="button-accent">
+            <Button href="/headphones/xx99-mark-two-headphones" theme="accent" as="Link">
               see product
-            </Link>
+            </Button>
           </div>
           <Picture
             className={styles.picture}
