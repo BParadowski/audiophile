@@ -3,6 +3,7 @@ import { cartQueryKey } from "./useCart";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
+import { CartsPatchRequestBody } from "src/pages/api/carts";
 
 export const updateMutationKey = ["update-cart-mutation"];
 
@@ -13,14 +14,14 @@ export const useUpdateCart = () => {
   const updateMutation = useMutation({
     mutationKey: updateMutationKey,
     mutationFn: async ({ newQuantity, id }: { newQuantity: number; id: number }) => {
-      return await fetch("/api/update-cart", {
-        method: "POST",
+      return await fetch(`/api/carts?id=${cartId}`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          cartId: cartId,
           productId: id,
-          newQuantity: newQuantity,
-        }),
+          quantity: newQuantity,
+          action: "update",
+        } satisfies CartsPatchRequestBody),
       });
     },
 

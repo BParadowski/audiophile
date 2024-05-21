@@ -31,9 +31,11 @@ const patchActionTypes = z.enum(["add", "update"]);
 
 const patchSchema = z.object({
   productId: z.number(),
-  quantity: z.number().int().positive(),
+  quantity: z.number().int().nonnegative(),
   action: patchActionTypes,
 });
+
+export type CartsPatchRequestBody = z.infer<typeof patchSchema>;
 
 /* Handler */
 
