@@ -22,6 +22,7 @@
 .title {
   font-weight: var(--fw-bold);
   font-size: var(--fs-400);
+  text-transform: uppercase;
 }
 
 .itemList {
@@ -42,6 +43,7 @@
   opacity: 0.5;
   margin-right: auto;
   font-size: var(--fs-300);
+  text-transform: uppercase;
 }
 
 .price {

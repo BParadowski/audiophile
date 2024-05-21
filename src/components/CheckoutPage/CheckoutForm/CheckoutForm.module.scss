@@ -1,22 +1,19 @@
 @use "../../../styles/mixins" as *;
 
-.checkout {
+.grid {
   display: grid;
 
   padding: 1.875rem;
 
   background-color: var(--clr-white);
   border-radius: var(--border-radius-small);
-
-  @include mq(desktop) {
-    padding: 3rem;
-  }
 }
 
 .heading {
   font-size: var(--fs-600);
   font-weight: var(--fw-bold);
   letter-spacing: var(--ls-200);
+  text-transform: uppercase;
 }
 
 .fieldsetTitle {
@@ -26,10 +23,6 @@
   opacity: 1;
   font-weight: var(--fw-bold);
   color: var(--clr-accent-primary);
-
-  @include mq(tablet) {
-    margin-top: 3.5rem;
-  }
 }
 
 .wide {
@@ -39,11 +32,6 @@
 .gridFieldset {
   display: grid;
   row-gap: 1.5rem;
-
-  @include mq(tablet) {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 1rem;
-  }
 }
 
 .paymentTitle {
@@ -51,37 +39,53 @@
   line-height: var(--lh-300);
   font-weight: var(--fw-bold);
   opacity: 1;
-
-  @include mq(tablet) {
-    grid-row: 1/3;
-  }
 }
 
 .radios {
   display: grid;
   row-gap: 1rem;
-  @include mq(tablet) {
-    grid-row: 1/3;
-  }
 }
 
 .cashMessage {
   display: grid;
   row-gap: 1rem;
+  text-align: center;
+
+  @include basicText;
 
   *:first-child {
     place-self: center;
   }
+}
 
-  @include mq(tablet) {
+@include mq(tablet) {
+  .fieldsetTitle {
+    margin-top: 3.5rem;
+  }
+
+  .gridFieldset {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+  }
+
+  .paymentTitle {
+    grid-row: 1/3;
+  }
+
+  .radios {
+    grid-row: 1/3;
+  }
+
+  .cashMessage {
     grid-auto-flow: column;
     grid-column: 1/-1;
     column-gap: 2rem;
+    text-align: start;
   }
+}
 
-  @include mq(mobile-only) {
-    p {
-      text-align: center;
-    }
+@include mq(desktop) {
+  .grid {
+    padding: 3rem;
   }
 }

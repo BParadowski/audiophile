@@ -51,7 +51,7 @@ const CheckoutForm = () => {
   );
 
   return (
-    <div className={styles.checkout}>
+    <div className={styles.grid}>
       {modalState.open && <OrderConfirmationModal items={modalState.items} grandTotal={modalState.grandTotal} />}
       <h1 className={styles.heading}>checkout</h1>
       <form onSubmit={handleSubmit(onSubmit)} id={formHTMLId}>

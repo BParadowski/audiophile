@@ -22,6 +22,7 @@
   font-weight: var(--fw-bold);
   font-size: var(--fs-600);
   letter-spacing: var(--l-500);
+  text-transform: uppercase;
 }
 
 @include mq(tablet) {
