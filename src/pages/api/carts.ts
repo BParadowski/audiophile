@@ -26,12 +26,14 @@ export type ItemsWithProductDetails = Prisma.CartGetPayload<{ select: typeof ite
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const cartId = req.query.id;
-  if (typeof cartId !== "string") {
-    return res.status(400).json({ message: "Incorrect query params.", success: false });
-  }
 
   if (req.method === "GET") {
+    if (typeof cartId !== "string") {
+      return res.status(400).json({ message: "Incorrect query params.", success: false });
+    }
+
     let cartItems;
+    console.log(JSON.stringify(cartId));
     try {
       cartItems = await prisma.cart.findUnique({
         where: {
@@ -43,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (cartItems) {
         res.status(200).json(cartItems.items);
       } else {
-        res.status(404).json({ message: "Cart not found", success: false });
+        res.status(404).json({ message: `Cart with id: ${cartId}`, success: false });
       }
     } catch {
       res.status(500).json({ message: "Error reading from the database", success: false });
@@ -59,9 +61,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       res.status(200).json(newCart.id);
     } catch (err) {
-      res.status(500).json({ message: "Error creating cart in the database", success: false });
+      res.status(500).json({ message: "Error creating cart in the database", success: false, error: err });
     }
   } else if (req.method === "DELETE") {
+    if (typeof cartId !== "string") {
+      return res.status(400).json({ message: "Incorrect query params.", success: false });
+    }
+
     try {
       await prisma.cartItem.deleteMany({
         where: {
