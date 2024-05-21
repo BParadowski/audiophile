@@ -2,9 +2,9 @@
 
 .back {
   margin-top: 1rem;
-  color: var(--clr-black);
-  font-size: var(--fs-300);
-  opacity: 0.5;
+
+  @include basicText;
+
   background-color: transparent;
   cursor: pointer;
 

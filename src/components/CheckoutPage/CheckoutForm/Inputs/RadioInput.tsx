@@ -14,7 +14,7 @@ const RadioInput = ({ field, value, text }: RadioInputProps) => {
   const { register } = useFormContext();
 
   return (
-    <label className={styles.radio}>
+    <label className={styles.labelWrapper}>
       <input {...register(field)} type="radio" value={value} />
       {text}
     </label>

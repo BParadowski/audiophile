@@ -11,7 +11,7 @@ const Hero = () => {
           <div className={styles.text}>
             <h1 className={styles["new-product"]}>new product</h1>
             <h2>XX99 Mark II HeadphoneS</h2>
-            <p className={styles["hero-text"]}>
+            <p className={styles.text}>
               Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.
             </p>
             <Button href="/headphones/xx99-mark-two-headphones" theme="accent" as="Link">

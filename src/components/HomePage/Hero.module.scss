@@ -65,8 +65,7 @@
     }
     .hero-text {
       margin-top: 1.5rem;
-      opacity: 0.75;
-      color: var(--clr-white);
+      @include basicText(light);
     }
 
     a {

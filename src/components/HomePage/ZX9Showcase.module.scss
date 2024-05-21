@@ -33,9 +33,8 @@
 }
 
 .description {
+  @include basicText(light, medium);
   margin-top: 1.5rem;
-  color: var(--clr-white);
-  opacity: 0.75;
 }
 
 .link {

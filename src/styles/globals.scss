@@ -9,7 +9,7 @@
 
   /* Color change of social-media icons on hover
   is achieved through applying filter property
-  - it has to be changed manually.
+  - it needs to be changed manually.
    https://angel-rs.github.io/css-color-filter-generator/
    */
 
@@ -76,61 +76,20 @@
 
 // global styles and classes
 
-.container {
-  width: min(var(--container-max-width), 100% - var(--container-margin-inline-min) * 2);
-  margin-inline: auto;
-}
-
-input[type="radio"] {
-  display: grid;
-  border: solid 0.0625rem #cecece;
-  border-radius: 50%;
-  line-height: inherit;
-  height: 1lh;
-  aspect-ratio: 1/1;
-
-  &::before {
-    place-self: center;
-    content: "";
-    width: 0.65rem;
-    height: 0.65rem;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1rem 1rem var(--clr-accent-primary);
-  }
-
-  &:checked::before {
-    transform: scale(1);
-  }
-
-  &:focus-visible {
-    outline: solid 0.125rem var(--clr-accent-primary) !important;
-    outline-offset: 0.125rem;
-  }
-
-  @supports not (height: 1lh) {
-    height: 1.5rem;
-  }
-}
-
 body {
   font-family: var(--ff-main);
   isolation: isolate;
-}
-
-p {
-  color: var(--clr-black);
-  opacity: 0.55;
-  line-height: var(--lh-300);
-  font-weight: var(--fw-medium);
-  font-size: var(--fs-300);
 }
 
 h1,
 h2,
 h3 {
   text-transform: uppercase;
+}
+
+.container {
+  width: min(var(--container-max-width), 100% - var(--container-margin-inline-min) * 2);
+  margin-inline: auto;
 }
 
 .sr-only {

@@ -12,7 +12,35 @@ $media-queries: (
 
 @mixin mq($type) {
   $query: map.get($media-queries, $type);
+
+  @if $query == null {
+    @error ("Incorrect media query name");
+  }
+
   @media only screen and ($query) {
     @content;
+  }
+}
+
+$text-colors: (
+  "light": var(--clr-white),
+  "dark": var(--clr-black),
+);
+
+@mixin basicText($color: "dark", $opacity: "low") {
+  line-height: var(--lh-300);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-300);
+
+  color: map.get($text-colors, $color);
+
+  @if $opacity == "low" {
+    opacity: 0.55;
+  } @else if $opacity == "medium" {
+    opacity: 0.75;
+  } @else if $opacity == "full" {
+    opacity: 1;
+  } @else {
+    @error ("Incorrect opacity choice");
   }
 }

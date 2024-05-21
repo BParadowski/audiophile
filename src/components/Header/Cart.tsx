@@ -90,9 +90,9 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
             <p
               className={`${styles.price} ${isPending ? styles.gray : ""}`}
             >{`$ ${cart.totalPrice?.toLocaleString()}`}</p>
-            <Link href="/checkout" className={`${styles.checkout} button-accent`} onClick={close}>
+            <Button as="Link" href="/checkout" theme="accent" className={styles.checkout} onClick={close}>
               checkout
-            </Link>
+            </Button>
           </div>
         ) : (
           <div className={styles.empty}>

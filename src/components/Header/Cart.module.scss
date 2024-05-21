@@ -33,7 +33,7 @@
 
 .title {
   grid-area: title;
-  opacity: 1;
+
   font-size: var(--fs-400);
   font-weight: var(--fw-bold);
   letter-spacing: var(--ls-300);
@@ -45,8 +45,8 @@
   justify-self: end;
   background-color: transparent;
   text-decoration: underline;
-  opacity: 0.5;
-  font-size: var(--fs-300);
+
+  @include basicText;
   cursor: pointer;
 
   &:hover {
@@ -58,12 +58,15 @@
 .itemList {
   grid-area: list;
   margin-top: 2rem;
+
   display: grid;
   row-gap: 1.5rem;
 }
 
 .total {
   margin-top: 2rem;
+
+  @include basicText;
   text-transform: uppercase;
 }
 
@@ -80,14 +83,15 @@
 }
 
 .checkout {
-  margin-top: 1.5rem;
   grid-area: button;
-  text-align: center;
+
+  margin-top: 1.5rem;
 }
 
 /* empty cart layout*/
 .empty {
   display: grid;
-  text-align: center;
   gap: 1.5rem;
+
+  text-align: center;
 }

@@ -43,6 +43,8 @@
 
 .description {
   margin-top: 1.5rem;
+
+  @include basicText;
 }
 
 @include mq(tablet) {

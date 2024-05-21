@@ -13,11 +13,11 @@ const ProductDetails = ({ features, accessories }: ProductDetailsProps) => {
       <h2 className={styles.heading}>features</h2>
       <p className={styles.description}>{features}</p>
       <h2 className={styles.headingBox}>in the box</h2>
-      <ul role="list" className={styles.itemList}>
+      <ul role="list" className={styles.list}>
         {accessories.map((item) => (
-          <li key={item.item}>
-            <span>{`${item.quantity}x`}</span>
-            <p>{item.item}</p>
+          <li key={item.item} className={styles.listItem} role="listitem">
+            <span className={styles.counter}>{`${item.quantity}x`}</span>
+            <p className={styles.accessoryDescription}>{item.item}</p>
           </li>
         ))}
       </ul>

@@ -57,18 +57,18 @@
 }
 
 .description {
+  @include basicText(light);
   grid-area: description;
 
   margin-top: 3rem;
-  color: var(--clr-white);
 }
 
 .copyright {
-  grid-area: copyright;
-
-  margin-top: 3rem;
-  color: var(--clr-white);
+  @include basicText(light);
   font-weight: var(--fw-bold);
+
+  grid-area: copyright;
+  margin-top: 3rem;
 }
 
 .socials {

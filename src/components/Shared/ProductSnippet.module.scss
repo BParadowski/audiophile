@@ -1,3 +1,5 @@
+@use "../../styles/mixins" as *;
+
 .grid {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -18,13 +20,15 @@
 .name {
   grid-area: name;
   align-self: flex-end;
-  opacity: 1;
+
   font-weight: var(--fw-bold);
 }
 
 .price {
   grid-area: price;
   align-self: flex-start;
+
+  @include basicText;
   font-weight: var(--fw-bold);
   font-size: var(--fs-200);
 }
@@ -45,6 +49,6 @@
   grid-area: counter;
   place-self: center;
 
+  @include basicText;
   font-weight: var(--fw-bold);
-  font-size: var(--fs-300);
 }

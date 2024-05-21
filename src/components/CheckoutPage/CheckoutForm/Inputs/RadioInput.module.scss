@@ -1,4 +1,4 @@
-.radio {
+.labelWrapper {
   display: flex;
   gap: 1.5rem;
   align-items: center;
@@ -13,9 +13,42 @@
 
   cursor: pointer;
 
-  // won't work on mozilla until they implement has() selector, too bad
+  // won't work on mozilla until they've implemented has() selector, too bad
   &:has(input:checked),
   &:hover {
     border-color: var(--clr-accent-primary);
+  }
+
+  input[type="radio"] {
+    display: grid;
+    border: solid 0.0625rem #cecece;
+    border-radius: 50%;
+    line-height: inherit;
+    height: 1lh;
+    aspect-ratio: 1/1;
+
+    &::before {
+      place-self: center;
+      content: "";
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1rem 1rem var(--clr-accent-primary);
+    }
+
+    &:checked::before {
+      transform: scale(1);
+    }
+
+    &:focus-visible {
+      outline: solid 0.125rem var(--clr-accent-primary) !important;
+      outline-offset: 0.125rem;
+    }
+
+    @supports not (height: 1lh) {
+      height: 1.5rem;
+    }
   }
 }
