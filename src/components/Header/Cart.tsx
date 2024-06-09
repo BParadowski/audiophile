@@ -96,7 +96,7 @@ const Cart = forwardRef(function MobileNav({ close }: cartProps, ref: ForwardedR
           </div>
         ) : (
           <div className={styles.empty}>
-            <p>Your cart is empty.</p>
+            <p className={styles.emptyText}>Your cart is empty.</p>
             <Button onClick={close} theme="accent">
               Continue shopping
             </Button>
