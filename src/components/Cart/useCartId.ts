@@ -16,7 +16,12 @@ export const useCartId = () => {
     }
 
     async function getNewCartId() {
-      const response = await fetch("/api/carts", { method: "POST" });
+      let response;
+      try {
+        response = await fetch("/api/carts", { method: "POST" });
+      } catch (err) {
+        throw err;
+      }
       const id: string = await response.json();
       return id;
     }

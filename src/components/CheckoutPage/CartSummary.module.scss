@@ -56,3 +56,7 @@
   @extend .price;
   color: var(--clr-accent-primary);
 }
+
+.empty {
+  @include basicText;
+}

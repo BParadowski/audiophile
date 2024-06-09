@@ -8,6 +8,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { ItemsWithProductDetails } from "src/pages/api/carts";
 
+import Button from "@/components/Shared/Button";
 import ProductSnippet from "@/components/Shared/ProductSnippet";
 
 const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProductDetails; grandTotal: number }) => {
@@ -26,7 +27,7 @@ const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProduct
             <h2 className={styles.thankYou}>
               thank you <br></br> for your order
             </h2>
-            <p>You will receive an email confirmation shortly.</p>
+            <p className={styles.info}>You will receive an email confirmation shortly.</p>
             <div className={styles.innerCard}>
               <div className={styles.list}>
                 <ul>
@@ -65,9 +66,9 @@ const OrderConfirmationModal = ({ items, grandTotal }: { items: ItemsWithProduct
               </div>
             </div>
 
-            <Link href="/" className="button-accent">
+            <Button as="Link" href="/" theme="accent">
               back to home
-            </Link>
+            </Button>
           </div>
         </>,
         document.body,

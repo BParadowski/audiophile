@@ -23,6 +23,7 @@ export const useCart = () => {
   });
 
   const items = data;
+  console.log(items);
 
   const totalPrice = items?.reduce((total, current) => {
     return total + current.product.price * current.quantity;

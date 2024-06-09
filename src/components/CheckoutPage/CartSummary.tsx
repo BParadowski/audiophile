@@ -16,7 +16,7 @@ const CartSummary = ({ children }: PropsWithChildren) => {
     return (
       <div className={styles.card}>
         <h2 className={styles.title}>summary</h2>
-        <p>Loading cart contents...</p>
+        <p className={styles.empty}>Loading cart contents...</p>
       </div>
     );
   }
@@ -25,7 +25,7 @@ const CartSummary = ({ children }: PropsWithChildren) => {
     return (
       <div className={styles.card}>
         <h2 className={styles.title}>summary</h2>
-        <p>Your cart is empty, there is nothing to check out with!</p>
+        <p className={styles.empty}>Your cart is empty, there is nothing to check out with!</p>
       </div>
     );
   }

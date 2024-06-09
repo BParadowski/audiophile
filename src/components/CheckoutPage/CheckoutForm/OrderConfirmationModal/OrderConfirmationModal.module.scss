@@ -29,11 +29,16 @@
   font-size: var(--fs-500);
   font-weight: var(--fw-bold);
   letter-spacing: var(--ls-200);
+  text-transform: uppercase;
 
   @include mq(tablet) {
     font-size: var(--fs-600);
     letter-spacing: var(--ls-300);
   }
+}
+
+.info {
+  @include basicText;
 }
 
 .innerCard {
@@ -79,7 +84,7 @@
 }
 
 .totalTitle {
-  color: var(--clr-neutral-v-light);
+  @include basicText(light);
   text-transform: uppercase;
 }
 
